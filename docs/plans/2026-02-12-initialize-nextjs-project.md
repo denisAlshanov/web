@@ -35,11 +35,11 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 - Create: package.json, tsconfig.json, next.config.ts, .env.example
 - Create: src/app/layout.tsx, src/app/page.tsx, src/app/globals.css
 
-- [ ] Run `npx create-next-app@latest . --typescript --app --tailwind --eslint --src-dir --import-alias "@/*"` in the repo (with --no-git to preserve existing git)
-- [ ] Configure .env.example with placeholders: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_SECRET, NEXTAUTH_URL, API_BASE_URL
-- [ ] Add .env.example to git tracking, ensure .env and .env.local stay in .gitignore
-- [ ] Verify `npm run dev` starts without errors
-- [ ] Verify `npm run build` completes without errors
+- [x] Run `npx create-next-app@latest . --typescript --app --tailwind --eslint --src-dir --import-alias "@/*"` in the repo (with --no-git to preserve existing git)
+- [x] Configure .env.example with placeholders: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_SECRET, NEXTAUTH_URL, API_BASE_URL
+- [x] Add .env.example to git tracking, ensure .env and .env.local stay in .gitignore
+- [x] Verify `npm run dev` starts without errors
+- [x] Verify `npm run build` completes without errors
 
 ## Task 2: Set up NextAuth with Google provider
 
