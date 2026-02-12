@@ -81,10 +81,10 @@ Implement the complete typography system from the Figma design system. This invo
 
 ## Verification
 
-- [ ] Manual test: open the app in browser, inspect body font is Plus Jakarta Sans
-- [ ] Manual test: apply each typography utility class to a test element and verify styles match the Figma spec
-- [ ] Run `npm run build` — must succeed with no errors
-- [ ] Run `npm run lint` — must pass
+- [x] Manual test: open the app in browser, inspect body font is Plus Jakarta Sans
+- [x] Manual test: apply each typography utility class to a test element and verify styles match the Figma spec
+- [x] Run `npm run build` — must succeed with no errors
+- [x] Run `npm run lint` — must pass
 
 ## Post-Implementation
 
