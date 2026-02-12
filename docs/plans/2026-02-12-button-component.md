@@ -42,7 +42,7 @@ Create a Button component following the Figma design system with 8 variants, 3 s
 **Files:**
 - Modify: `package.json`
 
-- [ ] Run `npm install @radix-ui/react-slot`
+- [x] Run `npm install @radix-ui/react-slot`
 
 ### Task 2: Create the Button component
 
