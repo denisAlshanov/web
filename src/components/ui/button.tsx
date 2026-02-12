@@ -1,3 +1,5 @@
+"use client";
+
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -11,8 +13,8 @@ const buttonVariants = cva(
     "transition-colors cursor-pointer",
     // Focus ring: 4px outline matching Figma (outline avoids layout shift and border conflicts)
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--colour-interface-button-border-focus-default)]",
-    // Disabled
-    "disabled:opacity-50 disabled:pointer-events-none",
+    // Disabled state applied via className (not :disabled pseudo) so it works with asChild + anchors
+    "aria-disabled:opacity-50 aria-disabled:pointer-events-none",
   ].join(" "),
   {
     variants: {
@@ -81,7 +83,7 @@ const buttonVariants = cva(
   },
 );
 
-interface ButtonProps
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
@@ -105,14 +107,17 @@ function Button({
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
+  const isDisabled = disabled || isLoading;
+
   return (
     <Comp
       className={cn(
         buttonVariants({ variant, size }),
-        isLoading && "opacity-80 pointer-events-none",
+        isLoading && "!opacity-80 pointer-events-none",
         className,
       )}
-      disabled={disabled || isLoading}
+      disabled={!asChild ? isDisabled : undefined}
+      aria-disabled={isDisabled || undefined}
       aria-busy={isLoading || undefined}
       type={asChild ? undefined : type}
       {...props}

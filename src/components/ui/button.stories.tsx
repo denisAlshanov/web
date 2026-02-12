@@ -123,6 +123,22 @@ export const WithBothIcons: Story = {
   },
 };
 
+export const SecondaryWithIcon: Story = {
+  args: {
+    variant: "secondary",
+    leadingIcon: <Icon icon={Plus} color="default" />,
+    children: "Add Item",
+  },
+};
+
+export const TertiaryWithIcon: Story = {
+  args: {
+    variant: "tertiary",
+    leadingIcon: <Icon icon={Plus} color="default" />,
+    children: "Add Item",
+  },
+};
+
 // -- State Grid: all variants at all sizes --
 
 const variants = [
