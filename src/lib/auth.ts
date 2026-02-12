@@ -23,21 +23,22 @@ async function exchangeGoogleToken(idToken: string): Promise<{
   }
 
   try {
-    const response = await fetch(
-      `${apiBaseUrl}/auth/google/callback?code=${encodeURIComponent(idToken)}`,
-      { method: "GET", signal: AbortSignal.timeout(10_000) }
-    );
+    const response = await fetch(`${apiBaseUrl}/auth/google/callback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: idToken }),
+      signal: AbortSignal.timeout(10_000),
+    });
 
     if (!response.ok) {
-      const body = await response.text();
-      console.error("Backend auth failed:", response.status, body.slice(0, 200));
+      console.error("Backend auth failed:", response.status);
       return null;
     }
 
     const json = await response.json();
     return json.data;
-  } catch (error) {
-    console.error("Failed to exchange token with backend:", error);
+  } catch {
+    console.error("Failed to exchange token with backend");
     return null;
   }
 }
@@ -62,8 +63,8 @@ async function refreshBackendToken(refreshToken: string): Promise<{
 
     const json = await response.json();
     return json.data;
-  } catch (error) {
-    console.error("Backend token refresh failed:", error);
+  } catch {
+    console.error("Backend token refresh failed");
     return null;
   }
 }
@@ -145,8 +146,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (refreshed) {
             token.backendAccessToken = refreshed.access_token;
             token.backendRefreshToken = refreshed.refresh_token;
-            token.backendExpiresAt =
-              Math.floor(Date.now() / 1000) + refreshed.expires_in;
+            token.backendExpiresAt = nowSeconds + refreshed.expires_in;
             delete token.error;
           } else {
             token.error = "RefreshTokenError";
