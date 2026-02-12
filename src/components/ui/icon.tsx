@@ -28,15 +28,17 @@ const iconVariants = cva("inline-block shrink-0", {
   },
 });
 
-const sizeMap = {
+type SizeVariant = NonNullable<VariantProps<typeof iconVariants>["size"]>;
+
+const sizeMap: Record<SizeVariant, number> = {
   sm: 16,
   md: 24,
   lg: 32,
-} as const;
+};
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-type IconProps = Omit<SVGProps<SVGSVGElement>, "color"> &
+type IconProps = Omit<SVGProps<SVGSVGElement>, "color" | "width" | "height"> &
   VariantProps<typeof iconVariants> & {
     icon: IconComponent;
   };
@@ -53,11 +55,11 @@ export function Icon({
 
   return (
     <IconComponent
+      {...props}
       width={resolvedSize}
       height={resolvedSize}
       strokeWidth={strokeWidth}
       className={cn(iconVariants({ color, size }), className)}
-      {...props}
     />
   );
 }
