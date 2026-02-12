@@ -32,8 +32,8 @@ Integrate Iconoir as the main icon library with a reusable Icon wrapper componen
 **Files:**
 - Create: `src/components/ui/icon.tsx`
 
-- [ ] Create `src/components/ui/` directory
-- [ ] Create `src/components/ui/icon.tsx` with:
+- [x] Create `src/components/ui/` directory
+- [x] Create `src/components/ui/icon.tsx` with:
   - Accept any Iconoir icon component via an `icon` prop
   - Default size: 24px, default strokeWidth: 2 (matching the spec)
   - CVA color variants mapped to design tokens:
@@ -49,8 +49,8 @@ Integrate Iconoir as the main icon library with a reusable Icon wrapper componen
   - CVA size variants: `sm` (16), `md` (24 - default), `lg` (32)
   - Forward className and other HTML/SVG attributes
   - Use `cn()` for class merging
-- [ ] Verify the dev server starts without errors: `npm run dev`
-- [ ] Verify an icon renders correctly by temporarily adding one to the home page, then removing it
+- [x] Verify the dev server starts without errors: `npm run dev`
+- [x] Verify an icon renders correctly by temporarily adding one to the home page, then removing it
 
 ## Validation
 
