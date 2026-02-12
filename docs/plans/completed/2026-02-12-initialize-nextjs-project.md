@@ -115,4 +115,4 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 
 ## Wrap-up
 
-- [ ] move this plan to `docs/plans/completed/`
+- [x] move this plan to `docs/plans/completed/`
