@@ -110,6 +110,7 @@ export class ApiClient {
         const retry = await fetch(url, { ...init, headers });
         return this.handleResponse<T>(retry);
       }
+      // Refresh failed — fall through to handle original 401
     }
 
     return this.handleResponse<T>(res);
@@ -117,7 +118,14 @@ export class ApiClient {
 
   private async handleResponse<T>(res: Response): Promise<T> {
     if (res.status === 204) return undefined as T;
-    const json = await res.json();
+    let json: unknown;
+    try {
+      json = await res.json();
+    } catch {
+      throw new ApiError(res.status, {
+        error: { code: "PARSE_ERROR", message: `Non-JSON response (${res.status})` },
+      });
+    }
     if (!res.ok) throw new ApiError(res.status, json as ErrorResponse);
     return json as T;
   }
@@ -135,7 +143,8 @@ export class ApiClient {
       this.refreshToken = json.data.refresh_token;
       this.onTokenRefreshed?.(json.data);
       return true;
-    } catch {
+    } catch (error) {
+      console.error("Token refresh failed:", error);
       return false;
     }
   }
@@ -407,6 +416,5 @@ export async function getServerApiClient(): Promise<ApiClient> {
   return new ApiClient({
     baseUrl,
     accessToken: session.backendAccessToken,
-    refreshToken: session.backendRefreshToken,
   });
 }

@@ -245,10 +245,11 @@ function main() {
   }
 
   if (unresolvedRefs.length > 0) {
-    console.warn("Warning: unresolved references:");
+    console.error("Error: unresolved token references:");
     for (const ref of unresolvedRefs) {
-      console.warn(`  ${ref}`);
+      console.error(`  ${ref}`);
     }
+    process.exit(1);
   }
 
   const output = `/* Auto-generated from Figma design tokens. Do not edit manually. */\n/* Run "npm run tokens:build" to regenerate. */\n\n:root {\n${cssLines.join("\n")}\n}\n`;
