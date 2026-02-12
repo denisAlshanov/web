@@ -9,8 +9,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-plus-jakarta);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,5 +22,92 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
+}
+
+/* Typography utility classes */
+
+@utility text-heading-xl {
+  font-size: var(--typography-heading-xl-fontSize);
+  line-height: var(--typography-heading-xl-lineHeight);
+  font-weight: var(--typography-heading-xl-fontWeight);
+}
+
+@utility text-heading-l {
+  font-size: var(--typography-heading-l-fontSize);
+  line-height: var(--typography-heading-l-lineHeight);
+  font-weight: var(--typography-heading-l-fontWeight);
+}
+
+@utility text-heading-m {
+  font-size: var(--typography-heading-m-fontSize);
+  line-height: var(--typography-heading-m-lineHeight);
+  font-weight: var(--typography-heading-m-fontWeight);
+}
+
+@utility text-heading-s {
+  font-size: var(--typography-heading-s-fontSize);
+  line-height: var(--typography-heading-s-lineHeight);
+  font-weight: var(--typography-heading-s-fontWeight);
+}
+
+@utility text-heading-xs {
+  font-size: var(--typography-heading-xs-fontSize);
+  line-height: var(--typography-heading-xs-lineHeight);
+  font-weight: var(--typography-heading-xs-fontWeight);
+}
+
+@utility text-heading-eyebrow {
+  font-size: var(--typography-heading-eyebrow-fontSize);
+  line-height: var(--typography-heading-eyebrow-lineHeight);
+  font-weight: var(--typography-heading-eyebrow-fontWeight);
+  text-transform: var(--typography-heading-eyebrow-textTransform);
+}
+
+@utility text-semibold-l {
+  font-size: var(--typography-text-semibold-l-fontSize);
+  line-height: var(--typography-text-semibold-l-lineHeight);
+  font-weight: var(--typography-text-semibold-l-fontWeight);
+}
+
+@utility text-semibold-m {
+  font-size: var(--typography-text-semibold-m-fontSize);
+  line-height: var(--typography-text-semibold-m-lineHeight);
+  font-weight: var(--typography-text-semibold-m-fontWeight);
+}
+
+@utility text-semibold-s {
+  font-size: var(--typography-text-semibold-s-fontSize);
+  line-height: var(--typography-text-semibold-s-lineHeight);
+  font-weight: var(--typography-text-semibold-s-fontWeight);
+}
+
+@utility text-semibold-xs {
+  font-size: var(--typography-text-semibold-xs-fontSize);
+  line-height: var(--typography-text-semibold-xs-lineHeight);
+  font-weight: var(--typography-text-semibold-xs-fontWeight);
+}
+
+@utility text-medium-l {
+  font-size: var(--typography-text-medium-l-fontSize);
+  line-height: var(--typography-text-medium-l-lineHeight);
+  font-weight: var(--typography-text-medium-l-fontWeight);
+}
+
+@utility text-medium-m {
+  font-size: var(--typography-text-medium-m-fontSize);
+  line-height: var(--typography-text-medium-m-lineHeight);
+  font-weight: var(--typography-text-medium-m-fontWeight);
+}
+
+@utility text-medium-s {
+  font-size: var(--typography-text-medium-s-fontSize);
+  line-height: var(--typography-text-medium-s-lineHeight);
+  font-weight: var(--typography-text-medium-s-fontWeight);
+}
+
+@utility text-medium-xs {
+  font-size: var(--typography-text-medium-xs-fontSize);
+  line-height: var(--typography-text-medium-xs-lineHeight);
+  font-weight: var(--typography-text-medium-xs-fontWeight);
 }

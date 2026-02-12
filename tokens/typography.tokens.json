@@ -1,0 +1,212 @@
+{
+  "typography": {
+    "heading": {
+      "xl": {
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "52px"
+        },
+        "lineHeight": {
+          "$type": "dimension",
+          "$value": "64px"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": 700
+        }
+      },
+      "l": {
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "36px"
+        },
+        "lineHeight": {
+          "$type": "dimension",
+          "$value": "48px"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": 700
+        }
+      },
+      "m": {
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "lineHeight": {
+          "$type": "dimension",
+          "$value": "32px"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": 700
+        }
+      },
+      "s": {
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "18px"
+        },
+        "lineHeight": {
+          "$type": "dimension",
+          "$value": "24px"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": 700
+        }
+      },
+      "xs": {
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "16px"
+        },
+        "lineHeight": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": 700
+        }
+      },
+      "eyebrow": {
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "14px"
+        },
+        "lineHeight": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "fontWeight": {
+          "$type": "number",
+          "$value": 600
+        },
+        "textTransform": {
+          "$type": "string",
+          "$value": "uppercase"
+        }
+      }
+    },
+    "text": {
+      "semibold": {
+        "l": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "18px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "24px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 600
+          }
+        },
+        "m": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "16px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "20px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 600
+          }
+        },
+        "s": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "14px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "16px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 600
+          }
+        },
+        "xs": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "12px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "16px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 600
+          }
+        }
+      },
+      "medium": {
+        "l": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "18px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "24px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 500
+          }
+        },
+        "m": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "16px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "20px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 500
+          }
+        },
+        "s": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "14px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "18px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 500
+          }
+        },
+        "xs": {
+          "fontSize": {
+            "$type": "dimension",
+            "$value": "12px"
+          },
+          "lineHeight": {
+            "$type": "dimension",
+            "$value": "16px"
+          },
+          "fontWeight": {
+            "$type": "number",
+            "$value": 500
+          }
+        }
+      }
+    }
+  }
+}

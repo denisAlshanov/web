@@ -54,7 +54,17 @@ Copy `.env.example` to `.env.local` and fill in values. Required variables:
 
 ### Design Tokens
 
-The `tokens:build` script reads `tokens/primitives.tokens.json` and `tokens/light-mode.tokens.json`, transforms DTCG-format tokens into CSS custom properties, and writes `src/styles/tokens.css`. This runs automatically before `dev` and `build` via npm pre-scripts.
+The `tokens:build` script reads `tokens/primitives.tokens.json`, `tokens/light-mode.tokens.json`, and `tokens/typography.tokens.json`, transforms DTCG-format tokens into CSS custom properties, and writes `src/styles/tokens.css`. This runs automatically before `dev` and `build` via npm pre-scripts.
+
+### Typography
+
+14 text styles from the Figma design system are available as Tailwind utility classes defined in `src/app/globals.css`:
+
+- Headings: `text-heading-xl`, `text-heading-l`, `text-heading-m`, `text-heading-s`, `text-heading-xs`, `text-heading-eyebrow`
+- Text SemiBold: `text-semibold-l`, `text-semibold-m`, `text-semibold-s`, `text-semibold-xs`
+- Text Medium: `text-medium-l`, `text-medium-m`, `text-medium-s`, `text-medium-xs`
+
+Each utility applies font-size, line-height, and font-weight from CSS custom properties in `src/styles/tokens.css`. The eyebrow style also includes `text-transform: uppercase`. Use these utilities instead of manual font-size/weight combinations.
 
 ### Components
 
@@ -73,5 +83,5 @@ See [docs/component-creation-guide.md](docs/component-creation-guide.md) for the
 
 - **Path alias**: `@/*` maps to `./src/*`
 - **Styling**: Tailwind CSS v4 with PostCSS plugin; design tokens as CSS custom properties
-- **Fonts**: Geist Sans and Geist Mono via `next/font/google`, exposed as `--font-geist-sans` and `--font-geist-mono`
+- **Fonts**: Plus Jakarta Sans via `next/font/google`, exposed as `--font-plus-jakarta`
 - **Package manager**: npm
