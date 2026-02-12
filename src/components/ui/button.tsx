@@ -115,7 +115,9 @@ function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
   for (const [key, value] of Object.entries(
     children.props as Record<string, unknown>,
   )) {
-    cleaned[key] = EVENT_HANDLER_RE.test(key) ? undefined : value;
+    if (!EVENT_HANDLER_RE.test(key)) {
+      cleaned[key] = value;
+    }
   }
   return React.cloneElement(children, cleaned);
 }
@@ -128,14 +130,12 @@ function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
  */
 function preventActivation(e: React.MouseEvent) {
   e.preventDefault();
-  e.stopPropagation();
 }
 
 /** Block Enter/Space from activating native link navigation when disabled. */
 function preventKeyboardActivation(e: React.KeyboardEvent) {
   if (e.key === "Enter" || e.key === " ") {
     e.preventDefault();
-    e.stopPropagation();
   }
 }
 
@@ -182,7 +182,8 @@ function Button({
       {...restProps}
       className={cn(
         buttonVariants({ variant, size }),
-        isLoading && "!opacity-80 pointer-events-none",
+        isLoading && !disabled && "!opacity-80 pointer-events-none",
+        isLoading && disabled && "pointer-events-none",
         className,
       )}
       ref={ref}
