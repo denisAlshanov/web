@@ -70,7 +70,10 @@ export class ApiClient {
   // ---- low-level helpers ----
 
   private buildUrl(path: string, params?: Record<string, unknown>): string {
-    const url = new URL(path, this.baseUrl);
+    // Use string concatenation to preserve any path prefix in baseUrl.
+    // new URL(path, base) would silently drop path segments from the base.
+    const base = this.baseUrl.replace(/\/+$/, "");
+    const url = new URL(`${base}${path}`);
     if (params) {
       for (const [k, v] of Object.entries(params)) {
         if (v !== undefined && v !== null) {
@@ -460,14 +463,13 @@ export async function getServerApiClient(): Promise<ApiClient> {
     throw new Error("API_BASE_URL is not configured");
   }
 
-  const refreshToken = token?.backendRefreshToken as string | undefined;
-
-  // Note: we intentionally omit onTokenRefreshed here. In Server Components,
-  // cookies().set() throws because cookies are read-only during rendering.
+  // Do not pass refreshToken here. In Server Components cookies are read-only,
+  // so refreshed tokens cannot be persisted back to the session cookie. If the
+  // backend uses rotating refresh tokens, a server-side refresh would consume
+  // the token without saving the new one, silently invalidating the session.
   // Token refresh is handled by the NextAuth JWT callback on subsequent requests.
   return new ApiClient({
     baseUrl,
     accessToken,
-    refreshToken,
   });
 }

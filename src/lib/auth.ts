@@ -132,6 +132,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
       }
 
+      // If the initial backend exchange failed, the session is permanently broken.
+      // Surface the error so the middleware redirects to login for a fresh attempt.
+      if (token.error === "BackendAuthError") {
+        return token;
+      }
+
       // Subsequent requests: check if backend token needs refresh.
       // Refresh 60 s before actual expiry to avoid using nearly-expired tokens.
       const REFRESH_BUFFER_S = 60;
@@ -149,6 +155,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             token.backendExpiresAt = nowSeconds + refreshed.expires_in;
             delete token.error;
           } else {
+            // Clear the stale refresh token so we don't keep retrying with an
+            // invalid token on every subsequent request.
+            token.backendRefreshToken = undefined;
             token.error = "RefreshTokenError";
           }
         }
