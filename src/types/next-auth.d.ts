@@ -14,7 +14,6 @@ interface BackendUser {
 
 declare module "next-auth" {
   interface Session {
-    backendAccessToken?: string;
     backendUser?: BackendUser;
     error?: string;
   }

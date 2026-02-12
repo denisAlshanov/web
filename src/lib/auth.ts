@@ -25,7 +25,7 @@ async function exchangeGoogleToken(idToken: string): Promise<{
   try {
     const response = await fetch(
       `${apiBaseUrl}/auth/google/callback?code=${encodeURIComponent(idToken)}`,
-      { method: "GET" }
+      { method: "GET", signal: AbortSignal.timeout(10_000) }
     );
 
     if (!response.ok) {
@@ -55,6 +55,7 @@ async function refreshBackendToken(refreshToken: string): Promise<{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh_token: refreshToken }),
+      signal: AbortSignal.timeout(10_000),
     });
 
     if (!response.ok) return null;
@@ -157,7 +158,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async session({ session, token }) {
-      session.backendAccessToken = token.backendAccessToken as string;
       session.error = token.error as string | undefined;
 
       if (token.backendUser) {
@@ -171,10 +171,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           isRoot: boolean;
           avatarUrl: string;
         };
-        session.user.id = bu.id;
-        session.user.email = bu.email;
-        session.user.name = `${bu.firstName} ${bu.lastName}`;
-        session.user.image = bu.avatarUrl;
+        if (session.user) {
+          session.user.id = bu.id;
+          session.user.email = bu.email;
+          session.user.name = `${bu.firstName} ${bu.lastName}`;
+          session.user.image = bu.avatarUrl;
+        }
         session.backendUser = bu;
       }
 

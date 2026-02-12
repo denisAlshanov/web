@@ -20,9 +20,9 @@ export interface UserResponse {
   avatar_type: string;
   avatar_url: string;
   timezone: string;
-  blocked_at: string;
-  blocked_by: string;
-  blocked_reason: string;
+  blocked_at: string | null;
+  blocked_by: string | null;
+  blocked_reason: string | null;
   created_at: string;
   updated_at: string;
 }

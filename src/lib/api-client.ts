@@ -50,6 +50,7 @@ export class ApiError extends Error {
 // ----------------------------------------------------------------
 
 export class ApiClient {
+  private baseUrl: string;
   private accessToken: string;
   private refreshToken: string | undefined;
   private onTokenRefreshed: ((tokens: AuthTokens) => void) | undefined;
@@ -66,8 +67,6 @@ export class ApiClient {
     this.refreshToken = opts.refreshToken;
     this.onTokenRefreshed = opts.onTokenRefreshed;
   }
-
-  private baseUrl: string;
 
   // ---- low-level helpers ----
 
@@ -101,14 +100,22 @@ export class ApiClient {
       headers["Content-Type"] = "application/json";
     }
 
-    const res = await fetch(url, { ...init, headers });
+    const res = await fetch(url, {
+      ...init,
+      headers,
+      signal: init.signal ?? AbortSignal.timeout(30_000),
+    });
 
     // 401 → try refresh once (deduplicated across concurrent requests)
     if (res.status === 401 && this.refreshToken) {
       const refreshed = await this.tryRefreshOnce();
       if (refreshed) {
         headers.Authorization = `Bearer ${this.accessToken}`;
-        const retry = await fetch(url, { ...init, headers });
+        const retry = await fetch(url, {
+          ...init,
+          headers,
+          signal: init.signal ?? AbortSignal.timeout(30_000),
+        });
         return this.handleResponse<T>(retry);
       }
       // Refresh failed — fall through to handle original 401
@@ -137,6 +144,7 @@ export class ApiClient {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh_token: this.refreshToken }),
+        signal: AbortSignal.timeout(10_000),
       });
       if (!res.ok) return false;
       const json = (await res.json()) as SuccessResponse<AuthTokens>;
@@ -412,9 +420,21 @@ export class ApiClient {
 // Server helper
 // ----------------------------------------------------------------
 
+/**
+ * Create an API client using the current server-side session.
+ *
+ * When `auth()` is called server-side (React Server Components / Route Handlers),
+ * NextAuth v5 spreads the raw JWT into `session.user`, giving us access to
+ * `backendAccessToken` without exposing it through the client-side session callback.
+ */
 export async function getServerApiClient(): Promise<ApiClient> {
   const session = await auth();
-  if (!session?.backendAccessToken) {
+
+  // Server-side auth() merges the raw JWT into session.user
+  const token = session?.user as Record<string, unknown> | undefined;
+  const accessToken = token?.backendAccessToken as string | undefined;
+
+  if (!accessToken) {
     throw new Error("No authenticated session");
   }
 
@@ -425,6 +445,6 @@ export async function getServerApiClient(): Promise<ApiClient> {
 
   return new ApiClient({
     baseUrl,
-    accessToken: session.backendAccessToken,
+    accessToken,
   });
 }
