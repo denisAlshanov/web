@@ -70,8 +70,8 @@ Create a Button component following the Figma design system with 8 variants, 3 s
 
 ### Task 4: Verify build and lint
 
-- [ ] Run `npm run lint` - must pass
-- [ ] Run `npm run build` - must pass
+- [x] Run `npm run lint` - must pass
+- [x] Run `npm run build` - must pass
 
 ## Acceptance criteria
 
