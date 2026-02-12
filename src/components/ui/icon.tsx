@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentType, SVGProps } from "react";
+import type { ComponentType, Ref, SVGProps } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -41,6 +41,7 @@ type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 type IconProps = Omit<SVGProps<SVGSVGElement>, "color" | "width" | "height"> &
   VariantProps<typeof iconVariants> & {
     icon: IconComponent;
+    ref?: Ref<SVGSVGElement>;
   };
 
 export function Icon({
@@ -49,6 +50,7 @@ export function Icon({
   size,
   className,
   strokeWidth = 2,
+  ref,
   ...props
 }: IconProps) {
   const resolvedSize = sizeMap[size ?? "md"];
@@ -56,6 +58,7 @@ export function Icon({
   return (
     <IconComponent
       {...props}
+      ref={ref}
       width={resolvedSize}
       height={resolvedSize}
       strokeWidth={strokeWidth}
