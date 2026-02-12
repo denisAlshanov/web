@@ -134,7 +134,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async session({ session, token }) {
       session.backendAccessToken = token.backendAccessToken as string;
-      session.backendRefreshToken = token.backendRefreshToken as string;
       session.error = token.error as string | undefined;
 
       if (token.backendUser) {

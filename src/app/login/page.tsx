@@ -4,9 +4,16 @@ import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
+function getSafeCallbackUrl(raw: string | null): string {
+  if (raw && raw.startsWith("/") && !raw.startsWith("//")) {
+    return raw;
+  }
+  return "/";
+}
+
 function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const callbackUrl = getSafeCallbackUrl(searchParams.get("callbackUrl"));
 
   return (
     <div className="flex min-h-screen items-center justify-center">

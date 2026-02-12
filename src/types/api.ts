@@ -138,7 +138,7 @@ export interface ErrorBody {
 }
 
 export interface ErrorResponse {
-  error: ErrorBody;
+  error?: ErrorBody;
 }
 
 // ---------------- Request DTOs ----------------

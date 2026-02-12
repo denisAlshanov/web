@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth";
 
 export default auth((req) => {
-  if (!req.auth && req.nextUrl.pathname !== "/login") {
+  const isLoginPage = req.nextUrl.pathname === "/login";
+  if ((!req.auth || req.auth.error) && !isLoginPage) {
     const loginUrl = new URL("/login", req.nextUrl.origin);
     loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname + req.nextUrl.search);
     return Response.redirect(loginUrl);

@@ -212,12 +212,12 @@ export class ApiClient {
   }
 
   getUser(id: string) {
-    return this.get<SuccessResponse<UserResponse>>(`/api/v1/users/${id}`);
+    return this.get<SuccessResponse<UserResponse>>(`/api/v1/users/${encodeURIComponent(id)}`);
   }
 
   updateUser(id: string, body: UpdateUserRequest) {
     return this.patch<SuccessResponse<UserResponse>>(
-      `/api/v1/users/${id}`,
+      `/api/v1/users/${encodeURIComponent(id)}`,
       body,
     );
   }
@@ -228,27 +228,27 @@ export class ApiClient {
 
   setUserRoles(id: string, body: SetRolesRequest) {
     return this.put<SuccessResponse<UserResponse>>(
-      `/api/v1/users/${id}/roles`,
+      `/api/v1/users/${encodeURIComponent(id)}/roles`,
       body,
     );
   }
 
   blockUser(id: string, body: BlockUserRequest) {
     return this.post<SuccessResponse<UserResponse>>(
-      `/api/v1/users/${id}/block`,
+      `/api/v1/users/${encodeURIComponent(id)}/block`,
       body,
     );
   }
 
   unblockUser(id: string) {
     return this.post<SuccessResponse<UserResponse>>(
-      `/api/v1/users/${id}/unblock`,
+      `/api/v1/users/${encodeURIComponent(id)}/unblock`,
     );
   }
 
   setUserEmojiAvatar(id: string, body: SetEmojiAvatarRequest) {
     return this.put<SuccessResponse<UserResponse>>(
-      `/api/v1/users/${id}/avatar/emoji`,
+      `/api/v1/users/${encodeURIComponent(id)}/avatar/emoji`,
       body,
     );
   }
@@ -269,37 +269,37 @@ export class ApiClient {
   }
 
   getShow(id: string) {
-    return this.get<SuccessResponse<ShowResponse>>(`/api/v1/shows/${id}`);
+    return this.get<SuccessResponse<ShowResponse>>(`/api/v1/shows/${encodeURIComponent(id)}`);
   }
 
   updateShow(id: string, body: UpdateShowRequest) {
     return this.patch<SuccessResponse<ShowResponse>>(
-      `/api/v1/shows/${id}`,
+      `/api/v1/shows/${encodeURIComponent(id)}`,
       body,
     );
   }
 
   archiveShow(id: string) {
     return this.post<SuccessResponse<ShowResponse>>(
-      `/api/v1/shows/${id}/archive`,
+      `/api/v1/shows/${encodeURIComponent(id)}/archive`,
     );
   }
 
   pauseShow(id: string) {
     return this.post<SuccessResponse<ShowResponse>>(
-      `/api/v1/shows/${id}/pause`,
+      `/api/v1/shows/${encodeURIComponent(id)}/pause`,
     );
   }
 
   resumeShow(id: string) {
     return this.post<SuccessResponse<ShowResponse>>(
-      `/api/v1/shows/${id}/resume`,
+      `/api/v1/shows/${encodeURIComponent(id)}/resume`,
     );
   }
 
   setDefaultTeam(showId: string, body: SetDefaultTeamRequest) {
     return this.put<SuccessResponse<DefaultTeamMemberResponse[]>>(
-      `/api/v1/shows/${showId}/default-team`,
+      `/api/v1/shows/${encodeURIComponent(showId)}/default-team`,
       body,
     );
   }
@@ -323,39 +323,39 @@ export class ApiClient {
   }
 
   getEpisode(id: string) {
-    return this.get<SuccessResponse<EpisodeResponse>>(`/api/v1/episodes/${id}`);
+    return this.get<SuccessResponse<EpisodeResponse>>(`/api/v1/episodes/${encodeURIComponent(id)}`);
   }
 
   updateEpisode(id: string, body: UpdateEpisodeRequest) {
     return this.patch<SuccessResponse<EpisodeResponse>>(
-      `/api/v1/episodes/${id}`,
+      `/api/v1/episodes/${encodeURIComponent(id)}`,
       body,
     );
   }
 
   changeEpisodeStatus(id: string, body: ChangeStatusRequest) {
     return this.post<SuccessResponse<EpisodeResponse>>(
-      `/api/v1/episodes/${id}/status`,
+      `/api/v1/episodes/${encodeURIComponent(id)}/status`,
       body,
     );
   }
 
   listEpisodeAssignments(episodeId: string) {
     return this.get<SuccessResponse<AssignmentResponse[]>>(
-      `/api/v1/episodes/${episodeId}/assignments`,
+      `/api/v1/episodes/${encodeURIComponent(episodeId)}/assignments`,
     );
   }
 
   assignUser(episodeId: string, body: AssignUserRequest) {
     return this.post<SuccessResponse<AssignmentResponse>>(
-      `/api/v1/episodes/${episodeId}/assignments`,
+      `/api/v1/episodes/${encodeURIComponent(episodeId)}/assignments`,
       body,
     );
   }
 
   unassignUser(episodeId: string, assignmentId: string) {
     return this.del<void>(
-      `/api/v1/episodes/${episodeId}/assignments/${assignmentId}`,
+      `/api/v1/episodes/${encodeURIComponent(episodeId)}/assignments/${encodeURIComponent(assignmentId)}`,
     );
   }
 
@@ -372,20 +372,20 @@ export class ApiClient {
 
   listSchedules(showId: string) {
     return this.get<SuccessResponse<ScheduleResponse[]>>(
-      `/api/v1/shows/${showId}/schedules`,
+      `/api/v1/shows/${encodeURIComponent(showId)}/schedules`,
     );
   }
 
   createSchedule(showId: string, body: CreateScheduleRequest) {
     return this.post<SuccessResponse<ScheduleCreateResponse>>(
-      `/api/v1/shows/${showId}/schedules`,
+      `/api/v1/shows/${encodeURIComponent(showId)}/schedules`,
       body,
     );
   }
 
   previewSchedule(showId: string, body: CreateScheduleRequest) {
     return this.post<SuccessResponse<SchedulePreviewResponse>>(
-      `/api/v1/shows/${showId}/schedules/preview`,
+      `/api/v1/shows/${encodeURIComponent(showId)}/schedules/preview`,
       body,
     );
   }
@@ -396,14 +396,14 @@ export class ApiClient {
     body: UpdateScheduleEndDateRequest,
   ) {
     return this.patch<SuccessResponse<ScheduleResponse>>(
-      `/api/v1/shows/${showId}/schedules/${scheduleId}`,
+      `/api/v1/shows/${encodeURIComponent(showId)}/schedules/${encodeURIComponent(scheduleId)}`,
       body,
     );
   }
 
   deleteSchedule(showId: string, scheduleId: string) {
     return this.del<void>(
-      `/api/v1/shows/${showId}/schedules/${scheduleId}`,
+      `/api/v1/shows/${encodeURIComponent(showId)}/schedules/${encodeURIComponent(scheduleId)}`,
     );
   }
 }
@@ -426,6 +426,5 @@ export async function getServerApiClient(): Promise<ApiClient> {
   return new ApiClient({
     baseUrl,
     accessToken: session.backendAccessToken,
-    refreshToken: session.backendRefreshToken,
   });
 }
