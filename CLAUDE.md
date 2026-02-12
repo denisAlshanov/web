@@ -56,6 +56,18 @@ Copy `.env.example` to `.env.local` and fill in values. Required variables:
 
 The `tokens:build` script reads `tokens/primitives.tokens.json` and `tokens/light-mode.tokens.json`, transforms DTCG-format tokens into CSS custom properties, and writes `src/styles/tokens.css`. This runs automatically before `dev` and `build` via npm pre-scripts.
 
+### Components
+
+See [docs/component-creation-guide.md](docs/component-creation-guide.md) for the full guide. Summary:
+
+- **Approach**: Radix UI primitives (headless) + custom styling with design tokens
+- **Variants**: `class-variance-authority` (CVA) for type-safe variant definitions
+- **Utilities**: `cn()` helper (`clsx` + `tailwind-merge`) for className composition
+- **Structure**: `src/components/ui/` (primitives), `src/components/features/` (domain composites), `src/components/layout/` (app shell)
+- **Complex UI**: `@tanstack/react-table` for data tables, custom schedule/calendar components
+- **Dev environment**: Storybook for isolated component development and design review
+- **Rule**: All colors, spacing, and radii must use `var(--token-name)` from `src/styles/tokens.css` — never hardcode values
+
 ## Conventions
 
 - **Path alias**: `@/*` maps to `./src/*`
