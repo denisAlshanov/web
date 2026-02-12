@@ -17,4 +17,5 @@ const config: StorybookConfig = {
     "../public"
   ]
 };
+
 export default config;

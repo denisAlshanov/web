@@ -9,8 +9,8 @@ const buttonVariants = cva(
     "gap-[var(--number-spacing-gap-gap-s)]",
     "rounded-[var(--number-radius-rad-button)]",
     "transition-colors cursor-pointer",
-    // Focus ring: 3px border matching Figma
-    "focus-visible:outline-none focus-visible:border-3 focus-visible:border-[var(--colour-interface-button-border-focus-default)]",
+    // Focus ring: 4px outline matching Figma (outline avoids layout shift and border conflicts)
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--colour-interface-button-border-focus-default)]",
     // Disabled
     "disabled:opacity-50 disabled:pointer-events-none",
   ].join(" "),
@@ -100,6 +100,7 @@ function Button({
   isLoading = false,
   disabled,
   children,
+  type = "button",
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
@@ -112,15 +113,17 @@ function Button({
         className,
       )}
       disabled={disabled || isLoading}
+      aria-busy={isLoading || undefined}
+      type={asChild ? undefined : type}
       {...props}
     >
       {isLoading && <Spinner />}
       {leadingIcon && !isLoading && (
-        <span className="shrink-0 size-6">{leadingIcon}</span>
+        <span className="shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
       )}
       {children}
       {trailingIcon && (
-        <span className="shrink-0 size-6">{trailingIcon}</span>
+        <span className="shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
       )}
     </Comp>
   );
