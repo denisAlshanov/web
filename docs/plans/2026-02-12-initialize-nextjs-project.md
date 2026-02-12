@@ -85,13 +85,13 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 - Move: "Light Mode.tokens.json" -> tokens/light-mode.tokens.json
 - Move: "Mode 1.tokens.json" -> tokens/primitives.tokens.json
 
-- [ ] Move token files to tokens/ directory with clean filenames (no spaces)
-- [ ] Create scripts/transform-tokens.ts: reads both token JSON files, resolves references between them, outputs CSS custom properties file
-- [ ] Handle Figma DTCG token format: resolve $value references like {colour.brandMode.primary.50}, convert SRGB color components to hex/rgb, flatten nested keys to CSS variable names (e.g. --colour-interface-surface-base)
-- [ ] Generate src/styles/tokens.css with :root block containing all resolved color tokens
-- [ ] Add npm script "tokens:build" in package.json to run the transform
-- [ ] Import tokens.css in src/app/globals.css
-- [ ] Run the transform and verify the output CSS is valid
+- [x] Move token files to tokens/ directory with clean filenames (no spaces)
+- [x] Create scripts/transform-tokens.ts: reads both token JSON files, resolves references between them, outputs CSS custom properties file
+- [x] Handle Figma DTCG token format: resolve $value references like {colour.brandMode.primary.50}, convert SRGB color components to hex/rgb, flatten nested keys to CSS variable names (e.g. --colour-interface-surface-base)
+- [x] Generate src/styles/tokens.css with :root block containing all resolved color tokens
+- [x] Add npm script "tokens:build" in package.json to run the transform
+- [x] Import tokens.css in src/app/globals.css
+- [x] Run the transform and verify the output CSS is valid
 
 ## Task 6: Verify full build and clean up
 
