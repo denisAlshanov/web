@@ -67,6 +67,25 @@ async function refreshBackendToken(refreshToken: string): Promise<{
   }
 }
 
+// Deduplicate concurrent refresh requests per refresh token: if a refresh is
+// already in-flight for a given token, subsequent callers reuse the same promise
+// instead of issuing parallel refresh calls that can fail under strict rotation.
+const inflightRefreshes = new Map<string, Promise<{
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+} | null>>();
+
+async function deduplicatedRefresh(refreshToken: string) {
+  const existing = inflightRefreshes.get(refreshToken);
+  if (existing) return existing;
+  const promise = refreshBackendToken(refreshToken).finally(() => {
+    inflightRefreshes.delete(refreshToken);
+  });
+  inflightRefreshes.set(refreshToken, promise);
+  return promise;
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Google({
@@ -99,6 +118,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               isRoot: backendAuth.user.is_root,
               avatarUrl: backendAuth.user.avatar_url,
             };
+            delete token.error;
           } else {
             // Backend auth failed — prevent creating a session without backend tokens
             token.error = "BackendAuthError";
@@ -120,12 +140,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       ) {
         const refreshToken = token.backendRefreshToken as string;
         if (refreshToken) {
-          const refreshed = await refreshBackendToken(refreshToken);
+          const refreshed = await deduplicatedRefresh(refreshToken);
           if (refreshed) {
             token.backendAccessToken = refreshed.access_token;
             token.backendRefreshToken = refreshed.refresh_token;
             token.backendExpiresAt =
               Math.floor(Date.now() / 1000) + refreshed.expires_in;
+            delete token.error;
           } else {
             token.error = "RefreshTokenError";
           }
