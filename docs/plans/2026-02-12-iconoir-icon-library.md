@@ -54,9 +54,9 @@ Integrate Iconoir as the main icon library with a reusable Icon wrapper componen
 
 ## Validation
 
-- [ ] `npm run lint` passes
-- [ ] `npm run build` succeeds
-- [ ] Icon renders at correct size (24px) and stroke weight (2)
+- [x] `npm run lint` passes
+- [x] `npm run build` succeeds
+- [x] Icon renders at correct size (24px) and stroke weight (2)
 
 ## Completion
 
