@@ -88,5 +88,5 @@ Implement the complete typography system from the Figma design system. This invo
 
 ## Post-Implementation
 
-- [ ] Update `CLAUDE.md` if font variable name or typography patterns need documenting
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Update `CLAUDE.md` if font variable name or typography patterns need documenting
+- [x] Move this plan to `docs/plans/completed/`
