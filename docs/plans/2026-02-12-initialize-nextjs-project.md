@@ -62,10 +62,10 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 - Create: src/types/api.ts
 - Create: src/lib/api-client.ts
 
-- [ ] Create src/types/api.ts with TypeScript interfaces matching all swagger DTOs: AuthResponse, UserResponse, ShowResponse, EpisodeResponse, ScheduleResponse, AssignmentResponse, pagination types, error types, and all request DTOs
-- [ ] Create src/lib/api-client.ts: a fetch-based client class that takes base URL + access token, provides typed methods for all API endpoints grouped by domain (auth, users, shows, episodes, schedules)
-- [ ] Include automatic token refresh logic: if a 401 is returned, use refresh_token to get new tokens via /auth/refresh, retry the request
-- [ ] Export a helper getServerApiClient() that creates an API client instance from the current NextAuth session (for server components/actions)
+- [x] Create src/types/api.ts with TypeScript interfaces matching all swagger DTOs: AuthResponse, UserResponse, ShowResponse, EpisodeResponse, ScheduleResponse, AssignmentResponse, pagination types, error types, and all request DTOs
+- [x] Create src/lib/api-client.ts: a fetch-based client class that takes base URL + access token, provides typed methods for all API endpoints grouped by domain (auth, users, shows, episodes, schedules)
+- [x] Include automatic token refresh logic: if a 401 is returned, use refresh_token to get new tokens via /auth/refresh, retry the request
+- [x] Export a helper getServerApiClient() that creates an API client instance from the current NextAuth session (for server components/actions)
 
 ## Task 4: Add auth middleware for route protection
 

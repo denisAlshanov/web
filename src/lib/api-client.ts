@@ -1,0 +1,412 @@
+import { auth } from "@/lib/auth";
+import type {
+  AssignmentResponse,
+  AssignUserRequest,
+  AuthTokens,
+  BlockUserRequest,
+  ChangeStatusRequest,
+  CreateEpisodeRequest,
+  CreateScheduleRequest,
+  CreateShowRequest,
+  CreateUserRequest,
+  DefaultTeamMemberResponse,
+  EpisodeResponse,
+  ErrorResponse,
+  ListEpisodesParams,
+  ListResponse,
+  ListShowsParams,
+  ListUsersParams,
+  ScheduleCreateResponse,
+  SchedulePreviewResponse,
+  ScheduleResponse,
+  SetDefaultTeamRequest,
+  SetEmojiAvatarRequest,
+  SetRolesRequest,
+  ShowResponse,
+  SuccessResponse,
+  UpdateEpisodeRequest,
+  UpdateScheduleEndDateRequest,
+  UpdateShowRequest,
+  UpdateUserRequest,
+  UserResponse,
+} from "@/types/api";
+
+// ----------------------------------------------------------------
+// Error
+// ----------------------------------------------------------------
+
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    public body: ErrorResponse,
+  ) {
+    super(body.error?.message ?? `API error ${status}`);
+    this.name = "ApiError";
+  }
+}
+
+// ----------------------------------------------------------------
+// Client
+// ----------------------------------------------------------------
+
+export class ApiClient {
+  private accessToken: string;
+  private refreshToken: string | undefined;
+  private onTokenRefreshed: ((tokens: AuthTokens) => void) | undefined;
+
+  constructor(opts: {
+    baseUrl: string;
+    accessToken: string;
+    refreshToken?: string;
+    onTokenRefreshed?: (tokens: AuthTokens) => void;
+  }) {
+    this.baseUrl = opts.baseUrl;
+    this.accessToken = opts.accessToken;
+    this.refreshToken = opts.refreshToken;
+    this.onTokenRefreshed = opts.onTokenRefreshed;
+  }
+
+  private baseUrl: string;
+
+  // ---- low-level helpers ----
+
+  private buildUrl(path: string, params?: Record<string, unknown>): string {
+    const url = new URL(path, this.baseUrl);
+    if (params) {
+      for (const [k, v] of Object.entries(params)) {
+        if (v !== undefined && v !== null) {
+          url.searchParams.set(k, String(v));
+        }
+      }
+    }
+    return url.toString();
+  }
+
+  private async request<T>(
+    path: string,
+    init: RequestInit = {},
+    params?: Record<string, unknown>,
+  ): Promise<T> {
+    const url = this.buildUrl(path, params);
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${this.accessToken}`,
+      ...(init.headers as Record<string, string>),
+    };
+    if (
+      init.body &&
+      typeof init.body === "string" &&
+      !headers["Content-Type"]
+    ) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    const res = await fetch(url, { ...init, headers });
+
+    // 401 → try refresh once
+    if (res.status === 401 && this.refreshToken) {
+      const refreshed = await this.tryRefresh();
+      if (refreshed) {
+        headers.Authorization = `Bearer ${this.accessToken}`;
+        const retry = await fetch(url, { ...init, headers });
+        return this.handleResponse<T>(retry);
+      }
+    }
+
+    return this.handleResponse<T>(res);
+  }
+
+  private async handleResponse<T>(res: Response): Promise<T> {
+    if (res.status === 204) return undefined as T;
+    const json = await res.json();
+    if (!res.ok) throw new ApiError(res.status, json as ErrorResponse);
+    return json as T;
+  }
+
+  private async tryRefresh(): Promise<boolean> {
+    try {
+      const res = await fetch(this.buildUrl("/auth/refresh"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_token: this.refreshToken }),
+      });
+      if (!res.ok) return false;
+      const json = (await res.json()) as SuccessResponse<AuthTokens>;
+      this.accessToken = json.data.access_token;
+      this.refreshToken = json.data.refresh_token;
+      this.onTokenRefreshed?.(json.data);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  private get<T>(path: string, params?: Record<string, unknown>) {
+    return this.request<T>(path, { method: "GET" }, params);
+  }
+
+  private post<T>(path: string, body?: unknown) {
+    return this.request<T>(path, {
+      method: "POST",
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    });
+  }
+
+  private patch<T>(path: string, body: unknown) {
+    return this.request<T>(path, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    });
+  }
+
+  private put<T>(path: string, body: unknown) {
+    return this.request<T>(path, {
+      method: "PUT",
+      body: JSON.stringify(body),
+    });
+  }
+
+  private del<T>(path: string) {
+    return this.request<T>(path, { method: "DELETE" });
+  }
+
+  // ================================================================
+  // Auth
+  // ================================================================
+
+  logout() {
+    return this.post<void>("/auth/logout");
+  }
+
+  // ================================================================
+  // Users
+  // ================================================================
+
+  listUsers(params?: ListUsersParams) {
+    return this.get<ListResponse<UserResponse>>(
+      "/api/v1/users",
+      params as Record<string, unknown>,
+    );
+  }
+
+  createUser(body: CreateUserRequest) {
+    return this.post<SuccessResponse<UserResponse>>("/api/v1/users", body);
+  }
+
+  getUser(id: string) {
+    return this.get<SuccessResponse<UserResponse>>(`/api/v1/users/${id}`);
+  }
+
+  updateUser(id: string, body: UpdateUserRequest) {
+    return this.patch<SuccessResponse<UserResponse>>(
+      `/api/v1/users/${id}`,
+      body,
+    );
+  }
+
+  getCurrentUser() {
+    return this.get<SuccessResponse<UserResponse>>("/api/v1/users/me");
+  }
+
+  setUserRoles(id: string, body: SetRolesRequest) {
+    return this.put<SuccessResponse<UserResponse>>(
+      `/api/v1/users/${id}/roles`,
+      body,
+    );
+  }
+
+  blockUser(id: string, body: BlockUserRequest) {
+    return this.post<SuccessResponse<UserResponse>>(
+      `/api/v1/users/${id}/block`,
+      body,
+    );
+  }
+
+  unblockUser(id: string) {
+    return this.post<SuccessResponse<UserResponse>>(
+      `/api/v1/users/${id}/unblock`,
+    );
+  }
+
+  setUserEmojiAvatar(id: string, body: SetEmojiAvatarRequest) {
+    return this.put<SuccessResponse<UserResponse>>(
+      `/api/v1/users/${id}/avatar/emoji`,
+      body,
+    );
+  }
+
+  // ================================================================
+  // Shows
+  // ================================================================
+
+  listShows(params?: ListShowsParams) {
+    return this.get<ListResponse<ShowResponse>>(
+      "/api/v1/shows",
+      params as Record<string, unknown>,
+    );
+  }
+
+  createShow(body: CreateShowRequest) {
+    return this.post<SuccessResponse<ShowResponse>>("/api/v1/shows", body);
+  }
+
+  getShow(id: string) {
+    return this.get<SuccessResponse<ShowResponse>>(`/api/v1/shows/${id}`);
+  }
+
+  updateShow(id: string, body: UpdateShowRequest) {
+    return this.patch<SuccessResponse<ShowResponse>>(
+      `/api/v1/shows/${id}`,
+      body,
+    );
+  }
+
+  archiveShow(id: string) {
+    return this.post<SuccessResponse<ShowResponse>>(
+      `/api/v1/shows/${id}/archive`,
+    );
+  }
+
+  pauseShow(id: string) {
+    return this.post<SuccessResponse<ShowResponse>>(
+      `/api/v1/shows/${id}/pause`,
+    );
+  }
+
+  resumeShow(id: string) {
+    return this.post<SuccessResponse<ShowResponse>>(
+      `/api/v1/shows/${id}/resume`,
+    );
+  }
+
+  setDefaultTeam(showId: string, body: SetDefaultTeamRequest) {
+    return this.put<SuccessResponse<DefaultTeamMemberResponse[]>>(
+      `/api/v1/shows/${showId}/default-team`,
+      body,
+    );
+  }
+
+  // ================================================================
+  // Episodes
+  // ================================================================
+
+  listEpisodes(params?: ListEpisodesParams) {
+    return this.get<ListResponse<EpisodeResponse>>(
+      "/api/v1/episodes",
+      params as Record<string, unknown>,
+    );
+  }
+
+  createEpisode(body: CreateEpisodeRequest) {
+    return this.post<SuccessResponse<EpisodeResponse>>(
+      "/api/v1/episodes",
+      body,
+    );
+  }
+
+  getEpisode(id: string) {
+    return this.get<SuccessResponse<EpisodeResponse>>(`/api/v1/episodes/${id}`);
+  }
+
+  updateEpisode(id: string, body: UpdateEpisodeRequest) {
+    return this.patch<SuccessResponse<EpisodeResponse>>(
+      `/api/v1/episodes/${id}`,
+      body,
+    );
+  }
+
+  changeEpisodeStatus(id: string, body: ChangeStatusRequest) {
+    return this.post<SuccessResponse<EpisodeResponse>>(
+      `/api/v1/episodes/${id}/status`,
+      body,
+    );
+  }
+
+  listEpisodeAssignments(episodeId: string) {
+    return this.get<SuccessResponse<AssignmentResponse[]>>(
+      `/api/v1/episodes/${episodeId}/assignments`,
+    );
+  }
+
+  assignUser(episodeId: string, body: AssignUserRequest) {
+    return this.post<SuccessResponse<AssignmentResponse>>(
+      `/api/v1/episodes/${episodeId}/assignments`,
+      body,
+    );
+  }
+
+  unassignUser(episodeId: string, assignmentId: string) {
+    return this.del<void>(
+      `/api/v1/episodes/${episodeId}/assignments/${assignmentId}`,
+    );
+  }
+
+  listMyEpisodes(params?: ListEpisodesParams) {
+    return this.get<ListResponse<EpisodeResponse>>(
+      "/api/v1/users/me/episodes",
+      params as Record<string, unknown>,
+    );
+  }
+
+  // ================================================================
+  // Schedules
+  // ================================================================
+
+  listSchedules(showId: string) {
+    return this.get<SuccessResponse<ScheduleResponse[]>>(
+      `/api/v1/shows/${showId}/schedules`,
+    );
+  }
+
+  createSchedule(showId: string, body: CreateScheduleRequest) {
+    return this.post<SuccessResponse<ScheduleCreateResponse>>(
+      `/api/v1/shows/${showId}/schedules`,
+      body,
+    );
+  }
+
+  previewSchedule(showId: string, body: CreateScheduleRequest) {
+    return this.post<SuccessResponse<SchedulePreviewResponse>>(
+      `/api/v1/shows/${showId}/schedules/preview`,
+      body,
+    );
+  }
+
+  updateScheduleEndDate(
+    showId: string,
+    scheduleId: string,
+    body: UpdateScheduleEndDateRequest,
+  ) {
+    return this.patch<SuccessResponse<ScheduleResponse>>(
+      `/api/v1/shows/${showId}/schedules/${scheduleId}`,
+      body,
+    );
+  }
+
+  deleteSchedule(showId: string, scheduleId: string) {
+    return this.del<void>(
+      `/api/v1/shows/${showId}/schedules/${scheduleId}`,
+    );
+  }
+}
+
+// ----------------------------------------------------------------
+// Server helper
+// ----------------------------------------------------------------
+
+export async function getServerApiClient(): Promise<ApiClient> {
+  const session = await auth();
+  if (!session?.backendAccessToken) {
+    throw new Error("No authenticated session");
+  }
+
+  const baseUrl = process.env.API_BASE_URL;
+  if (!baseUrl) {
+    throw new Error("API_BASE_URL is not configured");
+  }
+
+  return new ApiClient({
+    baseUrl,
+    accessToken: session.backendAccessToken,
+    refreshToken: session.backendRefreshToken,
+  });
+}
