@@ -23,9 +23,9 @@ Integrate Iconoir as the main icon library with a reusable Icon wrapper componen
 - Modify: `package.json` (via npm install)
 - Create: `src/lib/utils.ts`
 
-- [ ] Install dependencies: `npm install iconoir-react clsx tailwind-merge class-variance-authority`
-- [ ] Create `src/lib/utils.ts` with `cn()` helper (clsx + tailwind-merge)
-- [ ] Run `npm run lint` - must pass
+- [x] Install dependencies: `npm install iconoir-react clsx tailwind-merge class-variance-authority`
+- [x] Create `src/lib/utils.ts` with `cn()` helper (clsx + tailwind-merge)
+- [x] Run `npm run lint` - must pass
 
 ## Task 2: Create the Icon wrapper component
 
