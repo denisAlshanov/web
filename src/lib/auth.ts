@@ -110,9 +110,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Subsequent requests: check if backend token needs refresh.
       // Refresh 60 s before actual expiry to avoid using nearly-expired tokens.
       const REFRESH_BUFFER_S = 60;
+      const nowSeconds = Math.floor(Date.now() / 1000);
       if (
-        token.backendExpiresAt &&
-        Date.now() >= ((token.backendExpiresAt as number) - REFRESH_BUFFER_S) * 1000
+        typeof token.backendExpiresAt === "number" &&
+        nowSeconds >= token.backendExpiresAt - REFRESH_BUFFER_S
       ) {
         const refreshToken = token.backendRefreshToken as string;
         if (refreshToken) {
