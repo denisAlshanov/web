@@ -107,11 +107,11 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 
 ## Validation checklist
 
-- [ ] manual test: dev server starts with `npm run dev`
-- [ ] manual test: /login page renders with Google sign-in button
-- [ ] manual test: build succeeds with `npm run build`
-- [ ] run linter: `npm run lint`
-- [ ] verify tokens.css is generated from Figma token files
+- [x] manual test: dev server starts with `npm run dev`
+- [x] manual test: /login page renders with Google sign-in button
+- [x] manual test: build succeeds with `npm run build`
+- [x] run linter: `npm run lint`
+- [x] verify tokens.css is generated from Figma token files
 
 ## Wrap-up
 
