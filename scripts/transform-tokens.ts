@@ -254,21 +254,37 @@ function main() {
     cssLines.push(`  ${varName}: ${value}px;`);
   }
 
-  // Process typography tokens
+  // Process typography tokens (required — utilities in globals.css depend on these vars)
   const typographyPath = path.join(tokensDir, "typography.tokens.json");
-  if (fs.existsSync(typographyPath)) {
-    const typographyRaw = JSON.parse(
-      fs.readFileSync(typographyPath, "utf-8")
-    );
-    const typographyTokens = flattenTokens(typographyRaw);
+  const typographyRaw = JSON.parse(
+    fs.readFileSync(typographyPath, "utf-8")
+  );
+  const typographyTokens = flattenTokens(typographyRaw);
 
-    for (const [tokenPath, token] of typographyTokens) {
-      const varName = toCssVarName(tokenPath);
-      if (emittedVars.has(varName)) continue;
-      emittedVars.add(varName);
+  for (const [tokenPath, token] of typographyTokens) {
+    const varName = toCssVarName(tokenPath);
+    if (emittedVars.has(varName)) continue;
+    emittedVars.add(varName);
 
-      cssLines.push(`  ${varName}: ${token.$value};`);
+    const value = token.$value;
+
+    // Reject unresolved DTCG references
+    if (typeof value === "string" && value.startsWith("{")) {
+      unresolvedRefs.push(`${tokenPath}: ${value}`);
+      continue;
     }
+
+    // Validate expected token types
+    if (token.$type === "dimension" && typeof value !== "string") {
+      console.error(`Error: typography token "${tokenPath}" ($type "dimension") has non-string value: ${value}`);
+      process.exit(1);
+    }
+    if (token.$type === "number" && typeof value !== "number") {
+      console.error(`Error: typography token "${tokenPath}" ($type "number") has non-number value: ${value}`);
+      process.exit(1);
+    }
+
+    cssLines.push(`  ${varName}: ${value};`);
   }
 
   if (unresolvedRefs.length > 0) {
