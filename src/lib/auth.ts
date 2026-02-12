@@ -1,0 +1,195 @@
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+
+async function exchangeGoogleToken(idToken: string): Promise<{
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+  user: {
+    id: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    roles: string[];
+    status: string;
+    is_root: boolean;
+    avatar_url: string;
+  };
+} | null> {
+  const apiBaseUrl = process.env.API_BASE_URL;
+  if (!apiBaseUrl) {
+    console.error("API_BASE_URL is not configured");
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${apiBaseUrl}/auth/google/callback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: idToken }),
+      signal: AbortSignal.timeout(10_000),
+    });
+
+    if (!response.ok) {
+      console.error("Backend auth failed:", response.status);
+      return null;
+    }
+
+    const json = await response.json();
+    return json.data;
+  } catch {
+    console.error("Failed to exchange token with backend");
+    return null;
+  }
+}
+
+async function refreshBackendToken(refreshToken: string): Promise<{
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+} | null> {
+  const apiBaseUrl = process.env.API_BASE_URL;
+  if (!apiBaseUrl) return null;
+
+  try {
+    const response = await fetch(`${apiBaseUrl}/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refresh_token: refreshToken }),
+      signal: AbortSignal.timeout(10_000),
+    });
+
+    if (!response.ok) return null;
+
+    const json = await response.json();
+    return json.data;
+  } catch {
+    console.error("Backend token refresh failed");
+    return null;
+  }
+}
+
+// Deduplicate concurrent refresh requests per refresh token: if a refresh is
+// already in-flight for a given token, subsequent callers reuse the same promise
+// instead of issuing parallel refresh calls that can fail under strict rotation.
+const inflightRefreshes = new Map<string, Promise<{
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+} | null>>();
+
+async function deduplicatedRefresh(refreshToken: string) {
+  const existing = inflightRefreshes.get(refreshToken);
+  if (existing) return existing;
+  const promise = refreshBackendToken(refreshToken).finally(() => {
+    inflightRefreshes.delete(refreshToken);
+  });
+  inflightRefreshes.set(refreshToken, promise);
+  return promise;
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [
+    Google({
+      authorization: { params: { access_type: "offline", prompt: "consent" } },
+    }),
+  ],
+  session: { strategy: "jwt" },
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    async jwt({ token, account }) {
+      // First-time sign-in: exchange Google token with backend
+      if (account) {
+        const idToken = account.id_token;
+        if (idToken) {
+          const backendAuth = await exchangeGoogleToken(idToken);
+          if (backendAuth) {
+            token.backendAccessToken = backendAuth.access_token;
+            token.backendRefreshToken = backendAuth.refresh_token;
+            token.backendExpiresAt =
+              Math.floor(Date.now() / 1000) + backendAuth.expires_in;
+            token.backendUser = {
+              id: backendAuth.user.id,
+              email: backendAuth.user.email,
+              firstName: backendAuth.user.first_name,
+              lastName: backendAuth.user.last_name,
+              roles: backendAuth.user.roles,
+              status: backendAuth.user.status,
+              isRoot: backendAuth.user.is_root,
+              avatarUrl: backendAuth.user.avatar_url,
+            };
+            delete token.error;
+          } else {
+            // Backend auth failed — prevent creating a session without backend tokens
+            token.error = "BackendAuthError";
+          }
+        } else {
+          // Google sign-in did not return an id_token
+          token.error = "BackendAuthError";
+        }
+        return token;
+      }
+
+      // If the initial backend exchange failed, the session is permanently broken.
+      // Surface the error so the middleware redirects to login for a fresh attempt.
+      if (token.error === "BackendAuthError") {
+        return token;
+      }
+
+      // Subsequent requests: check if backend token needs refresh.
+      // Refresh 60 s before actual expiry to avoid using nearly-expired tokens.
+      const REFRESH_BUFFER_S = 60;
+      const nowSeconds = Math.floor(Date.now() / 1000);
+      if (
+        typeof token.backendExpiresAt === "number" &&
+        nowSeconds >= token.backendExpiresAt - REFRESH_BUFFER_S
+      ) {
+        const refreshToken = token.backendRefreshToken as string;
+        if (refreshToken) {
+          const refreshed = await deduplicatedRefresh(refreshToken);
+          if (refreshed) {
+            token.backendAccessToken = refreshed.access_token;
+            token.backendRefreshToken = refreshed.refresh_token;
+            token.backendExpiresAt = nowSeconds + refreshed.expires_in;
+            delete token.error;
+          } else {
+            // Clear the stale refresh token so we don't keep retrying with an
+            // invalid token on every subsequent request.
+            token.backendRefreshToken = undefined;
+            token.error = "RefreshTokenError";
+          }
+        }
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.error = token.error as string | undefined;
+
+      if (token.backendUser) {
+        const bu = token.backendUser as {
+          id: string;
+          email: string;
+          firstName: string;
+          lastName: string;
+          roles: string[];
+          status: string;
+          isRoot: boolean;
+          avatarUrl: string;
+        };
+        if (session.user) {
+          session.user.id = bu.id;
+          session.user.email = bu.email;
+          session.user.name = `${bu.firstName} ${bu.lastName}`;
+          session.user.image = bu.avatarUrl;
+        }
+        session.backendUser = bu;
+      }
+
+      return session;
+    },
+  },
+});
