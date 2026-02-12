@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -93,6 +94,49 @@ export interface ButtonProps
   ref?: React.Ref<HTMLButtonElement>;
 }
 
+// Event handler prop name pattern (matches onClick, onKeyDownCapture, etc.)
+const EVENT_HANDLER_RE = /^on[A-Z]/;
+
+/**
+ * When asChild + disabled, strip all event handler props from the slotted child
+ * so Radix Slot's mergeProps has nothing to merge for the child side.
+ *
+ * This avoids two problems with the previous native-capture-listener approach:
+ * 1. React 19 delegates capture listeners on the root and dispatches synthetic
+ *    capture handlers (onClickCapture, etc.) before native capture listeners
+ *    on the target node fire — so child handlers could still run.
+ * 2. Native listeners were tied to a useEffect dep array ([asChild, isDisabled])
+ *    and would go stale if the underlying DOM node changed without those deps
+ *    changing.
+ */
+function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
+  if (!React.isValidElement(children)) return children;
+  const cleaned: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(
+    children.props as Record<string, unknown>,
+  )) {
+    cleaned[key] = EVENT_HANDLER_RE.test(key) ? undefined : value;
+  }
+  return React.cloneElement(children, cleaned);
+}
+
+/**
+ * Prevent native activation (e.g. link navigation) when asChild + disabled.
+ * pointer-events-none blocks pointer input but not programmatic clicks,
+ * and aria-disabled does not prevent native behavior — so we need an
+ * explicit handler that calls preventDefault.
+ */
+function preventActivation(e: React.MouseEvent) {
+  e.preventDefault();
+}
+
+/** Block Enter/Space from activating native link navigation when disabled. */
+function preventKeyboardActivation(e: React.KeyboardEvent) {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+  }
+}
+
 function Button({
   className,
   variant,
@@ -105,11 +149,22 @@ function Button({
   children,
   type = "button",
   ref,
+  onClick,
+  onKeyDown,
+  onClickCapture,
+  onKeyDownCapture,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   const isDisabled = disabled || isLoading;
+
+  // When asChild + disabled, strip event handlers from the child element so
+  // Radix Slot's mergeProps cannot merge them (child-first) with slot props.
+  // This is done at the React level, which sidesteps both the React 19
+  // root-delegation ordering issue and the stale-ref problem entirely.
+  const resolvedChildren =
+    asChild && isDisabled ? stripChildEventHandlers(children) : children;
 
   return (
     <Comp
@@ -123,14 +178,18 @@ function Button({
       aria-disabled={isDisabled || undefined}
       aria-busy={isLoading || undefined}
       type={asChild ? undefined : type}
+      onClick={asChild && isDisabled ? preventActivation : onClick}
+      onKeyDown={asChild && isDisabled ? preventKeyboardActivation : onKeyDown}
+      onClickCapture={asChild && isDisabled ? undefined : onClickCapture}
+      onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
       {...props}
     >
       {isLoading && <Spinner />}
       {leadingIcon && !isLoading && (
         <span className="shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
       )}
-      <Slottable>{children}</Slottable>
-      {trailingIcon && (
+      <Slottable>{resolvedChildren}</Slottable>
+      {trailingIcon && !isLoading && (
         <span className="shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
       )}
     </Comp>
