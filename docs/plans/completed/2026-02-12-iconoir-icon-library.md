@@ -60,5 +60,5 @@ Integrate Iconoir as the main icon library with a reusable Icon wrapper componen
 
 ## Completion
 
-- [ ] Update `CLAUDE.md` if internal patterns changed (add note about icon usage convention)
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Update `CLAUDE.md` if internal patterns changed (add note about icon usage convention)
+- [x] Move this plan to `docs/plans/completed/`

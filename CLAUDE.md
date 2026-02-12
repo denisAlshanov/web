@@ -66,6 +66,7 @@ See [docs/component-creation-guide.md](docs/component-creation-guide.md) for the
 - **Structure**: `src/components/ui/` (primitives), `src/components/features/` (domain composites), `src/components/layout/` (app shell)
 - **Complex UI**: `@tanstack/react-table` for data tables, custom schedule/calendar components
 - **Dev environment**: Storybook for isolated component development and design review
+- **Icons**: Iconoir via `iconoir-react`; always use the `<Icon>` wrapper (`src/components/ui/icon.tsx`) instead of raw Iconoir components — it enforces design-token colors and consistent sizing
 - **Rule**: All colors, spacing, and radii must use `var(--token-name)` from `src/styles/tokens.css` — never hardcode values
 
 ## Conventions
