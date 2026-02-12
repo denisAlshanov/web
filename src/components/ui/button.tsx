@@ -111,15 +111,15 @@ const EVENT_HANDLER_RE = /^on[A-Z]/;
  */
 function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
   if (!React.isValidElement(children)) return children;
-  const cleaned: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(
+  const overrides: Record<string, unknown> = {};
+  for (const key of Object.keys(
     children.props as Record<string, unknown>,
   )) {
-    if (!EVENT_HANDLER_RE.test(key)) {
-      cleaned[key] = value;
+    if (EVENT_HANDLER_RE.test(key)) {
+      overrides[key] = undefined;
     }
   }
-  return React.cloneElement(children, cleaned);
+  return React.cloneElement(children, overrides);
 }
 
 /**
@@ -130,12 +130,14 @@ function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
  */
 function preventActivation(e: React.MouseEvent) {
   e.preventDefault();
+  e.stopPropagation();
 }
 
 /** Block Enter/Space from activating native link navigation when disabled. */
 function preventKeyboardActivation(e: React.KeyboardEvent) {
   if (e.key === "Enter" || e.key === " ") {
     e.preventDefault();
+    e.stopPropagation();
   }
 }
 
