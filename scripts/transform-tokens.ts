@@ -283,6 +283,10 @@ function main() {
       console.error(`Error: typography token "${tokenPath}" ($type "number") has non-number value: ${value}`);
       process.exit(1);
     }
+    if (token.$type === "string" && typeof value !== "string") {
+      console.error(`Error: typography token "${tokenPath}" ($type "string") has non-string value: ${value}`);
+      process.exit(1);
+    }
 
     cssLines.push(`  ${varName}: ${value};`);
   }
