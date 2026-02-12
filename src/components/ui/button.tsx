@@ -111,15 +111,12 @@ const EVENT_HANDLER_RE = /^on[A-Z]/;
  */
 function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
   if (!React.isValidElement(children)) return children;
-  const overrides: Record<string, unknown> = {};
-  for (const key of Object.keys(
-    children.props as Record<string, unknown>,
-  )) {
-    if (EVENT_HANDLER_RE.test(key)) {
-      overrides[key] = undefined;
-    }
-  }
-  return React.cloneElement(children, overrides);
+  const cleanProps = Object.fromEntries(
+    Object.entries(children.props as Record<string, unknown>).filter(
+      ([key]) => !EVENT_HANDLER_RE.test(key),
+    ),
+  );
+  return React.cloneElement(children, cleanProps);
 }
 
 /**
@@ -184,7 +181,7 @@ function Button({
       {...restProps}
       className={cn(
         buttonVariants({ variant, size }),
-        isLoading && !disabled && "!opacity-80 pointer-events-none",
+        isLoading && !disabled && "opacity-80 pointer-events-none",
         isLoading && disabled && "pointer-events-none",
         className,
       )}
