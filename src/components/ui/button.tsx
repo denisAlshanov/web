@@ -12,7 +12,7 @@ const buttonVariants = cva(
     "gap-[var(--number-spacing-gap-gap-s)]",
     "rounded-[var(--number-radius-rad-button)]",
     "transition-colors cursor-pointer",
-    // Focus ring: 4px outline matching Figma (outline avoids layout shift and border conflicts)
+    // Focus ring: 4px ring (box-shadow) matching Figma — avoids layout shift and border conflicts
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--colour-interface-button-border-focus-default)]",
     // Disabled state applied via className (not :disabled pseudo) so it works with asChild + anchors
     "aria-disabled:opacity-50 aria-disabled:pointer-events-none",
@@ -128,12 +128,14 @@ function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
  */
 function preventActivation(e: React.MouseEvent) {
   e.preventDefault();
+  e.stopPropagation();
 }
 
 /** Block Enter/Space from activating native link navigation when disabled. */
 function preventKeyboardActivation(e: React.KeyboardEvent) {
   if (e.key === "Enter" || e.key === " ") {
     e.preventDefault();
+    e.stopPropagation();
   }
 }
 
@@ -166,8 +168,18 @@ function Button({
   const resolvedChildren =
     asChild && isDisabled ? stripChildEventHandlers(children) : children;
 
+  // When asChild + disabled, filter out all event handlers from rest props so
+  // handlers like onMouseDown, onFocus, etc. don't leak through to the child.
+  const restProps =
+    asChild && isDisabled
+      ? Object.fromEntries(
+          Object.entries(props).filter(([k]) => !EVENT_HANDLER_RE.test(k)),
+        )
+      : props;
+
   return (
     <Comp
+      {...restProps}
       className={cn(
         buttonVariants({ variant, size }),
         isLoading && "!opacity-80 pointer-events-none",
@@ -182,7 +194,6 @@ function Button({
       onKeyDown={asChild && isDisabled ? preventKeyboardActivation : onKeyDown}
       onClickCapture={asChild && isDisabled ? undefined : onClickCapture}
       onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
-      {...props}
     >
       {isLoading && <Spinner />}
       {leadingIcon && !isLoading && (
@@ -203,7 +214,7 @@ function Spinner() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      aria-hidden
+      aria-hidden="true"
     >
       <circle
         className="opacity-25"
