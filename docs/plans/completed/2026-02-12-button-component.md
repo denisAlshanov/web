@@ -75,15 +75,15 @@ Create a Button component following the Figma design system with 8 variants, 3 s
 
 ## Acceptance criteria
 
-- [ ] Button renders with all 8 Figma variants
-- [ ] All 3 sizes match Figma specifications
-- [ ] Focus ring matches Figma (4px border, --colour-interface-button-border-focus-default)
-- [ ] Loading and disabled states work correctly
-- [ ] Leading/trailing icon slots work
-- [ ] asChild pattern works (for wrapping Next.js Link)
-- [ ] Storybook stories cover all variants and states
-- [ ] Lint and build pass
+- [x] Button renders with all 8 Figma variants
+- [x] All 3 sizes match Figma specifications
+- [x] Focus ring matches Figma (4px border, --colour-interface-button-border-focus-default)
+- [x] Loading and disabled states work correctly
+- [x] Leading/trailing icon slots work
+- [x] asChild pattern works (for wrapping Next.js Link)
+- [x] Storybook stories cover all variants and states
+- [x] Lint and build pass
 
 ## Cleanup
 
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Move this plan to `docs/plans/completed/`
