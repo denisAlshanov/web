@@ -73,9 +73,9 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 - Create: src/middleware.ts
 - Create: src/app/login/page.tsx
 
-- [ ] Create src/middleware.ts using NextAuth middleware to protect routes
-- [ ] Configure matcher to protect all routes except: /api/auth/*, /login, /_next/*, /favicon.ico, static assets
-- [ ] Create a minimal src/app/login/page.tsx with Google sign-in button using next-auth/react signIn()
+- [x] Create src/middleware.ts using NextAuth middleware to protect routes
+- [x] Configure matcher to protect all routes except: /api/auth/*, /login, /_next/*, /favicon.ico, static assets
+- [x] Create a minimal src/app/login/page.tsx with Google sign-in button using next-auth/react signIn()
 
 ## Task 5: Transform Figma design tokens to CSS custom properties
 
