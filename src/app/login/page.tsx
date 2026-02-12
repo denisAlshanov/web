@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 function getSafeCallbackUrl(raw: string | null): string {
-  if (raw && raw.startsWith("/") && !raw.startsWith("//")) {
+  if (raw && raw.startsWith("/") && !raw.startsWith("//") && !raw.startsWith("/api/")) {
     return raw;
   }
   return "/";
@@ -62,7 +62,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><p>Loading...</p></div>}>
       <LoginForm />
     </Suspense>
   );

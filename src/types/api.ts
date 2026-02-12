@@ -14,8 +14,8 @@ export interface UserResponse {
   email: string;
   first_name: string;
   last_name: string;
-  roles: string[];
-  status: string;
+  roles: SystemRole[];
+  status: UserStatus;
   is_root: boolean;
   avatar_type: string;
   avatar_url: string;
@@ -44,7 +44,7 @@ export interface AssignmentResponse {
   id: string;
   episode_id: string;
   user_id: string;
-  role: string;
+  role: EpisodeRole;
   is_auto: boolean;
   assigned_at: string;
 }
@@ -54,7 +54,7 @@ export interface EpisodeResponse {
   show_id: string;
   schedule_id: string;
   title: string;
-  status: string;
+  status: EpisodeStatus;
   scheduled_at: string;
   ends_at: string;
   duration: string;
@@ -67,7 +67,7 @@ export interface EpisodeResponse {
 export interface DefaultTeamMemberResponse {
   id: string;
   user_id: string;
-  role: string;
+  role: EpisodeRole;
 }
 
 export interface ScheduleResponse {
@@ -85,7 +85,7 @@ export interface ScheduleResponse {
 export interface ShowResponse {
   id: string;
   name: string;
-  status: string;
+  status: ShowStatus;
   avatar_type: string;
   avatar_url: string;
   default_team: DefaultTeamMemberResponse[];
@@ -147,7 +147,7 @@ export interface CreateUserRequest {
   email: string;
   first_name: string;
   last_name: string;
-  roles: string[];
+  roles: SystemRole[];
 }
 
 export interface UpdateUserRequest {
@@ -157,7 +157,7 @@ export interface UpdateUserRequest {
 }
 
 export interface SetRolesRequest {
-  roles: string[];
+  roles: SystemRole[];
 }
 
 export interface BlockUserRequest {

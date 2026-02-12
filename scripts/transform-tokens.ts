@@ -191,6 +191,7 @@ function main() {
   // These are already defined under the "colour.*" namespace in the Light Mode file itself.
 
   const cssLines: string[] = [];
+  const emittedVars = new Set<string>();
   const unresolvedRefs: string[] = [];
 
   // Process Light Mode colour tokens (interface tokens = the semantic layer)
@@ -217,13 +218,18 @@ function main() {
       continue;
     }
 
-    cssLines.push(`  ${varName}: ${cssValue};`);
+    if (!emittedVars.has(varName)) {
+      emittedVars.add(varName);
+      cssLines.push(`  ${varName}: ${cssValue};`);
+    }
   }
 
   // Also output primitive colour tokens for direct use
   for (const [tokenPath, token] of primitiveTokens) {
     if (token.$type !== "color") continue;
     const varName = toCssVarName(tokenPath);
+    if (emittedVars.has(varName)) continue;
+    emittedVars.add(varName);
     const cssValue = colorToCss(token.$value as DtcgColorValue);
     cssLines.push(`  ${varName}: ${cssValue};`);
   }
@@ -232,6 +238,8 @@ function main() {
   for (const [tokenPath, token] of lightModeTokens) {
     if (token.$type !== "number") continue;
     const varName = toCssVarName(tokenPath);
+    if (emittedVars.has(varName)) continue;
+    emittedVars.add(varName);
     const value = token.$value as number;
     cssLines.push(`  ${varName}: ${value}px;`);
   }
@@ -240,6 +248,8 @@ function main() {
   for (const [tokenPath, token] of primitiveTokens) {
     if (token.$type !== "number") continue;
     const varName = toCssVarName(tokenPath);
+    if (emittedVars.has(varName)) continue;
+    emittedVars.add(varName);
     const value = token.$value as number;
     cssLines.push(`  ${varName}: ${value}px;`);
   }
