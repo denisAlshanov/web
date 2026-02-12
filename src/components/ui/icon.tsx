@@ -1,3 +1,5 @@
+"use client";
+
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentType, Ref, SVGProps } from "react";
 
@@ -57,6 +59,7 @@ export function Icon({
 
   return (
     <IconComponent
+      aria-hidden
       {...props}
       ref={ref}
       width={resolvedSize}
