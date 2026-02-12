@@ -42,5 +42,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# storybook
+storybook-static
+
 # ralphex progress logs
 progress*.txt

@@ -64,9 +64,9 @@ Create a Button component following the Figma design system with 8 variants, 3 s
 - Create: `.storybook/preview.ts`
 - Create: `src/components/ui/button.stories.tsx`
 
-- [ ] Install Storybook dev dependencies (`npx storybook@latest init --skip-install`, then install)
-- [ ] Create story file with stories for: Default, all 8 variants, all 3 sizes, Disabled, Loading, WithLeadingIcon, WithTrailingIcon, WithBothIcons, StateGrid (all variants in a grid)
-- [ ] Verify Storybook runs with `npm run storybook`
+- [x] Install Storybook dev dependencies (`npx storybook@latest init --skip-install`, then install)
+- [x] Create story file with stories for: Default, all 8 variants, all 3 sizes, Disabled, Loading, WithLeadingIcon, WithTrailingIcon, WithBothIcons, StateGrid (all variants in a grid)
+- [x] Verify Storybook runs with `npm run storybook`
 
 ### Task 4: Verify build and lint
 
