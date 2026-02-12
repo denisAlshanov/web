@@ -103,6 +103,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             // Backend auth failed — prevent creating a session without backend tokens
             token.error = "BackendAuthError";
           }
+        } else {
+          // Google sign-in did not return an id_token
+          token.error = "BackendAuthError";
         }
         return token;
       }
