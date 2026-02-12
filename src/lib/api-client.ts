@@ -429,7 +429,7 @@ export class ApiClient {
  */
 export async function getServerApiClient(): Promise<ApiClient> {
   // Import the decode helper lazily to avoid circular dependency issues.
-  const { encode, decode } = await import("next-auth/jwt");
+  const { decode } = await import("next-auth/jwt");
 
   // next-auth stores the JWT in a cookie named after the NEXTAUTH_URL host.
   // On the server side we can read the token directly from the cookie jar.
@@ -462,19 +462,12 @@ export async function getServerApiClient(): Promise<ApiClient> {
 
   const refreshToken = token?.backendRefreshToken as string | undefined;
 
+  // Note: we intentionally omit onTokenRefreshed here. In Server Components,
+  // cookies().set() throws because cookies are read-only during rendering.
+  // Token refresh is handled by the NextAuth JWT callback on subsequent requests.
   return new ApiClient({
     baseUrl,
     accessToken,
     refreshToken,
-    onTokenRefreshed: async (tokens) => {
-      // Update the JWT cookie with the new tokens so subsequent requests
-      // within the same server-side rendering pass use fresh credentials.
-      token!.backendAccessToken = tokens.access_token;
-      token!.backendRefreshToken = tokens.refresh_token;
-      token!.backendExpiresAt =
-        Math.floor(Date.now() / 1000) + tokens.expires_in;
-      const newJwt = await encode({ token, secret, salt: cookieName });
-      cookieStore.set(cookieName, newJwt);
-    },
   });
 }

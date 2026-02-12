@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -14,11 +14,23 @@ function getSafeCallbackUrl(raw: string | null): string {
 function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = getSafeCallbackUrl(searchParams.get("callbackUrl"));
+  const error = searchParams.get("error");
 
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-sm space-y-6 p-8">
         <h1 className="text-center text-2xl font-bold">Sign in</h1>
+        {error && (
+          <div className="rounded-md bg-red-50 p-3 text-center text-sm text-red-700">
+            <p>Sign-in failed. Please try again.</p>
+            <button
+              onClick={() => signOut({ callbackUrl: "/login" })}
+              className="mt-2 text-xs underline"
+            >
+              Clear session and retry
+            </button>
+          </div>
+        )}
         <button
           onClick={() => signIn("google", { callbackUrl })}
           className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"

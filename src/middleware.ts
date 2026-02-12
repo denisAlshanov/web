@@ -15,6 +15,9 @@ export default auth((req) => {
     if (callback.startsWith("/") && !callback.startsWith("//")) {
       loginUrl.searchParams.set("callbackUrl", callback);
     }
+    if (req.auth?.error) {
+      loginUrl.searchParams.set("error", req.auth.error);
+    }
     return Response.redirect(loginUrl);
   }
 });
