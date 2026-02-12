@@ -64,7 +64,7 @@ The `tokens:build` script reads `tokens/primitives.tokens.json`, `tokens/light-m
 - Text SemiBold: `text-semibold-l`, `text-semibold-m`, `text-semibold-s`, `text-semibold-xs`
 - Text Medium: `text-medium-l`, `text-medium-m`, `text-medium-s`, `text-medium-xs`
 
-Each utility applies font-size, line-height, font-weight, and letter-spacing from CSS custom properties in `src/styles/tokens.css`. The eyebrow style also includes `text-transform: uppercase`. Use these utilities instead of manual font-size/weight combinations.
+Each utility applies font-size, line-height, and font-weight from CSS custom properties in `src/styles/tokens.css`. The eyebrow style also includes `text-transform: uppercase`. Use these utilities instead of manual font-size/weight combinations.
 
 ### Components
 

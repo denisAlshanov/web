@@ -267,13 +267,7 @@ function main() {
       if (emittedVars.has(varName)) continue;
       emittedVars.add(varName);
 
-      if (token.$type === "dimension") {
-        cssLines.push(`  ${varName}: ${token.$value};`);
-      } else if (token.$type === "number") {
-        cssLines.push(`  ${varName}: ${token.$value};`);
-      } else if (token.$type === "string") {
-        cssLines.push(`  ${varName}: ${token.$value};`);
-      }
+      cssLines.push(`  ${varName}: ${token.$value};`);
     }
   }
 
