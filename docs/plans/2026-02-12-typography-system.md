@@ -52,11 +52,11 @@ Implement the complete typography system from the Figma design system. This invo
 - Modify: `src/app/layout.tsx`
 - Modify: `src/app/globals.css`
 
-- [ ] In `src/app/layout.tsx`: replace `Geist` and `Geist_Mono` imports with `Plus_Jakarta_Sans` from `next/font/google`
-- [ ] Configure Plus Jakarta Sans with weights `[500, 600, 700]`, subsets `['latin']`, and CSS variable `--font-plus-jakarta`
-- [ ] Update body `className` to use the new font variable
-- [ ] In `src/app/globals.css`: update `--font-sans` to reference `--font-plus-jakarta`, update body `font-family`
-- [ ] Run `npm run dev` to verify font loads correctly in the browser
+- [x] In `src/app/layout.tsx`: replace `Geist` and `Geist_Mono` imports with `Plus_Jakarta_Sans` from `next/font/google`
+- [x] Configure Plus Jakarta Sans with weights `[500, 600, 700]`, subsets `['latin']`, and CSS variable `--font-plus-jakarta`
+- [x] Update body `className` to use the new font variable
+- [x] In `src/app/globals.css`: update `--font-sans` to reference `--font-plus-jakarta`, update body `font-family`
+- [x] Run `npm run dev` to verify font loads correctly in the browser
 
 ### Task 2: Add typography tokens to the design token pipeline
 
