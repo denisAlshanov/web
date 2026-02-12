@@ -74,10 +74,10 @@ Implement the complete typography system from the Figma design system. This invo
 **Files:**
 - Modify: `src/app/globals.css`
 
-- [ ] Add `@utility` rules in `src/app/globals.css` for each text style that compose the typography CSS custom properties (e.g. `.text-heading-xl` applies font-size, line-height, font-weight, letter-spacing from the corresponding tokens)
-- [ ] Include the eyebrow's `text-transform: uppercase` in its utility class
-- [ ] Run `npm run dev` and verify utility classes work by inspecting elements in browser devtools
-- [ ] Run `npm run build` to confirm no build errors
+- [x] Add `@utility` rules in `src/app/globals.css` for each text style that compose the typography CSS custom properties (e.g. `.text-heading-xl` applies font-size, line-height, font-weight, letter-spacing from the corresponding tokens)
+- [x] Include the eyebrow's `text-transform: uppercase` in its utility class
+- [x] Run `npm run dev` and verify utility classes work by inspecting elements in browser devtools
+- [x] Run `npm run build` to confirm no build errors
 
 ## Verification
 
