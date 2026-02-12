@@ -4,7 +4,11 @@ export default auth((req) => {
   const isLoginPage = req.nextUrl.pathname === "/login";
   if ((!req.auth || req.auth.error) && !isLoginPage) {
     const loginUrl = new URL("/login", req.nextUrl.origin);
-    loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname + req.nextUrl.search);
+    const callback = req.nextUrl.pathname + req.nextUrl.search;
+    // Only set callbackUrl for safe, same-origin relative paths
+    if (callback.startsWith("/") && !callback.startsWith("//")) {
+      loginUrl.searchParams.set("callbackUrl", callback);
+    }
     return Response.redirect(loginUrl);
   }
 });

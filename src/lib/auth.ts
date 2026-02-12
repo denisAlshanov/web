@@ -29,11 +29,8 @@ async function exchangeGoogleToken(idToken: string): Promise<{
     );
 
     if (!response.ok) {
-      console.error(
-        "Backend auth failed:",
-        response.status,
-        await response.text()
-      );
+      const body = await response.text();
+      console.error("Backend auth failed:", response.status, body.slice(0, 200));
       return null;
     }
 
@@ -110,10 +107,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
       }
 
-      // Subsequent requests: check if backend token needs refresh
+      // Subsequent requests: check if backend token needs refresh.
+      // Refresh 60 s before actual expiry to avoid using nearly-expired tokens.
+      const REFRESH_BUFFER_S = 60;
       if (
         token.backendExpiresAt &&
-        Date.now() >= (token.backendExpiresAt as number) * 1000
+        Date.now() >= ((token.backendExpiresAt as number) - REFRESH_BUFFER_S) * 1000
       ) {
         const refreshToken = token.backendRefreshToken as string;
         if (refreshToken) {
