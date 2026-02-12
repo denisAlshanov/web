@@ -1,6 +1,6 @@
 "use client";
 
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
@@ -90,6 +90,7 @@ export interface ButtonProps
   leadingIcon?: React.ReactNode;
   trailingIcon?: React.ReactNode;
   isLoading?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 function Button({
@@ -103,6 +104,7 @@ function Button({
   disabled,
   children,
   type = "button",
+  ref,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
@@ -116,6 +118,7 @@ function Button({
         isLoading && "!opacity-80 pointer-events-none",
         className,
       )}
+      ref={ref}
       disabled={!asChild ? isDisabled : undefined}
       aria-disabled={isDisabled || undefined}
       aria-busy={isLoading || undefined}
@@ -126,7 +129,7 @@ function Button({
       {leadingIcon && !isLoading && (
         <span className="shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
       )}
-      {children}
+      <Slottable>{children}</Slottable>
       {trailingIcon && (
         <span className="shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
       )}
