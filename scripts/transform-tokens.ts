@@ -254,6 +254,29 @@ function main() {
     cssLines.push(`  ${varName}: ${value}px;`);
   }
 
+  // Process typography tokens
+  const typographyPath = path.join(tokensDir, "typography.tokens.json");
+  if (fs.existsSync(typographyPath)) {
+    const typographyRaw = JSON.parse(
+      fs.readFileSync(typographyPath, "utf-8")
+    );
+    const typographyTokens = flattenTokens(typographyRaw);
+
+    for (const [tokenPath, token] of typographyTokens) {
+      const varName = toCssVarName(tokenPath);
+      if (emittedVars.has(varName)) continue;
+      emittedVars.add(varName);
+
+      if (token.$type === "dimension") {
+        cssLines.push(`  ${varName}: ${token.$value};`);
+      } else if (token.$type === "number") {
+        cssLines.push(`  ${varName}: ${token.$value};`);
+      } else if (token.$type === "string") {
+        cssLines.push(`  ${varName}: ${token.$value};`);
+      }
+    }
+  }
+
   if (unresolvedRefs.length > 0) {
     console.error("Error: unresolved token references:");
     for (const ref of unresolvedRefs) {

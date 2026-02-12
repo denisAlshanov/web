@@ -64,10 +64,10 @@ Implement the complete typography system from the Figma design system. This invo
 - Create: `tokens/typography.tokens.json`
 - Modify: `scripts/transform-tokens.ts`
 
-- [ ] Create `tokens/typography.tokens.json` with all 14 text styles in DTCG format, storing font-size, line-height, font-weight, letter-spacing, and text-transform per style
-- [ ] Modify `scripts/transform-tokens.ts` to read `typography.tokens.json` and emit CSS custom properties for each style (e.g. `--typography-heading-xl-font-size: 52px`, `--typography-heading-xl-line-height: 64px`, etc.)
-- [ ] Run `npm run tokens:build` to regenerate `src/styles/tokens.css` with typography variables included
-- [ ] Verify the generated CSS contains all expected typography custom properties
+- [x] Create `tokens/typography.tokens.json` with all 14 text styles in DTCG format, storing font-size, line-height, font-weight, letter-spacing, and text-transform per style
+- [x] Modify `scripts/transform-tokens.ts` to read `typography.tokens.json` and emit CSS custom properties for each style (e.g. `--typography-heading-xl-font-size: 52px`, `--typography-heading-xl-line-height: 64px`, etc.)
+- [x] Run `npm run tokens:build` to regenerate `src/styles/tokens.css` with typography variables included
+- [x] Verify the generated CSS contains all expected typography custom properties
 
 ### Task 3: Create Tailwind typography utility classes
 
