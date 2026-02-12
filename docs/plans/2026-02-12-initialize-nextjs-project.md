@@ -98,10 +98,10 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 **Files:**
 - Modify: package.json (scripts)
 
-- [ ] Run `npm run build` and fix any TypeScript errors
-- [ ] Run `npm run lint` and fix any lint errors
-- [ ] Verify dev server starts and login page renders
-- [ ] Ensure all created files follow Next.js App Router conventions
+- [x] Run `npm run build` and fix any TypeScript errors
+- [x] Run `npm run lint` and fix any lint errors
+- [x] Verify dev server starts and login page renders
+- [x] Ensure all created files follow Next.js App Router conventions
 
 ---
 
