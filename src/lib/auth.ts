@@ -102,11 +102,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               isRoot: backendAuth.user.is_root,
               avatarUrl: backendAuth.user.avatar_url,
             };
+          } else {
+            // Backend auth failed — prevent creating a session without backend tokens
+            token.error = "BackendAuthError";
           }
         }
-        // Preserve Google tokens as fallback
-        token.googleAccessToken = account.access_token;
-        token.googleRefreshToken = account.refresh_token;
         return token;
       }
 
@@ -134,6 +134,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async session({ session, token }) {
       session.backendAccessToken = token.backendAccessToken as string;
+      session.backendRefreshToken = token.backendRefreshToken as string;
       session.error = token.error as string | undefined;
 
       if (token.backendUser) {

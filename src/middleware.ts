@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 export default auth((req) => {
   if (!req.auth && req.nextUrl.pathname !== "/login") {
     const loginUrl = new URL("/login", req.nextUrl.origin);
-    loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname);
+    loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname + req.nextUrl.search);
     return Response.redirect(loginUrl);
   }
 });

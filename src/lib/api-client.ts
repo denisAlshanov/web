@@ -53,6 +53,7 @@ export class ApiClient {
   private accessToken: string;
   private refreshToken: string | undefined;
   private onTokenRefreshed: ((tokens: AuthTokens) => void) | undefined;
+  private refreshPromise: Promise<boolean> | null = null;
 
   constructor(opts: {
     baseUrl: string;
@@ -102,9 +103,9 @@ export class ApiClient {
 
     const res = await fetch(url, { ...init, headers });
 
-    // 401 → try refresh once
+    // 401 → try refresh once (deduplicated across concurrent requests)
     if (res.status === 401 && this.refreshToken) {
-      const refreshed = await this.tryRefresh();
+      const refreshed = await this.tryRefreshOnce();
       if (refreshed) {
         headers.Authorization = `Bearer ${this.accessToken}`;
         const retry = await fetch(url, { ...init, headers });
@@ -147,6 +148,15 @@ export class ApiClient {
       console.error("Token refresh failed:", error);
       return false;
     }
+  }
+
+  private async tryRefreshOnce(): Promise<boolean> {
+    if (!this.refreshPromise) {
+      this.refreshPromise = this.tryRefresh().finally(() => {
+        this.refreshPromise = null;
+      });
+    }
+    return this.refreshPromise;
   }
 
   private get<T>(path: string, params?: Record<string, unknown>) {
@@ -416,5 +426,6 @@ export async function getServerApiClient(): Promise<ApiClient> {
   return new ApiClient({
     baseUrl,
     accessToken: session.backendAccessToken,
+    refreshToken: session.backendRefreshToken,
   });
 }

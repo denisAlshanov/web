@@ -15,6 +15,7 @@ interface BackendUser {
 declare module "next-auth" {
   interface Session {
     backendAccessToken?: string;
+    backendRefreshToken?: string;
     backendUser?: BackendUser;
     error?: string;
   }
@@ -26,8 +27,6 @@ declare module "next-auth/jwt" {
     backendRefreshToken?: string;
     backendExpiresAt?: number;
     backendUser?: BackendUser;
-    googleAccessToken?: string;
-    googleRefreshToken?: string;
     error?: string;
   }
 }
