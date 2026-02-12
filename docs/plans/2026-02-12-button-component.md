@@ -49,13 +49,13 @@ Create a Button component following the Figma design system with 8 variants, 3 s
 **Files:**
 - Create: `src/components/ui/button.tsx`
 
-- [ ] Define CVA variants with all 8 style variants (primary, secondary, tertiary, destructive, error, info, success, warning)
-- [ ] Define 3 size variants (sm, md, lg) with exact Figma padding/height/typography
-- [ ] Implement states: hover, active (CSS pseudo-classes), focus-visible (4px ring with --colour-interface-button-border-focus-default), disabled (opacity-50, pointer-events-none), loading (opacity-80, pointer-events-none)
-- [ ] Support `asChild` via @radix-ui/react-slot
-- [ ] Support optional `leadingIcon` and `trailingIcon` props (React.ReactNode)
-- [ ] Support `isLoading` prop with spinner indicator
-- [ ] Export both `Button` component and `buttonVariants`
+- [x] Define CVA variants with all 8 style variants (primary, secondary, tertiary, destructive, error, info, success, warning)
+- [x] Define 3 size variants (sm, md, lg) with exact Figma padding/height/typography
+- [x] Implement states: hover, active (CSS pseudo-classes), focus-visible (4px ring with --colour-interface-button-border-focus-default), disabled (opacity-50, pointer-events-none), loading (opacity-80, pointer-events-none)
+- [x] Support `asChild` via @radix-ui/react-slot
+- [x] Support optional `leadingIcon` and `trailingIcon` props (React.ReactNode)
+- [x] Support `isLoading` prop with spinner indicator
+- [x] Export both `Button` component and `buttonVariants`
 
 ### Task 3: Set up Storybook and create Button stories
 
