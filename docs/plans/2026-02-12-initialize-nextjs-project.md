@@ -48,13 +48,13 @@ Initialize Next.js (App Router) project with TypeScript, NextAuth Google OAuth, 
 - Create: src/app/api/auth/[...nextauth]/route.ts
 - Create: src/types/next-auth.d.ts
 
-- [ ] Install next-auth v5 (beta): `npm install next-auth@beta`
-- [ ] Create src/lib/auth.ts with NextAuth config: Google provider, JWT strategy, callbacks to store Google id_token in the session
-- [ ] In the NextAuth jwt callback: after Google sign-in, call backend /auth/google/callback (passing Google auth code or token) to obtain backend access_token + refresh_token, store them in the JWT
-- [ ] In the NextAuth session callback: expose backend access_token and user info to the client session
-- [ ] Create src/types/next-auth.d.ts to augment Session and JWT types with backendAccessToken, backendRefreshToken, user fields
-- [ ] Create the App Router catch-all route handler at src/app/api/auth/[...nextauth]/route.ts
-- [ ] Test: Google sign-in flow works end-to-end (manual test with env vars set)
+- [x] Install next-auth v5 (beta): `npm install next-auth@beta`
+- [x] Create src/lib/auth.ts with NextAuth config: Google provider, JWT strategy, callbacks to store Google id_token in the session
+- [x] In the NextAuth jwt callback: after Google sign-in, call backend /auth/google/callback (passing Google auth code or token) to obtain backend access_token + refresh_token, store them in the JWT
+- [x] In the NextAuth session callback: expose backend access_token and user info to the client session
+- [x] Create src/types/next-auth.d.ts to augment Session and JWT types with backendAccessToken, backendRefreshToken, user fields
+- [x] Create the App Router catch-all route handler at src/app/api/auth/[...nextauth]/route.ts
+- [x] Test: Google sign-in flow works end-to-end (manual test with env vars set)
 
 ## Task 3: Create typed API client
 
