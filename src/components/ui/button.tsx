@@ -160,11 +160,11 @@ function Button({
     >
       {isLoading && <Spinner />}
       {leadingIcon && !isLoading && (
-        <span className="shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
+        <span className="inline-flex items-center justify-center shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
       )}
       <Slottable>{resolvedChildren}</Slottable>
       {trailingIcon && !isLoading && (
-        <span className="shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
+        <span className="inline-flex items-center justify-center shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
       )}
     </Comp>
   );

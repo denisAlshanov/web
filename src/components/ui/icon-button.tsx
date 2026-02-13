@@ -87,6 +87,17 @@ const iconButtonLoadingBg: Record<IconButtonVariant, string> = {
     "bg-[var(--colour-interface-button-background-destructive-active)]",
 };
 
+type IconButtonSize = NonNullable<
+  VariantProps<typeof iconButtonVariants>["size"]
+>;
+
+const iconSizeClass: Record<IconButtonSize, string> = {
+  xs: "size-[22px]",
+  sm: "size-6",
+  md: "size-8",
+  lg: "size-9",
+};
+
 export interface IconButtonProps
   extends Omit<
       React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -156,7 +167,7 @@ function IconButton({
       {isLoading ? (
         <Spinner />
       ) : (
-        <span className="shrink-0 size-6" aria-hidden="true">
+        <span className={cn("inline-flex items-center justify-center shrink-0 aspect-square [&>svg]:size-full", iconSizeClass[size ?? "md"])} aria-hidden="true">
           {icon}
         </span>
       )}
