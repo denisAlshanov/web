@@ -78,4 +78,4 @@ Implement the IconButton component from Figma (node 2023-13910). This is a circu
 
 ## Cleanup
 
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Move this plan to `docs/plans/completed/`
