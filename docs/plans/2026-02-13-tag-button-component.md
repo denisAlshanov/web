@@ -58,8 +58,8 @@ The TagButton is a minimal inline action button (24x24px) used for actions like 
 
 ### Task 3: Verify
 
-- [ ] Run `npm run lint` and fix any issues
-- [ ] Visually verify in Storybook that all states match the Figma design
+- [x] Run `npm run lint` and fix any issues
+- [x] Visually verify in Storybook that all states match the Figma design
 
 ## Post-Implementation
 
