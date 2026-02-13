@@ -2,6 +2,8 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Xmark, Plus, EditPencil, Trash, Check } from "iconoir-react";
 
+import { Icon } from "@/components/ui/icon";
+
 import { TagButton } from "./tag-button";
 
 const meta = {
@@ -17,7 +19,7 @@ const meta = {
     disabled: { control: "boolean" },
   },
   args: {
-    icon: <Xmark />,
+    icon: <Icon icon={Xmark} color="default" />,
     "aria-label": "Remove",
   },
 } satisfies Meta<typeof TagButton>;
@@ -34,7 +36,7 @@ export const Default: Story = {};
 export const DefaultVariant: Story = {
   args: {
     variant: "default",
-    icon: <Xmark />,
+    icon: <Icon icon={Xmark} color="default" />,
     "aria-label": "Remove",
   },
 };
@@ -42,7 +44,7 @@ export const DefaultVariant: Story = {
 export const Destructive: Story = {
   args: {
     variant: "destructive",
-    icon: <Trash />,
+    icon: <Icon icon={Trash} color="danger" />,
     "aria-label": "Delete",
   },
 };
@@ -61,7 +63,7 @@ export const DestructiveDisabled: Story = {
   args: {
     variant: "destructive",
     disabled: true,
-    icon: <Trash />,
+    icon: <Icon icon={Trash} color="danger" />,
     "aria-label": "Delete (disabled)",
   },
 };
@@ -70,7 +72,7 @@ export const DestructiveLoading: Story = {
   args: {
     variant: "destructive",
     isLoading: true,
-    icon: <Trash />,
+    icon: <Icon icon={Trash} color="danger" />,
     "aria-label": "Delete (loading)",
   },
 };
@@ -80,11 +82,11 @@ export const DestructiveLoading: Story = {
 export const WithDifferentIcons: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-      <TagButton icon={<Xmark />} aria-label="Remove" />
-      <TagButton icon={<Plus />} aria-label="Add" />
-      <TagButton icon={<EditPencil />} aria-label="Edit" />
-      <TagButton icon={<Trash />} aria-label="Delete" variant="destructive" />
-      <TagButton icon={<Check />} aria-label="Confirm" />
+      <TagButton icon={<Icon icon={Xmark} color="default" />} aria-label="Remove" />
+      <TagButton icon={<Icon icon={Plus} color="default" />} aria-label="Add" />
+      <TagButton icon={<Icon icon={EditPencil} color="default" />} aria-label="Edit" />
+      <TagButton icon={<Icon icon={Trash} color="danger" />} aria-label="Delete" variant="destructive" />
+      <TagButton icon={<Icon icon={Check} color="default" />} aria-label="Confirm" />
     </div>
   ),
 };
@@ -94,13 +96,13 @@ export const WithDifferentIcons: Story = {
 export const AsChild: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-      <TagButton asChild icon={<Xmark />} aria-label="Remove tag (link)">
+      <TagButton asChild icon={<Icon icon={Xmark} color="default" />} aria-label="Remove tag (link)">
         <a href="#remove" />
       </TagButton>
       <TagButton
         asChild
         variant="destructive"
-        icon={<Trash />}
+        icon={<Icon icon={Trash} color="danger" />}
         aria-label="Delete tag (link)"
       >
         <a href="#delete" />
@@ -108,7 +110,7 @@ export const AsChild: Story = {
       <TagButton
         asChild
         disabled
-        icon={<Xmark />}
+        icon={<Icon icon={Xmark} color="default" />}
         aria-label="Remove tag (disabled link)"
       >
         <a href="#disabled" />
@@ -125,8 +127,8 @@ const variantIcons: Record<
   (typeof variants)[number],
   { icon: React.ReactNode; label: string }
 > = {
-  default: { icon: <Xmark />, label: "Remove" },
-  destructive: { icon: <Trash />, label: "Delete" },
+  default: { icon: <Icon icon={Xmark} color="default" />, label: "Remove" },
+  destructive: { icon: <Icon icon={Trash} color="danger" />, label: "Delete" },
 };
 
 export const StateGrid: Story = {
@@ -188,7 +190,7 @@ export const StateGrid: Story = {
         <p style={{ marginBottom: "0.5rem", fontWeight: 600 }}>
           Interactive States
         </p>
-        <p style={{ fontSize: "0.875rem", color: "#666", marginBottom: "0.5rem" }}>
+        <p style={{ fontSize: "0.875rem", color: "var(--colour-interface-text-supporting)", marginBottom: "0.5rem" }}>
           Hover, active, and focus states — interact with buttons below to test
         </p>
         <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
