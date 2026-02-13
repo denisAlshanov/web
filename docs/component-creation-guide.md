@@ -56,13 +56,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-[var(--colour-interface-button-background-primary-default)] text-[var(--colour-interface-button-text-primary)] hover:bg-[var(--colour-interface-button-background-primary-hover)] active:bg-[var(--colour-interface-button-background-primary-active)]",
+          "bg-[var(--colour-interface-button-background-primary-default)] text-[color:var(--colour-interface-button-text-primary)] hover:bg-[var(--colour-interface-button-background-primary-hover)] active:bg-[var(--colour-interface-button-background-primary-active)]",
         secondary:
-          "bg-[var(--colour-interface-button-background-secondary-default)] text-[var(--colour-interface-button-text-secondary)] border border-[var(--colour-interface-button-border-secondary-default)] hover:bg-[var(--colour-interface-button-background-secondary-hover)] hover:border-[var(--colour-interface-button-border-secondary-hover)] active:bg-[var(--colour-interface-button-background-secondary-active)]",
+          "bg-[var(--colour-interface-button-background-secondary-default)] text-[color:var(--colour-interface-button-text-secondary)] border border-[var(--colour-interface-button-border-secondary-default)] hover:bg-[var(--colour-interface-button-background-secondary-hover)] hover:border-[var(--colour-interface-button-border-secondary-hover)] active:bg-[var(--colour-interface-button-background-secondary-active)]",
         tertiary:
-          "bg-[var(--colour-interface-button-background-tertiary-default)] text-[var(--colour-interface-button-text-tertiary)] border border-[var(--colour-interface-button-border-tertiary-default)] hover:bg-[var(--colour-interface-button-background-tertiary-hover)] active:bg-[var(--colour-interface-button-background-tertiary-active)]",
+          "bg-[var(--colour-interface-button-background-tertiary-default)] text-[color:var(--colour-interface-button-text-tertiary)] border border-[var(--colour-interface-button-border-tertiary-default)] hover:bg-[var(--colour-interface-button-background-tertiary-hover)] active:bg-[var(--colour-interface-button-background-tertiary-active)]",
         destructive:
-          "bg-[var(--colour-interface-button-background-destructive-default)] text-[var(--colour-interface-button-text-primary)] hover:bg-[var(--colour-interface-button-background-destructive-hover)] active:bg-[var(--colour-interface-button-background-destructive-active)]",
+          "bg-[var(--colour-interface-button-background-destructive-default)] text-[color:var(--colour-interface-button-text-primary)] hover:bg-[var(--colour-interface-button-background-destructive-hover)] active:bg-[var(--colour-interface-button-background-destructive-active)]",
         ghost:
           "hover:bg-[var(--colour-interface-background-secondary-hover)]",
       },
@@ -249,7 +249,7 @@ The Active state means "component is currently being interacted with via mouse" 
 
 // Selected — Radix data attribute on checkbox/radio/toggle
 "data-[state=checked]:bg-[var(--colour-interface-button-background-primary-default)]"
-"data-[state=checked]:text-[var(--colour-interface-button-text-primary)]"
+"data-[state=checked]:text-[color:var(--colour-interface-button-text-primary)]"
 
 // Selected — aria attribute on tabs/menu items
 "aria-selected:bg-[var(--colour-interface-background-primary-default)]"
@@ -273,7 +273,7 @@ export function Input({ isLoading, error, className, ...props }: InputProps) {
           // Default
           "border border-[var(--colour-interface-form-border-default)] rounded-[var(--number-radius-rad-input)]",
           // Error state (prop-driven)
-          error && "border-[var(--colour-interface-form-border-error)] text-[var(--colour-interface-text-semantic-error)]",
+          error && "border-[var(--colour-interface-form-border-error)] text-[color:var(--colour-interface-text-semantic-error)]",
           // Loading state (prop-driven) — disable interaction
           isLoading && "opacity-70 pointer-events-none",
           className
@@ -286,7 +286,7 @@ export function Input({ isLoading, error, className, ...props }: InputProps) {
       {isLoading && <Spinner className="absolute right-3 top-1/2 -translate-y-1/2" />}
       {/* Error message */}
       {typeof error === "string" && (
-        <p className="mt-1 text-sm text-[var(--colour-interface-text-semantic-error)]">{error}</p>
+        <p className="mt-1 text-sm text-[color:var(--colour-interface-text-semantic-error)]">{error}</p>
       )}
     </div>
   );
@@ -297,7 +297,7 @@ export function Input({ isLoading, error, className, ...props }: InputProps) {
 
 ```tsx
 // Native inputs: CSS auto-detection (no prop needed)
-"placeholder:text-[var(--colour-interface-text-placeholder)] [&:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-active)]"
+"placeholder:text-[color:var(--colour-interface-text-placeholder)] [&:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-active)]"
 
 // Custom components (Select, Combobox): use isFilled prop
 interface SelectProps {
