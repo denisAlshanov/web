@@ -22,8 +22,8 @@ export function stripChildEventHandlers(
 ): React.ReactNode {
   if (!React.isValidElement(children)) return children;
   const cleanProps = Object.fromEntries(
-    Object.entries(children.props as Record<string, unknown>).map(
-      ([key, value]) => [key, EVENT_HANDLER_RE.test(key) ? undefined : value],
+    Object.entries(children.props as Record<string, unknown>).filter(
+      ([key]) => !EVENT_HANDLER_RE.test(key),
     ),
   );
   return React.cloneElement(children, cleanProps);

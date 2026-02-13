@@ -91,24 +91,6 @@ const buttonVariants = cva(
   },
 );
 
-/** Active-state background classes applied during loading to give visual feedback. */
-const buttonLoadingBg: Record<string, string> = {
-  primary: "bg-[var(--colour-interface-button-background-primary-active)]",
-  secondary:
-    "bg-[var(--colour-interface-button-background-secondary-active)] border-[var(--colour-interface-button-border-secondary-active)]",
-  tertiary:
-    "bg-[var(--colour-interface-button-background-tertiary-active)] border-[var(--colour-interface-button-border-tertiary-active)]",
-  destructive:
-    "bg-[var(--colour-interface-button-background-destructive-active)]",
-  error:
-    "bg-[var(--colour-interface-button-background-semantic-error-active)]",
-  info: "bg-[var(--colour-interface-button-background-semantic-info-active)]",
-  success:
-    "bg-[var(--colour-interface-button-background-semantic-success-active)]",
-  warning:
-    "bg-[var(--colour-interface-button-background-semantic-warning-active)]",
-};
-
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -162,8 +144,7 @@ function Button({
       {...restProps}
       className={cn(
         buttonVariants({ variant, size }),
-        isLoading && !disabled && "!opacity-80 pointer-events-none",
-        isLoading && !disabled && buttonLoadingBg[variant ?? "primary"],
+        isLoading && !disabled && "opacity-80 pointer-events-none",
         isLoading && disabled && "pointer-events-none",
         className,
       )}
