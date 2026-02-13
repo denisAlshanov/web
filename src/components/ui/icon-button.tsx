@@ -71,6 +71,18 @@ const iconButtonVariants = cva(
   },
 );
 
+/** Active-state background classes applied during loading to give visual feedback. */
+const iconButtonLoadingBg: Record<string, string> = {
+  primary: "bg-[var(--colour-interface-button-background-primary-active)]",
+  secondary:
+    "bg-[var(--colour-interface-button-background-secondary-active)] border-[var(--colour-interface-button-border-secondary-active)]",
+  tertiary:
+    "bg-[var(--colour-interface-button-background-tertiary-active)] border-[var(--colour-interface-button-border-tertiary-active)]",
+  ghost: "bg-[var(--colour-interface-button-background-secondary-active)]",
+  destructive:
+    "bg-[var(--colour-interface-button-background-destructive-active)]",
+};
+
 export interface IconButtonProps
   extends Omit<
       React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -120,7 +132,8 @@ function IconButton({
       {...restProps}
       className={cn(
         iconButtonVariants({ variant, size }),
-        isLoading && !disabled && "opacity-80 pointer-events-none",
+        isLoading && !disabled && "!opacity-80 pointer-events-none",
+        isLoading && !disabled && iconButtonLoadingBg[variant ?? "primary"],
         isLoading && disabled && "pointer-events-none",
         className,
       )}
