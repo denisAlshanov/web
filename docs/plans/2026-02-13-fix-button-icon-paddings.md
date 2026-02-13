@@ -34,11 +34,11 @@ The fix: change icon wrapper from `size-6` (24x24) to `w-3 h-6` (12x24) with `ov
 **Files:**
 - Modify: `src/components/ui/button.stories.tsx`
 
-- [ ] Add a story "IconSizeGrid" that renders all 3 sizes (sm, md, lg) with leading icon, trailing icon, and both icons side-by-side for easy visual comparison with Figma
-- [ ] Run linter: `npm run lint`
+- [x] Add a story "IconSizeGrid" that renders all 3 sizes (sm, md, lg) with leading icon, trailing icon, and both icons side-by-side for easy visual comparison with Figma
+- [x] Run linter: `npm run lint`
 
 ## Verification
 
-- [ ] Run linter: `npm run lint`
-- [ ] Manual test: Open Storybook, compare buttons with icons against Figma specs for all 3 sizes
-- [ ] Verify icon overflow doesn't get clipped by parent containers
+- [x] Run linter: `npm run lint`
+- [x] Manual test: Open Storybook, compare buttons with icons against Figma specs for all 3 sizes
+- [x] Verify icon overflow doesn't get clipped by parent containers

@@ -140,7 +140,7 @@ export const TertiaryWithIcon: Story = {
   },
 };
 
-// -- State Grid: all variants at all sizes --
+// -- Shared constants for grid stories --
 
 const variants = [
   "primary",
@@ -154,6 +154,52 @@ const variants = [
 ] as const;
 
 const sizes = ["sm", "md", "lg"] as const;
+
+// -- Icon Size Grid: all sizes × icon positions for visual comparison with Figma --
+
+export const IconSizeGrid: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      {sizes.map((size) => (
+        <div key={size}>
+          <p style={{ marginBottom: "0.5rem", fontWeight: 600 }}>
+            Size: {size}
+          </p>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              size={size}
+              leadingIcon={<Icon icon={Plus} color="onHeavy" />}
+            >
+              Leading
+            </Button>
+            <Button
+              size={size}
+              trailingIcon={<Icon icon={Plus} color="onHeavy" />}
+            >
+              Trailing
+            </Button>
+            <Button
+              size={size}
+              leadingIcon={<Icon icon={Plus} color="onHeavy" />}
+              trailingIcon={<Icon icon={Plus} color="onHeavy" />}
+            >
+              Both
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+// -- State Grid: all variants at all sizes --
 
 export const StateGrid: Story = {
   render: () => (
