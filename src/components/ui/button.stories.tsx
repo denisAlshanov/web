@@ -210,7 +210,7 @@ export const StateGrid: Story = {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
           {variants.map((variant) => (
             <Button key={variant} variant={variant}>
-              {variant}
+              Button
             </Button>
           ))}
         </div>
@@ -229,7 +229,7 @@ export const StateGrid: Story = {
         >
           {sizes.map((size) => (
             <Button key={size} size={size}>
-              {size}
+              Button
             </Button>
           ))}
         </div>
@@ -243,7 +243,7 @@ export const StateGrid: Story = {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
           {variants.map((variant) => (
             <Button key={variant} variant={variant} disabled>
-              {variant}
+              Button
             </Button>
           ))}
         </div>
@@ -257,7 +257,7 @@ export const StateGrid: Story = {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
           {variants.map((variant) => (
             <Button key={variant} variant={variant} isLoading>
-              {variant}
+              Button
             </Button>
           ))}
         </div>
@@ -275,22 +275,22 @@ export const StateGrid: Story = {
           }}
         >
           <Button leadingIcon={<Icon icon={Plus} color="onHeavy" />}>
-            Leading
+            Button
           </Button>
           <Button trailingIcon={<Icon icon={Plus} color="onHeavy" />}>
-            Trailing
+            Button
           </Button>
           <Button
             leadingIcon={<Icon icon={Plus} color="onHeavy" />}
             trailingIcon={<Icon icon={Plus} color="onHeavy" />}
           >
-            Both
+            Button
           </Button>
           <Button
             variant="destructive"
             leadingIcon={<Icon icon={Plus} color="onHeavy" />}
           >
-            Destructive
+            Button
           </Button>
         </div>
       </div>

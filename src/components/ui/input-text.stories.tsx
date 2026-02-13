@@ -1,7 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Search, EyeSolid, WarningCircle } from "iconoir-react";
-
-import { Icon } from "@/components/ui/icon";
 
 import { InputText } from "./input-text";
 
@@ -45,31 +42,6 @@ export const Disabled: Story = {
   args: { disabled: true },
 };
 
-// -- With Leading Icon --
-
-export const WithLeadingIcon: Story = {
-  args: {
-    leadingIcon: <Icon icon={Search} color="supporting" />,
-  },
-};
-
-// -- With Trailing Icon --
-
-export const WithTrailingIcon: Story = {
-  args: {
-    trailingIcon: <Icon icon={EyeSolid} color="supporting" />,
-  },
-};
-
-// -- With Both Icons --
-
-export const WithBothIcons: Story = {
-  args: {
-    leadingIcon: <Icon icon={Search} color="supporting" />,
-    trailingIcon: <Icon icon={EyeSolid} color="supporting" />,
-  },
-};
-
 // -- Filled --
 
 export const Filled: Story = {
@@ -84,75 +56,56 @@ export const StateGrid: Story = {
       {/* Default */}
       <div>
         <p className="mb-2 font-semibold">Default</p>
-        <InputText placeholder="Placeholder text" />
+        <InputText
+          placeholder="Placeholder text"
+          helperText="This is helper text"
+        />
       </div>
 
       {/* Filled */}
       <div>
         <p className="mb-2 font-semibold">Filled</p>
-        <InputText defaultValue="Filled input value" />
+        <InputText
+          defaultValue="Filled input value"
+          helperText="This is helper text"
+        />
       </div>
 
       {/* With Helper Text */}
       <div>
         <p className="mb-2 font-semibold">With Helper Text</p>
-        <InputText placeholder="Placeholder text" helperText="This is helper text" />
+        <InputText
+          placeholder="Placeholder text"
+          helperText="This is helper text"
+        />
       </div>
 
       {/* Error */}
       <div>
         <p className="mb-2 font-semibold">Error</p>
-        <InputText placeholder="Placeholder text" error="This field is required" />
+        <InputText
+          placeholder="Placeholder text"
+          error="This field is required"
+        />
       </div>
 
       {/* Disabled */}
       <div>
         <p className="mb-2 font-semibold">Disabled</p>
-        <InputText placeholder="Placeholder text" disabled />
+        <InputText
+          placeholder="Placeholder text"
+          disabled
+          helperText="This is helper text"
+        />
       </div>
 
       {/* Disabled Filled */}
       <div>
         <p className="mb-2 font-semibold">Disabled Filled</p>
-        <InputText defaultValue="Disabled filled" disabled />
-      </div>
-
-      {/* With Leading Icon */}
-      <div>
-        <p className="mb-2 font-semibold">With Leading Icon</p>
         <InputText
-          placeholder="Search..."
-          leadingIcon={<Icon icon={Search} color="supporting" />}
-        />
-      </div>
-
-      {/* With Trailing Icon */}
-      <div>
-        <p className="mb-2 font-semibold">With Trailing Icon</p>
-        <InputText
-          placeholder="Password"
-          type="password"
-          trailingIcon={<Icon icon={EyeSolid} color="supporting" />}
-        />
-      </div>
-
-      {/* With Both Icons */}
-      <div>
-        <p className="mb-2 font-semibold">With Both Icons</p>
-        <InputText
-          placeholder="Search..."
-          leadingIcon={<Icon icon={Search} color="supporting" />}
-          trailingIcon={<Icon icon={EyeSolid} color="supporting" />}
-        />
-      </div>
-
-      {/* Error with Icon */}
-      <div>
-        <p className="mb-2 font-semibold">Error with Icon</p>
-        <InputText
-          placeholder="Email"
-          error="Invalid email address"
-          trailingIcon={<Icon icon={WarningCircle} color="error" />}
+          defaultValue="Disabled filled"
+          disabled
+          helperText="This is helper text"
         />
       </div>
     </div>

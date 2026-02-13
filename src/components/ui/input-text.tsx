@@ -7,8 +7,6 @@ import { cn } from "@/lib/utils";
 export interface InputTextProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string | boolean;
-  leadingIcon?: React.ReactNode;
-  trailingIcon?: React.ReactNode;
   helperText?: string;
   ref?: React.Ref<HTMLInputElement>;
 }
@@ -17,8 +15,6 @@ function InputText({
   className,
   error,
   disabled,
-  leadingIcon,
-  trailingIcon,
   helperText,
   ref,
   id,
@@ -76,18 +72,9 @@ function InputText({
           ].join(" "),
           // Disabled state
           disabled &&
-            "opacity-50 border-dashed pointer-events-none has-[:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-default)]",
+            "opacity-50 pointer-events-none has-[:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-default)]",
         )}
       >
-        {leadingIcon && (
-          <span
-            className="inline-flex items-center justify-center shrink-0 size-6"
-            aria-hidden="true"
-          >
-            {leadingIcon}
-          </span>
-        )}
-
         <input
           ref={ref}
           id={id}
@@ -107,15 +94,6 @@ function InputText({
           placeholder={placeholder}
           {...props}
         />
-
-        {trailingIcon && (
-          <span
-            className="inline-flex items-center justify-center shrink-0 size-6"
-            aria-hidden="true"
-          >
-            {trailingIcon}
-          </span>
-        )}
       </div>
 
       {displayHelperText && (
