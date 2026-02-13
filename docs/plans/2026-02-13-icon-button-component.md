@@ -51,14 +51,14 @@ Implement the IconButton component from Figma (node 2023-13910). This is a circu
 **Files:**
 - Create: `src/components/ui/icon-button.stories.tsx`
 
-- [ ] Create story file following the same pattern as `button.stories.tsx`:
+- [x] Create story file following the same pattern as `button.stories.tsx`:
   - Meta with all argTypes (variant, size, isLoading, disabled)
   - Default story
   - Stories for each variant (Primary, Secondary, Tertiary, Ghost, Destructive)
   - Stories for each size (XS, SM, MD, LG)
   - Disabled and Loading state stories
   - StateGrid story showing all variants x sizes in a matrix
-- [ ] Verify stories render correctly in Storybook
+- [x] Verify stories render correctly in Storybook
 
 ## Task 3 - Refactor shared disabled-handling logic
 
