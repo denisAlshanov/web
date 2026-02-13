@@ -143,7 +143,7 @@ function Button({
       {...restProps}
       className={cn(
         buttonVariants({ variant, size }),
-        isLoading && !disabled && "opacity-80 pointer-events-none",
+        isLoading && !disabled && "!opacity-80 pointer-events-none",
         isLoading && disabled && "pointer-events-none",
         className,
       )}
