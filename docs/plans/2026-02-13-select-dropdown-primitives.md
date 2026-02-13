@@ -82,9 +82,9 @@ with an optional leading icon.
 
 ## Verification
 
-- [ ] Run `npm run lint` — must pass
-- [ ] Visual review in Storybook: items match Figma states
-- [ ] Verify all design tokens are used (no hardcoded colors/spacing)
+- [x] Run `npm run lint` — must pass
+- [x] Visual review in Storybook: items match Figma states
+- [x] Verify all design tokens are used (no hardcoded colors/spacing)
 
 ## Cleanup
 
