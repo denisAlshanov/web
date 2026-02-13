@@ -8,15 +8,15 @@ import { cn } from "@/lib/utils";
 const iconVariants = cva("inline-block shrink-0", {
   variants: {
     color: {
-      heavy: "text-[var(--colour-interface-icon-heavy)]",
-      default: "text-[var(--colour-interface-icon-default)]",
-      supporting: "text-[var(--colour-interface-icon-supporting)]",
-      onHeavy: "text-[var(--colour-interface-icon-onHeavy)]",
-      error: "text-[var(--colour-interface-icon-semantic-error)]",
-      info: "text-[var(--colour-interface-icon-semantic-info)]",
-      success: "text-[var(--colour-interface-icon-semantic-success)]",
-      warning: "text-[var(--colour-interface-icon-semantic-warning)]",
-      danger: "text-[var(--colour-interface-icon-semantic-danger)]",
+      heavy: "text-[color:var(--colour-interface-icon-heavy)]",
+      default: "text-[color:var(--colour-interface-icon-default)]",
+      supporting: "text-[color:var(--colour-interface-icon-supporting)]",
+      onHeavy: "text-[color:var(--colour-interface-icon-onHeavy)]",
+      error: "text-[color:var(--colour-interface-icon-semantic-error)]",
+      info: "text-[color:var(--colour-interface-icon-semantic-info)]",
+      success: "text-[color:var(--colour-interface-icon-semantic-success)]",
+      warning: "text-[color:var(--colour-interface-icon-semantic-warning)]",
+      danger: "text-[color:var(--colour-interface-icon-semantic-danger)]",
     },
     size: {
       sm: "h-4 w-4",
