@@ -58,6 +58,6 @@ Currently all three button components (Button, IconButton, TagButton) show a spi
 
 ## Task 5 — Verification
 
-- [ ] Run `npm run lint` — must pass
-- [ ] Run `npm run build` — must pass
-- [ ] Visual check in Storybook: Button, IconButton, TagButton loading stories show content without spinners
+- [x] Run `npm run lint` — must pass
+- [x] Run `npm run build` — must pass
+- [x] Visual check in Storybook: Button, IconButton, TagButton loading stories show content without spinners
