@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Plus, Trash, Settings, EditPencil, Search } from "iconoir-react";
 
@@ -206,8 +207,8 @@ export const StateGrid: Story = {
 
           {/* Data rows */}
           {variants.map((variant) => (
-            <>
-              <span key={`${variant}-label`} style={{ fontWeight: 500 }}>
+            <React.Fragment key={variant}>
+              <span style={{ fontWeight: 500 }}>
                 {variant}
               </span>
               {sizes.map((size) => (
@@ -219,7 +220,7 @@ export const StateGrid: Story = {
                   aria-label={`${variantIcons[variant].label} (${size})`}
                 />
               ))}
-            </>
+            </React.Fragment>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
@@ -72,9 +72,13 @@ const iconButtonVariants = cva(
 );
 
 export interface IconButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      "aria-label"
+    >,
     VariantProps<typeof iconButtonVariants> {
   icon: React.ReactNode;
+  "aria-label": string;
   asChild?: boolean;
   isLoading?: boolean;
   ref?: React.Ref<HTMLButtonElement>;
@@ -124,7 +128,6 @@ function IconButton({
       disabled={!asChild ? isDisabled : undefined}
       aria-disabled={isDisabled || undefined}
       aria-busy={isLoading || undefined}
-      aria-label={restProps["aria-label"]}
       type={asChild ? undefined : type}
       onClick={asChild && isDisabled ? preventActivation : onClick}
       onKeyDown={
@@ -140,7 +143,7 @@ function IconButton({
           {icon}
         </span>
       )}
-      {asChild && resolvedChildren}
+      <Slottable>{resolvedChildren}</Slottable>
     </Comp>
   );
 }
