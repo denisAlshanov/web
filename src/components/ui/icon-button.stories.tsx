@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Plus, Trash, Settings, EditPencil, Search } from "iconoir-react";
+import { Plus } from "iconoir-react";
 
 import { Icon } from "@/components/ui/icon";
 
@@ -48,32 +48,32 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     variant: "secondary",
-    icon: <Icon icon={Settings} color="default" />,
-    "aria-label": "Settings",
+    icon: <Icon icon={Plus} color="default" />,
+    "aria-label": "Add",
   },
 };
 
 export const Tertiary: Story = {
   args: {
     variant: "tertiary",
-    icon: <Icon icon={EditPencil} color="default" />,
-    "aria-label": "Edit",
+    icon: <Icon icon={Plus} color="default" />,
+    "aria-label": "Add",
   },
 };
 
 export const Ghost: Story = {
   args: {
     variant: "ghost",
-    icon: <Icon icon={Search} color="default" />,
-    "aria-label": "Search",
+    icon: <Icon icon={Plus} color="default" />,
+    "aria-label": "Add",
   },
 };
 
 export const Destructive: Story = {
   args: {
     variant: "destructive",
-    icon: <Icon icon={Trash} color="onHeavy" />,
-    "aria-label": "Delete",
+    icon: <Icon icon={Plus} color="onHeavy" />,
+    "aria-label": "Add",
   },
 };
 
@@ -123,17 +123,17 @@ const variantIcons: Record<
 > = {
   primary: { icon: <Icon icon={Plus} color="onHeavy" />, label: "Add" },
   secondary: {
-    icon: <Icon icon={Settings} color="default" />,
-    label: "Settings",
+    icon: <Icon icon={Plus} color="default" />,
+    label: "Add",
   },
   tertiary: {
-    icon: <Icon icon={EditPencil} color="default" />,
-    label: "Edit",
+    icon: <Icon icon={Plus} color="default" />,
+    label: "Add",
   },
-  ghost: { icon: <Icon icon={Search} color="default" />, label: "Search" },
+  ghost: { icon: <Icon icon={Plus} color="default" />, label: "Add" },
   destructive: {
-    icon: <Icon icon={Trash} color="onHeavy" />,
-    label: "Delete",
+    icon: <Icon icon={Plus} color="onHeavy" />,
+    label: "Add",
   },
 };
 
