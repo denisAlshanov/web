@@ -27,7 +27,7 @@ The TagButton is a minimal inline action button (24x24px) used for actions like 
 **Files:**
 - Create: `src/components/ui/tag-button.tsx`
 
-- [ ] Define `tagButtonVariants` with CVA:
+- [x] Define `tagButtonVariants` with CVA:
   - Base: `inline-flex items-center justify-center shrink-0 rounded-full size-6 transition-colors cursor-pointer`
   - Focus ring: `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--colour-interface-button-border-focus-default)]`
   - Disabled: `aria-disabled:opacity-50 aria-disabled:pointer-events-none`
@@ -42,9 +42,9 @@ The TagButton is a minimal inline action button (24x24px) used for actions like 
     - `hover:bg-[var(--colour-interface-button-background-semantic-danger-hover)]`
     - `active:bg-[var(--colour-interface-button-background-semantic-danger-active)]`
     - `focus-visible:ring-[var(--colour-interface-button-border-focus-destructive)]`
-- [ ] Define `TagButtonProps` interface (icon, aria-label required, variant, asChild, isLoading, disabled)
-- [ ] Implement component following IconButton pattern (asChild handling, disabled event stripping, loading state)
-- [ ] Icon rendered at 24px (full size of container) using a span wrapper with `size-6`
+- [x] Define `TagButtonProps` interface (icon, aria-label required, variant, asChild, isLoading, disabled)
+- [x] Implement component following IconButton pattern (asChild handling, disabled event stripping, loading state)
+- [x] Icon rendered at 24px (full size of container) using a span wrapper with `size-6`
 
 ### Task 2: Create Storybook stories
 
