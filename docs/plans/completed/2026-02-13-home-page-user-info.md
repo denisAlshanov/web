@@ -39,4 +39,4 @@ Replace the default Next.js boilerplate on the home page with a server component
 
 ## Cleanup
 
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Move this plan to `docs/plans/completed/`
