@@ -72,9 +72,9 @@ Implement the IconButton component from Figma (node 2023-13910). This is a circu
 
 ## Verification
 
-- [ ] Run `npm run lint` - must pass
-- [ ] Run Storybook and visually verify all variants/sizes/states match the Figma spec
-- [ ] Verify Button component still works after refactor
+- [x] Run `npm run lint` - must pass
+- [x] Run Storybook and visually verify all variants/sizes/states match the Figma spec
+- [x] Verify Button component still works after refactor
 
 ## Cleanup
 
