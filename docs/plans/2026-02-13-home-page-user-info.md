@@ -24,18 +24,18 @@ Replace the default Next.js boilerplate on the home page with a server component
 - Modify: `src/app/page.tsx`
 
 **Steps:**
-- [ ] Convert page.tsx to an async Server Component
-- [ ] Import `getServerApiClient` from `@/lib/api-client`
-- [ ] Call `getServerApiClient()` then `getCurrentUser()` to fetch user data from GET /api/v1/users/me
-- [ ] Replace the Next.js boilerplate markup with a simple display of user info (name, email, roles, status)
-- [ ] Use the project's typography utilities (`text-heading-l`, `text-medium-m`, etc.) and design tokens for styling
-- [ ] Handle the API error case with a user-friendly message
+- [x] Convert page.tsx to an async Server Component
+- [x] Import `getServerApiClient` from `@/lib/api-client`
+- [x] Call `getServerApiClient()` then `getCurrentUser()` to fetch user data from GET /api/v1/users/me
+- [x] Replace the Next.js boilerplate markup with a simple display of user info (name, email, roles, status)
+- [x] Use the project's typography utilities (`text-heading-l`, `text-medium-m`, etc.) and design tokens for styling
+- [x] Handle the API error case with a user-friendly message
 
 ## Verification
 
-- [ ] Manual test: log in via Google OAuth, confirm the home page shows user name, email, and roles from the backend
-- [ ] Manual test: verify that unauthenticated users are still redirected to /login by the middleware
-- [ ] Run linter: `npm run lint`
+- [x] Manual test: log in via Google OAuth, confirm the home page shows user name, email, and roles from the backend
+- [x] Manual test: verify that unauthenticated users are still redirected to /login by the middleware
+- [x] Run linter: `npm run lint`
 
 ## Cleanup
 
