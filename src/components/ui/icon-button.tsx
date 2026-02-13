@@ -5,6 +5,13 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import {
+  EVENT_HANDLER_RE,
+  stripChildEventHandlers,
+  preventActivation,
+  preventKeyboardActivation,
+  Spinner,
+} from "@/components/ui/button-utils";
 
 const iconButtonVariants = cva(
   [
@@ -71,56 +78,6 @@ export interface IconButtonProps
   asChild?: boolean;
   isLoading?: boolean;
   ref?: React.Ref<HTMLButtonElement>;
-}
-
-const EVENT_HANDLER_RE = /^on[A-Z]/;
-
-function stripChildEventHandlers(children: React.ReactNode): React.ReactNode {
-  if (!React.isValidElement(children)) return children;
-  const cleanProps = Object.fromEntries(
-    Object.entries(children.props as Record<string, unknown>).filter(
-      ([key]) => !EVENT_HANDLER_RE.test(key),
-    ),
-  );
-  return React.cloneElement(children, cleanProps);
-}
-
-function preventActivation(e: React.MouseEvent) {
-  e.preventDefault();
-  e.stopPropagation();
-}
-
-function preventKeyboardActivation(e: React.KeyboardEvent) {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-}
-
-function Spinner() {
-  return (
-    <svg
-      className="size-5 animate-spin"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-      />
-    </svg>
-  );
 }
 
 function IconButton({

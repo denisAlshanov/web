@@ -66,9 +66,9 @@ Implement the IconButton component from Figma (node 2023-13910). This is a circu
 - Modify: `src/components/ui/button.tsx` (extract shared helpers)
 - Modify: `src/components/ui/icon-button.tsx` (import shared helpers)
 
-- [ ] Extract `stripChildEventHandlers`, `preventActivation`, `preventKeyboardActivation`, and `Spinner` into a shared location (either a local `button-utils.ts` or co-located in the same file if importing between button files is preferred)
-- [ ] Update Button imports to use the shared source
-- [ ] Verify Button still works correctly after refactor
+- [x] Extract `stripChildEventHandlers`, `preventActivation`, `preventKeyboardActivation`, and `Spinner` into a shared location (either a local `button-utils.ts` or co-located in the same file if importing between button files is preferred)
+- [x] Update Button imports to use the shared source
+- [x] Verify Button still works correctly after refactor
 
 ## Verification
 
