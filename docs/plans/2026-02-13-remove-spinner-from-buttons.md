@@ -53,8 +53,8 @@ Currently all three button components (Button, IconButton, TagButton) show a spi
 **Files:**
 - Modify: `src/components/ui/button-utils.tsx`
 
-- [ ] Delete the `Spinner` function component from button-utils.tsx
-- [ ] Ensure no other files in the codebase import Spinner
+- [x] Delete the `Spinner` function component from button-utils.tsx
+- [x] Ensure no other files in the codebase import Spinner
 
 ## Task 5 — Verification
 
