@@ -33,16 +33,16 @@ with an optional leading icon.
 - Create: `src/components/ui/select-dropdown-item.tsx`
 
 **Steps:**
-- [ ] Create SelectDropdownItem with CVA variants for state (default, hover, focus, active, disabled)
-- [ ] Props: state variant, optional leadingIcon (React.ReactNode), children for label text, disabled, className, ref, standard div HTML attributes
-- [ ] Default state: white bg, supporting text color, optional icon
-- [ ] Hover state: bg form/surface/hover (#F7FBFF), also apply via CSS hover pseudo-class
-- [ ] Focus state: 2px border form/border/focus (#3AB6E5), also apply via CSS focus-visible pseudo-class
-- [ ] Active state: bg form/surface/active (#F2F6FC), text color changes to default (#44484C)
-- [ ] Disabled state: opacity-50, pointer-events-none
-- [ ] Item height: 44px, horizontal padding: pad-m (12px), gap between icon and text: gap-xs (4px)
-- [ ] Typography: text-medium-m (16px/20px medium weight)
-- [ ] Run lint: `npm run lint`
+- [x] Create SelectDropdownItem with CVA variants for state (default, hover, focus, active, disabled)
+- [x] Props: state variant, optional leadingIcon (React.ReactNode), children for label text, disabled, className, ref, standard div HTML attributes
+- [x] Default state: white bg, supporting text color, optional icon
+- [x] Hover state: bg form/surface/hover (#F7FBFF), also apply via CSS hover pseudo-class
+- [x] Focus state: 2px border form/border/focus (#3AB6E5), also apply via CSS focus-visible pseudo-class
+- [x] Active state: bg form/surface/active (#F2F6FC), text color changes to default (#44484C)
+- [x] Disabled state: opacity-50, pointer-events-none
+- [x] Item height: 44px, horizontal padding: pad-m (12px), gap between icon and text: gap-xs (4px)
+- [x] Typography: text-medium-m (16px/20px medium weight)
+- [x] Run lint: `npm run lint`
 
 ## Task 2 — SelectDropdownItem Storybook stories
 
