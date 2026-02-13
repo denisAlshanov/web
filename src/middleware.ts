@@ -10,9 +10,10 @@ export default auth((req) => {
 
   if ((!req.auth || req.auth.error) && !isLoginPage) {
     const loginUrl = new URL("/login", req.nextUrl.origin);
-    const callback = req.nextUrl.pathname + req.nextUrl.search;
+    const pathname = req.nextUrl.pathname;
+    const callback = pathname + req.nextUrl.search;
     // Only set callbackUrl for safe, same-origin relative paths
-    if (callback.startsWith("/") && !callback.startsWith("//")) {
+    if (callback.startsWith("/") && !callback.startsWith("//") && pathname !== "/api" && !pathname.startsWith("/api/") && !pathname.includes("\\") && !pathname.includes("%5C") && !pathname.includes("%5c")) {
       loginUrl.searchParams.set("callbackUrl", callback);
     }
     if (req.auth?.error) {
