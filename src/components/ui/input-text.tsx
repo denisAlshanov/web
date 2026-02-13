@@ -8,6 +8,8 @@ export interface InputTextProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string | boolean;
   helperText?: string;
+  leadingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
   ref?: React.Ref<HTMLInputElement>;
 }
 
@@ -16,6 +18,8 @@ function InputText({
   error,
   disabled,
   helperText,
+  leadingIcon,
+  trailingIcon,
   ref,
   id,
   placeholder = " ",
@@ -36,6 +40,7 @@ function InputText({
       aria-disabled={disabled || undefined}
       className={cn(
         "flex flex-col gap-[var(--number-spacing-gap-gap-2xs)] items-start",
+        disabled && "opacity-50 pointer-events-none",
         className,
       )}
     >
@@ -69,12 +74,21 @@ function InputText({
             "has-[:focus-visible]:border-[var(--colour-interface-form-border-error)]",
             "has-[:focus:not(:focus-visible)]:border-[var(--colour-interface-form-border-error)]",
             "has-[:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-error)]",
-          ].join(" "),
+          ],
           // Disabled state
           disabled &&
-            "opacity-50 pointer-events-none has-[:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-default)]",
+            "has-[:not(:placeholder-shown)]:border-[var(--colour-interface-form-border-default)]",
         )}
       >
+        {leadingIcon && (
+          <span
+            aria-hidden="true"
+            inert={disabled || undefined}
+            className="shrink-0 flex items-center"
+          >
+            {leadingIcon}
+          </span>
+        )}
         <input
           ref={ref}
           id={id}
@@ -94,12 +108,21 @@ function InputText({
           placeholder={placeholder}
           {...props}
         />
+        {trailingIcon && (
+          <span
+            aria-hidden="true"
+            inert={disabled || undefined}
+            className="shrink-0 flex items-center"
+          >
+            {trailingIcon}
+          </span>
+        )}
       </div>
 
       {displayHelperText && (
         <p
           id={descriptionId}
-          aria-live={error ? "polite" : undefined}
+          aria-live={error && !disabled ? "polite" : undefined}
           className={cn(
             "text-medium-s pl-[var(--number-spacing-padding-pad-xs)]",
             error && !disabled
