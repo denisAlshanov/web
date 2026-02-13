@@ -58,22 +58,22 @@ export const WithIcons: Story = {
   render: (args) => (
     <SelectDropdown {...args}>
       <SelectDropdownItem
-        leadingIcon={<Icon icon={User} color="supporting" size="sm" />}
+        leadingIcon={<Icon icon={User} color="supporting" size="md" />}
       >
         Profile
       </SelectDropdownItem>
       <SelectDropdownItem
-        leadingIcon={<Icon icon={Calendar} color="supporting" size="sm" />}
+        leadingIcon={<Icon icon={Calendar} color="supporting" size="md" />}
       >
         Schedule
       </SelectDropdownItem>
       <SelectDropdownItem
-        leadingIcon={<Icon icon={Clock} color="supporting" size="sm" />}
+        leadingIcon={<Icon icon={Clock} color="supporting" size="md" />}
       >
         History
       </SelectDropdownItem>
       <SelectDropdownItem
-        leadingIcon={<Icon icon={MapPin} color="supporting" size="sm" />}
+        leadingIcon={<Icon icon={MapPin} color="supporting" size="md" />}
       >
         Location
       </SelectDropdownItem>

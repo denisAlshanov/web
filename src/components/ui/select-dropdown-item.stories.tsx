@@ -55,7 +55,7 @@ export const Disabled: Story = {
 
 export const WithLeadingIcon: Story = {
   args: {
-    leadingIcon: <Icon icon={Plus} color="supporting" size="sm" />,
+    leadingIcon: <Icon icon={Plus} color="supporting" size="md" />,
     children: "Option with icon",
   },
 };
@@ -72,7 +72,7 @@ export const StateGrid: Story = {
           key={state}
           state={state}
           disabled={state === "disabled"}
-          leadingIcon={<Icon icon={Plus} color="supporting" size="sm" />}
+          leadingIcon={<Icon icon={Plus} color="supporting" size="md" />}
         >
           {state.charAt(0).toUpperCase() + state.slice(1)} state
         </SelectDropdownItem>

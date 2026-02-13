@@ -38,7 +38,7 @@ function SelectDropdown({
         "flex flex-col",
         "bg-[var(--colour-interface-surface-base)]",
         "rounded-[var(--number-radius-rad-input)]",
-        "shadow-[0px_1px_8px_rgba(38,44,52,0.04)]",
+        "shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]",
         "overflow-clip",
         className,
       )}
@@ -48,12 +48,15 @@ function SelectDropdown({
         <div
           className={cn(
             "flex flex-row items-center",
+            "min-h-[44px]",
             "gap-[var(--number-spacing-gap-gap-s)]",
-            "px-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-s)]",
-            "border-b border-solid border-[var(--colour-interface-form-border-default)]",
+            "pl-[var(--number-spacing-padding-pad-m)] pr-[var(--number-spacing-padding-pad-l)] py-[var(--number-spacing-padding-pad-m)]",
+            "bg-[var(--colour-interface-surface-base)]",
+            "border-2 border-solid border-[var(--colour-interface-form-border-default)]",
+            "rounded-[var(--number-radius-rad-input)]",
           )}
         >
-          <Icon icon={Search} color="supporting" size="sm" />
+          <Icon icon={Search} color="supporting" size="md" />
           <input
             type="text"
             aria-label={searchPlaceholder ?? "Search"}
