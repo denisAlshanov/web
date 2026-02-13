@@ -23,22 +23,33 @@ async function exchangeGoogleToken(idToken: string): Promise<{
   }
 
   try {
-    const response = await fetch(`${apiBaseUrl}/auth/google/callback`, {
+    const url = `${apiBaseUrl}/auth/google/callback`;
+    console.log(`[auth] Exchanging Google token with backend: ${url}`);
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code: idToken }),
+      body: JSON.stringify({ id_token: idToken }),
       signal: AbortSignal.timeout(10_000),
     });
 
     if (!response.ok) {
-      console.error("Backend auth failed:", response.status);
+      let body = "";
+      try {
+        body = await response.text();
+      } catch {
+        // ignore body read errors
+      }
+      console.error(
+        `[auth] Backend auth failed: ${response.status} ${response.statusText}`,
+        body,
+      );
       return null;
     }
 
     const json = await response.json();
     return json.data;
-  } catch {
-    console.error("Failed to exchange token with backend");
+  } catch (error) {
+    console.error("[auth] Failed to exchange token with backend:", error);
     return null;
   }
 }
