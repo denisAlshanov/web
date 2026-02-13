@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Plus, ArrowRight, Trash, Check } from "iconoir-react";
+import { Plus } from "iconoir-react";
 
 import { Icon } from "@/components/ui/icon";
 
@@ -111,16 +111,16 @@ export const WithLeadingIcon: Story = {
 
 export const WithTrailingIcon: Story = {
   args: {
-    trailingIcon: <Icon icon={ArrowRight} color="onHeavy" />,
-    children: "Continue",
+    trailingIcon: <Icon icon={Plus} color="onHeavy" />,
+    children: "Add Item",
   },
 };
 
 export const WithBothIcons: Story = {
   args: {
-    leadingIcon: <Icon icon={Check} color="onHeavy" />,
-    trailingIcon: <Icon icon={ArrowRight} color="onHeavy" />,
-    children: "Confirm",
+    leadingIcon: <Icon icon={Plus} color="onHeavy" />,
+    trailingIcon: <Icon icon={Plus} color="onHeavy" />,
+    children: "Add Item",
   },
 };
 
@@ -231,20 +231,20 @@ export const StateGrid: Story = {
           <Button leadingIcon={<Icon icon={Plus} color="onHeavy" />}>
             Leading
           </Button>
-          <Button trailingIcon={<Icon icon={ArrowRight} color="onHeavy" />}>
+          <Button trailingIcon={<Icon icon={Plus} color="onHeavy" />}>
             Trailing
           </Button>
           <Button
-            leadingIcon={<Icon icon={Check} color="onHeavy" />}
-            trailingIcon={<Icon icon={ArrowRight} color="onHeavy" />}
+            leadingIcon={<Icon icon={Plus} color="onHeavy" />}
+            trailingIcon={<Icon icon={Plus} color="onHeavy" />}
           >
             Both
           </Button>
           <Button
             variant="destructive"
-            leadingIcon={<Icon icon={Trash} color="onHeavy" />}
+            leadingIcon={<Icon icon={Plus} color="onHeavy" />}
           >
-            Delete
+            Destructive
           </Button>
         </div>
       </div>

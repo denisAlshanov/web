@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Xmark, Plus, EditPencil, Trash, Check } from "iconoir-react";
+import { EditPencil } from "iconoir-react";
 
 import { Icon } from "@/components/ui/icon";
 
@@ -19,8 +19,8 @@ const meta = {
     disabled: { control: "boolean" },
   },
   args: {
-    icon: <Icon icon={Xmark} color="default" />,
-    "aria-label": "Remove",
+    icon: <Icon icon={EditPencil} color="default" />,
+    "aria-label": "Edit",
   },
 } satisfies Meta<typeof TagButton>;
 
@@ -36,23 +36,23 @@ export const Default: Story = {};
 export const DefaultVariant: Story = {
   args: {
     variant: "default",
-    icon: <Icon icon={Xmark} color="default" />,
-    "aria-label": "Remove",
+    icon: <Icon icon={EditPencil} color="default" />,
+    "aria-label": "Edit",
   },
 };
 
 export const Destructive: Story = {
   args: {
     variant: "destructive",
-    icon: <Icon icon={Trash} color="danger" />,
-    "aria-label": "Delete",
+    icon: <Icon icon={EditPencil} color="danger" />,
+    "aria-label": "Edit",
   },
 };
 
 // -- States --
 
 export const Disabled: Story = {
-  args: { disabled: true, "aria-label": "Remove (disabled)" },
+  args: { disabled: true, "aria-label": "Edit (disabled)" },
 };
 
 export const Loading: Story = {
@@ -63,8 +63,8 @@ export const DestructiveDisabled: Story = {
   args: {
     variant: "destructive",
     disabled: true,
-    icon: <Icon icon={Trash} color="danger" />,
-    "aria-label": "Delete (disabled)",
+    icon: <Icon icon={EditPencil} color="danger" />,
+    "aria-label": "Edit (disabled)",
   },
 };
 
@@ -72,23 +72,9 @@ export const DestructiveLoading: Story = {
   args: {
     variant: "destructive",
     isLoading: true,
-    icon: <Icon icon={Trash} color="danger" />,
-    "aria-label": "Delete (loading)",
+    icon: <Icon icon={EditPencil} color="danger" />,
+    "aria-label": "Edit (loading)",
   },
-};
-
-// -- Different Icons --
-
-export const WithDifferentIcons: Story = {
-  render: () => (
-    <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-      <TagButton icon={<Icon icon={Xmark} color="default" />} aria-label="Remove" />
-      <TagButton icon={<Icon icon={Plus} color="default" />} aria-label="Add" />
-      <TagButton icon={<Icon icon={EditPencil} color="default" />} aria-label="Edit" />
-      <TagButton icon={<Icon icon={Trash} color="danger" />} aria-label="Delete" variant="destructive" />
-      <TagButton icon={<Icon icon={Check} color="default" />} aria-label="Confirm" />
-    </div>
-  ),
 };
 
 // -- AsChild --
@@ -96,22 +82,22 @@ export const WithDifferentIcons: Story = {
 export const AsChild: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-      <TagButton asChild icon={<Icon icon={Xmark} color="default" />} aria-label="Remove tag (link)">
-        <a href="#remove" />
+      <TagButton asChild icon={<Icon icon={EditPencil} color="default" />} aria-label="Edit tag (link)">
+        <a href="#edit" />
       </TagButton>
       <TagButton
         asChild
         variant="destructive"
-        icon={<Icon icon={Trash} color="danger" />}
-        aria-label="Delete tag (link)"
+        icon={<Icon icon={EditPencil} color="danger" />}
+        aria-label="Edit tag (link)"
       >
-        <a href="#delete" />
+        <a href="#edit-destructive" />
       </TagButton>
       <TagButton
         asChild
         disabled
-        icon={<Icon icon={Xmark} color="default" />}
-        aria-label="Remove tag (disabled link)"
+        icon={<Icon icon={EditPencil} color="default" />}
+        aria-label="Edit tag (disabled link)"
       >
         <a href="#disabled" />
       </TagButton>
@@ -127,8 +113,8 @@ const variantIcons: Record<
   (typeof variants)[number],
   { icon: React.ReactNode; label: string }
 > = {
-  default: { icon: <Icon icon={Xmark} color="default" />, label: "Remove" },
-  destructive: { icon: <Icon icon={Trash} color="danger" />, label: "Delete" },
+  default: { icon: <Icon icon={EditPencil} color="default" />, label: "Edit" },
+  destructive: { icon: <Icon icon={EditPencil} color="danger" />, label: "Edit" },
 };
 
 export const StateGrid: Story = {
