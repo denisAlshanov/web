@@ -158,11 +158,15 @@ function Button({
       onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
     >
       {leadingIcon && (
-        <span className="inline-flex items-center justify-center shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
+        <span className="relative inline-flex shrink-0 w-3 h-6 overflow-visible" aria-hidden="true">
+          <span className="absolute right-0 inline-flex items-center justify-center size-6">{leadingIcon}</span>
+        </span>
       )}
       <Slottable>{resolvedChildren}</Slottable>
       {trailingIcon && (
-        <span className="inline-flex items-center justify-center shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
+        <span className="relative inline-flex shrink-0 w-3 h-6 overflow-visible" aria-hidden="true">
+          <span className="absolute left-0 inline-flex items-center justify-center size-6">{trailingIcon}</span>
+        </span>
       )}
     </Comp>
   );
