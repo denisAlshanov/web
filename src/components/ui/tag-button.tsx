@@ -10,7 +10,6 @@ import {
   stripChildEventHandlers,
   preventActivation,
   preventKeyboardActivation,
-  Spinner,
 } from "@/components/ui/button-utils";
 
 const tagButtonVariants = cva(
@@ -120,16 +119,12 @@ function TagButton({
       onClickCapture={asChild && isDisabled ? undefined : onClickCapture}
       onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
     >
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <span
-          className="inline-flex items-center justify-center shrink-0 size-6 [&>svg]:size-full"
-          aria-hidden="true"
-        >
-          {icon}
-        </span>
-      )}
+      <span
+        className="inline-flex items-center justify-center shrink-0 size-6 [&>svg]:size-full"
+        aria-hidden="true"
+      >
+        {icon}
+      </span>
       <Slottable>{resolvedChildren}</Slottable>
     </Comp>
   );
