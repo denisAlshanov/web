@@ -32,7 +32,7 @@ Copy `.env.example` to `.env.local` and fill in values. Required variables:
 - `src/lib/api-client.ts` — Typed API client with automatic token refresh and request deduplication
 - `src/types/api.ts` — All backend API request/response types and enums
 - `src/types/next-auth.d.ts` — Type augmentation for NextAuth session/JWT
-- `src/middleware.ts` — Route protection (redirects unauthenticated users to `/login`)
+- `src/middleware.ts` — Route protection (redirects unauthenticated users to `/login`; redirects `BackendAuthError` users to `/auth-error`)
 - `src/styles/tokens.css` — Auto-generated CSS custom properties (do not edit manually)
 - `tokens/` — Figma design token JSON files (DTCG format)
 - `scripts/transform-tokens.ts` — Transforms token JSON into `src/styles/tokens.css`
@@ -42,8 +42,9 @@ Copy `.env.example` to `.env.local` and fill in values. Required variables:
 1. User signs in via Google OAuth (NextAuth v5)
 2. JWT callback exchanges Google ID token with the backend API for `access_token`/`refresh_token`
 3. Tokens + user data stored in the NextAuth JWT (session strategy: JWT, not database)
-4. Middleware checks auth on all routes except `/login`, API routes, and static assets
-5. Token refresh happens automatically 60s before expiry with deduplication of concurrent refresh requests
+4. Middleware checks auth on all routes except `/login`, `/auth-error`, API routes, and static assets
+5. If the backend rejects the user (e.g. unapproved account), the JWT carries a `BackendAuthError` flag and middleware redirects to `/auth-error`
+6. Token refresh happens automatically 60s before expiry with deduplication of concurrent refresh requests
 
 ### API Client (`src/lib/api-client.ts`)
 
