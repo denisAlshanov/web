@@ -50,10 +50,10 @@ with an optional leading icon.
 - Create: `src/components/ui/select-dropdown-item.stories.tsx`
 
 **Steps:**
-- [ ] Create stories: Default, Hover, Focus, Active, Disabled
-- [ ] Create story with leading icon (using iconoir-react Plus icon via Icon wrapper)
-- [ ] Create StateGrid story showing all 5 states side by side
-- [ ] Run Storybook build check
+- [x] Create stories: Default, Hover, Focus, Active, Disabled
+- [x] Create story with leading icon (using iconoir-react Plus icon via Icon wrapper)
+- [x] Create StateGrid story showing all 5 states side by side
+- [x] Run Storybook build check
 
 ## Task 3 — SelectDropdown container component
 
