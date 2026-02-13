@@ -30,15 +30,15 @@ function LoginForm() {
 
   return (
     <div
-      className="flex min-h-screen flex-col bg-[var(--colour-interface-surface-base)]"
+      className="relative min-h-screen bg-[var(--colour-interface-surface-base)]"
     >
-      <div className="p-[var(--number-spacing-padding-pad-2xl)]">
+      <div className="absolute left-[var(--number-spacing-padding-pad-2xl)] top-[var(--number-spacing-padding-pad-2xl)]">
         <MediaPlansLogo />
       </div>
 
-      <div className="flex flex-1 items-center justify-center">
-        <div className="flex w-full max-w-lg flex-col items-center gap-[var(--number-spacing-gap-gap-xl)] px-[var(--number-spacing-padding-pad-xl)]">
-          <div className="flex w-full flex-col gap-[var(--number-spacing-gap-gap-m)]">
+      <div className="flex justify-center pt-[320px]">
+        <div className="flex w-full max-w-[792px] flex-col items-center gap-[var(--numbers-80)] px-[var(--number-spacing-padding-pad-xl)]">
+          <div className="flex w-full flex-col gap-[var(--numbers-20)]">
             <h1
               className="text-heading-l text-[color:var(--colour-interface-text-heavy)]"
             >
