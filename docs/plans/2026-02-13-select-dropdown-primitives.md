@@ -74,11 +74,11 @@ with an optional leading icon.
 - Create: `src/components/ui/select-dropdown.stories.tsx`
 
 **Steps:**
-- [ ] Create Default story with multiple items
-- [ ] Create WithSearch story showing the search input
-- [ ] Create WithIcons story showing items with leading icons
-- [ ] Create MixedStates story showing items in various states (one active, one disabled, rest default)
-- [ ] Run lint: `npm run lint`
+- [x] Create Default story with multiple items
+- [x] Create WithSearch story showing the search input
+- [x] Create WithIcons story showing items with leading icons
+- [x] Create MixedStates story showing items in various states (one active, one disabled, rest default)
+- [x] Run lint: `npm run lint`
 
 ## Verification
 
