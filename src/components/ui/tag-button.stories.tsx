@@ -19,7 +19,7 @@ const meta = {
     disabled: { control: "boolean" },
   },
   args: {
-    icon: <Icon icon={EditPencil} color="default" />,
+    icon: <Icon icon={EditPencil} color="default" size="sm" />,
     "aria-label": "Edit",
   },
 } satisfies Meta<typeof TagButton>;
@@ -36,7 +36,7 @@ export const Default: Story = {};
 export const DefaultVariant: Story = {
   args: {
     variant: "default",
-    icon: <Icon icon={EditPencil} color="default" />,
+    icon: <Icon icon={EditPencil} color="default" size="sm" />,
     "aria-label": "Edit",
   },
 };
@@ -44,7 +44,7 @@ export const DefaultVariant: Story = {
 export const Destructive: Story = {
   args: {
     variant: "destructive",
-    icon: <Icon icon={EditPencil} color="danger" />,
+    icon: <Icon icon={EditPencil} color="danger" size="sm" />,
     "aria-label": "Edit",
   },
 };
@@ -63,7 +63,7 @@ export const DestructiveDisabled: Story = {
   args: {
     variant: "destructive",
     disabled: true,
-    icon: <Icon icon={EditPencil} color="danger" />,
+    icon: <Icon icon={EditPencil} color="danger" size="sm" />,
     "aria-label": "Edit (disabled)",
   },
 };
@@ -72,7 +72,7 @@ export const DestructiveLoading: Story = {
   args: {
     variant: "destructive",
     isLoading: true,
-    icon: <Icon icon={EditPencil} color="danger" />,
+    icon: <Icon icon={EditPencil} color="danger" size="sm" />,
     "aria-label": "Edit (loading)",
   },
 };
@@ -82,13 +82,13 @@ export const DestructiveLoading: Story = {
 export const AsChild: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-      <TagButton asChild icon={<Icon icon={EditPencil} color="default" />} aria-label="Edit tag (link)">
+      <TagButton asChild icon={<Icon icon={EditPencil} color="default" size="sm" />} aria-label="Edit tag (link)">
         <a href="#edit" />
       </TagButton>
       <TagButton
         asChild
         variant="destructive"
-        icon={<Icon icon={EditPencil} color="danger" />}
+        icon={<Icon icon={EditPencil} color="danger" size="sm" />}
         aria-label="Edit tag (link)"
       >
         <a href="#edit-destructive" />
@@ -96,7 +96,7 @@ export const AsChild: Story = {
       <TagButton
         asChild
         disabled
-        icon={<Icon icon={EditPencil} color="default" />}
+        icon={<Icon icon={EditPencil} color="default" size="sm" />}
         aria-label="Edit tag (disabled link)"
       >
         <a href="#disabled" />
@@ -113,8 +113,8 @@ const variantIcons: Record<
   (typeof variants)[number],
   { icon: React.ReactNode; label: string }
 > = {
-  default: { icon: <Icon icon={EditPencil} color="default" />, label: "Edit" },
-  destructive: { icon: <Icon icon={EditPencil} color="danger" />, label: "Edit" },
+  default: { icon: <Icon icon={EditPencil} color="default" size="sm" />, label: "Edit" },
+  destructive: { icon: <Icon icon={EditPencil} color="danger" size="sm" />, label: "Edit" },
 };
 
 export const StateGrid: Story = {

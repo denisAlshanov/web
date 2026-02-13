@@ -120,7 +120,7 @@ function TagButton({
       onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
     >
       <span
-        className="inline-flex items-center justify-center shrink-0 size-6 [&>svg]:size-full"
+        className="inline-flex items-center justify-center shrink-0 size-6 [&>svg]:size-4"
         aria-hidden="true"
       >
         {icon}
