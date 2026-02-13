@@ -63,4 +63,4 @@ The TagButton is a minimal inline action button (24x24px) used for actions like 
 
 ## Post-Implementation
 
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Move this plan to `docs/plans/completed/`
