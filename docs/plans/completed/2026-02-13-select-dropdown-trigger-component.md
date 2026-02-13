@@ -31,7 +31,7 @@ Implement a Select component (dropdown trigger) matching the Figma Dropdown desi
 **Files:**
 - Create: `src/components/ui/select.tsx`
 
-- [ ] Create the Select component with these props:
+- [x] Create the Select component with these props:
   - `placeholder` (string) - placeholder text when no value selected
   - `value` (string) - currently selected display text
   - `leadingIcon` (ReactNode) - optional leading icon
@@ -42,7 +42,7 @@ Implement a Select component (dropdown trigger) matching the Figma Dropdown desi
   - `onOpenChange` ((open: boolean) => void) - controlled open callback
   - `children` (ReactNode) - SelectDropdown content rendered in the panel
   - `className` (string) - override for root element
-- [ ] Implement visual states matching Figma spec:
+- [x] Implement visual states matching Figma spec:
   - Default: border-default, placeholder text color
   - Hover: border-hover, text darkens (CSS hover:)
   - Focus: 3px outer ring (box-shadow) with focus color, inner border stays default (CSS focus-visible)
@@ -50,17 +50,17 @@ Implement a Select component (dropdown trigger) matching the Figma Dropdown desi
   - Filled (value present, closed): border-active, heavy text color, NavArrowDown icon
   - Error: border-error (overrides all other border states), red helper text
   - Disabled: 50% opacity, pointer-events-none, default border
-- [ ] Render the dropdown panel (children wrapped in a positioned container) when open
+- [x] Render the dropdown panel (children wrapped in a positioned container) when open
   - Position absolutely below the trigger with the shadow from Figma spec
-- [ ] Handle click-outside to close, Escape key to close
-- [ ] Wire up aria attributes: aria-expanded, aria-haspopup="listbox", aria-describedby for helper text, aria-disabled
+- [x] Handle click-outside to close, Escape key to close
+- [x] Wire up aria attributes: aria-expanded, aria-haspopup="listbox", aria-describedby for helper text, aria-disabled
 
 ### Task 2: Create Storybook stories
 
 **Files:**
 - Create: `src/components/ui/select.stories.tsx`
 
-- [ ] Create stories matching the Figma documentation page states:
+- [x] Create stories matching the Figma documentation page states:
   - Default (placeholder only)
   - WithHelperText
   - WithLeadingIcon
@@ -72,10 +72,10 @@ Implement a Select component (dropdown trigger) matching the Figma Dropdown desi
 
 ## Verification
 
-- [ ] Manual test: open Storybook, verify each state matches the Figma screenshot
-- [ ] Run linter: `npm run lint`
-- [ ] Verify component uses only design tokens (no hardcoded colors/spacing)
+- [x] Manual test: open Storybook, verify each state matches the Figma screenshot
+- [x] Run linter: `npm run lint`
+- [x] Verify component uses only design tokens (no hardcoded colors/spacing)
 
 ## Docs
 
-- [ ] Move this plan to `docs/plans/completed/` when done
+- [x] Move this plan to `docs/plans/completed/` when done
