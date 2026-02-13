@@ -10,7 +10,6 @@ import {
   stripChildEventHandlers,
   preventActivation,
   preventKeyboardActivation,
-  Spinner,
 } from "@/components/ui/button-utils";
 
 const iconButtonVariants = cva(
@@ -164,13 +163,9 @@ function IconButton({
       onClickCapture={asChild && isDisabled ? undefined : onClickCapture}
       onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
     >
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <span className={cn("inline-flex items-center justify-center shrink-0 aspect-square [&>svg]:size-full", iconSizeClass[size ?? "md"])} aria-hidden="true">
-          {icon}
-        </span>
-      )}
+      <span className={cn("inline-flex items-center justify-center shrink-0 aspect-square [&>svg]:size-full", iconSizeClass[size ?? "md"])} aria-hidden="true">
+        {icon}
+      </span>
       <Slottable>{resolvedChildren}</Slottable>
     </Comp>
   );

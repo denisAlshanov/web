@@ -35,9 +35,9 @@ Currently all three button components (Button, IconButton, TagButton) show a spi
 **Files:**
 - Modify: `src/components/ui/icon-button.tsx`
 
-- [ ] Remove `Spinner` from the import list in icon-button.tsx
-- [ ] Replace the ternary `{isLoading ? <Spinner /> : <span>...</span>}` with just the icon span (always show icon)
-- [ ] Verify in Storybook that loading icon buttons show their icon normally
+- [x] Remove `Spinner` from the import list in icon-button.tsx
+- [x] Replace the ternary `{isLoading ? <Spinner /> : <span>...</span>}` with just the icon span (always show icon)
+- [x] Verify in Storybook that loading icon buttons show their icon normally
 
 ## Task 3 — Remove Spinner usage from TagButton
 
