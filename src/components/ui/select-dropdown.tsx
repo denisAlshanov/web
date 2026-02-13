@@ -7,11 +7,14 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
 
 export interface SelectDropdownProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   showSearch?: boolean;
   searchPlaceholder?: string;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
+  listboxLabel?: string;
+  /** Props forwarded to the inner listbox element (e.g. aria-activedescendant, onKeyDown) */
+  listboxProps?: React.HTMLAttributes<HTMLDivElement>;
   children?: ReactNode;
   ref?: Ref<HTMLDivElement>;
 }
@@ -21,6 +24,8 @@ function SelectDropdown({
   searchPlaceholder = "Search...",
   searchValue,
   onSearchChange,
+  listboxLabel = "Options",
+  listboxProps,
   children,
   className,
   ref,
@@ -29,7 +34,6 @@ function SelectDropdown({
   return (
     <div
       ref={ref}
-      role="listbox"
       className={cn(
         "flex flex-col",
         "bg-[var(--colour-interface-surface-base)]",
@@ -52,8 +56,10 @@ function SelectDropdown({
           <Icon icon={Search} color="supporting" size="sm" />
           <input
             type="text"
-            value={searchValue}
+            aria-label={searchPlaceholder ?? "Search"}
+            {...(searchValue !== undefined ? { value: searchValue } : {})}
             onChange={(e) => onSearchChange?.(e.target.value)}
+            readOnly={searchValue !== undefined && !onSearchChange}
             placeholder={searchPlaceholder}
             className={cn(
               "flex-1 min-w-0 bg-transparent border-none outline-none",
@@ -64,7 +70,18 @@ function SelectDropdown({
           />
         </div>
       )}
-      <div role="group" className="flex flex-col">
+      {/* max-h: 6 visible items * 44px item height */}
+      <div
+        role="listbox"
+        aria-label={listboxLabel}
+        tabIndex={0}
+        {...listboxProps}
+        className={cn(
+          "flex flex-col overflow-y-auto max-h-[264px]",
+          "outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--colour-interface-form-border-focus)]",
+          listboxProps?.className,
+        )}
+      >
         {children}
       </div>
     </div>

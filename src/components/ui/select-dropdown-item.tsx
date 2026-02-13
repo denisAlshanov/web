@@ -15,6 +15,7 @@ const selectDropdownItemVariants = cva(
     "cursor-pointer select-none",
     "outline-none",
     "transition-colors",
+    "border-2 border-solid border-transparent",
   ].join(" "),
   {
     variants: {
@@ -23,7 +24,7 @@ const selectDropdownItemVariants = cva(
           "bg-[var(--colour-interface-surface-base)]",
           "text-[color:var(--colour-interface-text-supporting)]",
           "hover:bg-[var(--colour-interface-form-surface-hover)]",
-          "focus-visible:border-2 focus-visible:border-solid focus-visible:border-[var(--colour-interface-form-border-focus)]",
+          "focus-visible:border-[var(--colour-interface-form-border-focus)]",
         ].join(" "),
         hover: [
           "bg-[var(--colour-interface-form-surface-hover)]",
@@ -32,11 +33,12 @@ const selectDropdownItemVariants = cva(
         focus: [
           "bg-[var(--colour-interface-surface-base)]",
           "text-[color:var(--colour-interface-text-supporting)]",
-          "border-2 border-solid border-[var(--colour-interface-form-border-focus)]",
+          "border-[var(--colour-interface-form-border-focus)]",
         ].join(" "),
         active: [
           "bg-[var(--colour-interface-form-surface-active)]",
           "text-[color:var(--colour-interface-text-default)]",
+          "focus-visible:border-[var(--colour-interface-form-border-focus)]",
         ].join(" "),
         disabled: [
           "bg-[var(--colour-interface-surface-base)]",
@@ -56,6 +58,7 @@ export interface SelectDropdownItemProps
     VariantProps<typeof selectDropdownItemVariants> {
   leadingIcon?: ReactNode;
   disabled?: boolean;
+  selected?: boolean;
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -63,25 +66,27 @@ function SelectDropdownItem({
   state,
   leadingIcon,
   disabled,
+  selected,
   className,
   children,
   ref,
   ...props
 }: SelectDropdownItemProps) {
-  const resolvedState = disabled ? "disabled" : (state ?? "default");
+  const isDisabled = disabled || state === "disabled";
+  const resolvedState = isDisabled ? "disabled" : (state ?? "default");
 
   return (
     <div
-      ref={ref}
       role="option"
-      aria-disabled={disabled || undefined}
-      aria-selected={resolvedState === "active" || undefined}
-      tabIndex={disabled ? undefined : 0}
+      aria-selected={selected || undefined}
+      aria-disabled={isDisabled || undefined}
+      tabIndex={isDisabled ? undefined : -1}
+      {...props}
+      ref={ref}
       className={cn(
         selectDropdownItemVariants({ state: resolvedState }),
         className,
       )}
-      {...props}
     >
       {leadingIcon && (
         <span className="flex shrink-0 items-center">{leadingIcon}</span>

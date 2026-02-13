@@ -16,6 +16,13 @@ const meta = {
     },
     disabled: { control: "boolean" },
   },
+  decorators: [
+    (Story) => (
+      <div role="listbox" aria-label="Example" style={{ width: 260 }}>
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     children: "Option label",
   },
@@ -59,7 +66,7 @@ const states = ["default", "hover", "focus", "active", "disabled"] as const;
 
 export const StateGrid: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", width: 260 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
       {states.map((state) => (
         <SelectDropdownItem
           key={state}
