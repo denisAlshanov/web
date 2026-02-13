@@ -25,7 +25,7 @@ Implement the IconButton component from Figma (node 2023-13910). This is a circu
 **Files:**
 - Create: `src/components/ui/icon-button.tsx`
 
-- [ ] Define `iconButtonVariants` using CVA with these variants:
+- [x] Define `iconButtonVariants` using CVA with these variants:
   - **variant**: primary, secondary, tertiary, ghost, destructive
     - primary: `bg-[var(--colour-interface-button-background-primary-default)]`, hover/active states
     - secondary: white bg + 2.5px border `var(--colour-interface-button-border-secondary-default)`, hover/active bg+border
@@ -35,11 +35,11 @@ Implement the IconButton component from Figma (node 2023-13910). This is a circu
   - **size**: lg (60px), md (52px), sm (48px), xs (40px) - fixed square dimensions via `size-[Npx]`
   - Focus ring: 4px ring with `var(--colour-interface-button-border-focus-default)` (same as Button)
   - Disabled: opacity-50 via `aria-disabled:opacity-50 aria-disabled:pointer-events-none`
-- [ ] Define `IconButtonProps` extending `React.ButtonHTMLAttributes<HTMLButtonElement>` + `VariantProps`:
+- [x] Define `IconButtonProps` extending `React.ButtonHTMLAttributes<HTMLButtonElement>` + `VariantProps`:
   - `icon` prop: ReactNode for the icon content
   - `asChild` prop for composition
   - `isLoading` prop
-- [ ] Implement the IconButton function component:
+- [x] Implement the IconButton function component:
   - Reuse the same asChild/Slot pattern from Button
   - Reuse the same disabled handling logic from Button (stripChildEventHandlers, preventActivation, preventKeyboardActivation) - import from shared util
   - Loading state shows Spinner (same as Button) with opacity-80 and active-state bg
