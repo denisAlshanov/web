@@ -10,7 +10,6 @@ import {
   stripChildEventHandlers,
   preventActivation,
   preventKeyboardActivation,
-  Spinner,
 } from "@/components/ui/button-utils";
 
 const buttonVariants = cva(
@@ -158,12 +157,11 @@ function Button({
       onClickCapture={asChild && isDisabled ? undefined : onClickCapture}
       onKeyDownCapture={asChild && isDisabled ? undefined : onKeyDownCapture}
     >
-      {isLoading && <Spinner />}
-      {leadingIcon && !isLoading && (
+      {leadingIcon && (
         <span className="inline-flex items-center justify-center shrink-0 size-6" aria-hidden="true">{leadingIcon}</span>
       )}
       <Slottable>{resolvedChildren}</Slottable>
-      {trailingIcon && !isLoading && (
+      {trailingIcon && (
         <span className="inline-flex items-center justify-center shrink-0 size-6" aria-hidden="true">{trailingIcon}</span>
       )}
     </Comp>

@@ -24,11 +24,11 @@ Currently all three button components (Button, IconButton, TagButton) show a spi
 **Files:**
 - Modify: `src/components/ui/button.tsx`
 
-- [ ] Remove `Spinner` from the import list in button.tsx
-- [ ] Remove `{isLoading && <Spinner />}` line entirely
-- [ ] Change `{leadingIcon && !isLoading && ...}` to just `{leadingIcon && ...}` (stop hiding icon during loading)
-- [ ] Change `{trailingIcon && !isLoading && ...}` to just `{trailingIcon && ...}` (stop hiding icon during loading)
-- [ ] Verify in Storybook that loading buttons show text and icons normally
+- [x] Remove `Spinner` from the import list in button.tsx
+- [x] Remove `{isLoading && <Spinner />}` line entirely
+- [x] Change `{leadingIcon && !isLoading && ...}` to just `{leadingIcon && ...}` (stop hiding icon during loading)
+- [x] Change `{trailingIcon && !isLoading && ...}` to just `{trailingIcon && ...}` (stop hiding icon during loading)
+- [x] Verify in Storybook that loading buttons show text and icons normally
 
 ## Task 2 — Remove Spinner usage from IconButton
 
