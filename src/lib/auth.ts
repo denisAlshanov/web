@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
-async function exchangeGoogleToken(idToken: string): Promise<{
+async function exchangeGoogleToken(accessToken: string): Promise<{
   access_token: string;
   refresh_token: string;
   expires_in: number;
@@ -23,12 +23,12 @@ async function exchangeGoogleToken(idToken: string): Promise<{
   }
 
   try {
-    const url = `${apiBaseUrl}/auth/google/callback`;
+    const url = `${apiBaseUrl}/auth/google/token`;
     console.log(`[auth] Exchanging Google token with backend: ${url}`);
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id_token: idToken }),
+      body: JSON.stringify({ token: accessToken }),
       signal: AbortSignal.timeout(10_000),
     });
 
@@ -113,9 +113,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, account }) {
       // First-time sign-in: exchange Google token with backend
       if (account) {
-        const idToken = account.id_token;
-        if (idToken) {
-          const backendAuth = await exchangeGoogleToken(idToken);
+        const googleAccessToken = account.access_token;
+        if (googleAccessToken) {
+          const backendAuth = await exchangeGoogleToken(googleAccessToken);
           if (backendAuth) {
             token.backendAccessToken = backendAuth.access_token;
             token.backendRefreshToken = backendAuth.refresh_token;
@@ -137,7 +137,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             token.error = "BackendAuthError";
           }
         } else {
-          // Google sign-in did not return an id_token
+          // Google sign-in did not return an access_token
           token.error = "BackendAuthError";
         }
         return token;
