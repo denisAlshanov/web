@@ -71,8 +71,12 @@ const iconButtonVariants = cva(
   },
 );
 
+type IconButtonVariant = NonNullable<
+  VariantProps<typeof iconButtonVariants>["variant"]
+>;
+
 /** Active-state background classes applied during loading to give visual feedback. */
-const iconButtonLoadingBg: Record<string, string> = {
+const iconButtonLoadingBg: Record<IconButtonVariant, string> = {
   primary: "bg-[var(--colour-interface-button-background-primary-active)]",
   secondary:
     "bg-[var(--colour-interface-button-background-secondary-active)] border-[var(--colour-interface-button-border-secondary-active)]",
