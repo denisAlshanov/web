@@ -51,10 +51,10 @@ The TagButton is a minimal inline action button (24x24px) used for actions like 
 **Files:**
 - Create: `src/components/ui/tag-button.stories.tsx`
 
-- [ ] Create stories for both default and destructive variants
-- [ ] Add stories for all interactive states (hover, active, focused, disabled) using pseudo-states addon
-- [ ] Add story showing usage with different Iconoir icons
-- [ ] Add story demonstrating the asChild pattern (e.g., wrapping a link)
+- [x] Create stories for both default and destructive variants
+- [x] Add stories for all interactive states (hover, active, focused, disabled) using pseudo-states addon
+- [x] Add story showing usage with different Iconoir icons
+- [x] Add story demonstrating the asChild pattern (e.g., wrapping a link)
 
 ### Task 3: Verify
 
