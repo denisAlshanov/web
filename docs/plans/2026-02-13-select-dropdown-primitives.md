@@ -61,12 +61,12 @@ with an optional leading icon.
 - Create: `src/components/ui/select-dropdown.tsx`
 
 **Steps:**
-- [ ] Create SelectDropdown container component
-- [ ] Props: showSearch (boolean, default false), searchPlaceholder (string), onSearchChange callback, children (for dropdown items), className, ref
-- [ ] Container styling: white bg, rounded-[rad-input] (12px), box-shadow (0px 1px 8px rgba(38,44,52,0.04)), overflow-clip, no padding, flex column, gap-0
-- [ ] When showSearch is true, render the existing InputText component at the top (or a search-specific input with search icon)
-- [ ] Children slot for SelectDropdownItem list
-- [ ] Run lint: `npm run lint`
+- [x] Create SelectDropdown container component
+- [x] Props: showSearch (boolean, default false), searchPlaceholder (string), onSearchChange callback, children (for dropdown items), className, ref
+- [x] Container styling: white bg, rounded-[rad-input] (12px), box-shadow (0px 1px 8px rgba(38,44,52,0.04)), overflow-clip, no padding, flex column, gap-0
+- [x] When showSearch is true, render the existing InputText component at the top (or a search-specific input with search icon)
+- [x] Children slot for SelectDropdownItem list
+- [x] Run lint: `npm run lint`
 
 ## Task 4 — SelectDropdown Storybook stories
 
