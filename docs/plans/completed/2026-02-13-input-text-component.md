@@ -60,49 +60,49 @@ Implement InputText component from Figma design system (node 2139-864) - a text 
 **Files:**
 - Create: `src/components/ui/input-text.tsx`
 
-- [ ] Create InputText component with forwardRef-free pattern (React 19 style, ref as prop)
-- [ ] Props: className, error (string | boolean), disabled, leadingIcon (ReactNode), trailingIcon (ReactNode), helperText (string), plus all native input HTML attributes via InputHTMLAttributes
-- [ ] Outer wrapper: flex col, gap 2px (gap-2xs), items-start
-- [ ] Input row: flex row, items-center, gap 6px (gap-s), white background, 2px solid border, 12px radius (rad-input), min-h 44px, pl 12px (pad-m), pr 18px (pad-l), py 12px (pad-m)
-- [ ] State: Default - border var(--colour-interface-form-border-default), placeholder text color var(--colour-interface-text-placeholder)
-- [ ] State: Hover - border var(--colour-interface-form-border-hover) via hover: pseudo on the wrapper div
-- [ ] State: Focus (keyboard) - 3px outer ring var(--colour-interface-form-border-focus) via focus-visible using box-shadow, inner border stays default
-- [ ] State: Active (mouse focus) - border var(--colour-interface-form-border-active) via focus-within:not(:has(:focus-visible)) or similar CSS approach
-- [ ] State: Filled - text color var(--colour-interface-text-heavy), handled naturally by the input element having a value
-- [ ] State: Error - border var(--colour-interface-form-border-error), helper text turns var(--colour-interface-text-semantic-error)
-- [ ] State: Disabled - opacity 50%, border-dashed, pointer-events-none via disabled attribute + aria-disabled
-- [ ] Optional leading icon slot (24px, left of input) wrapped in aria-hidden span
-- [ ] Optional trailing icon slot (24px, right of input) wrapped in aria-hidden span
-- [ ] Inner input element: flex-1, transparent background, no border/outline, text-medium-m, inherits text color
-- [ ] Optional helper text below input row: text-medium-s, pl 4px (pad-xs), color var(--colour-interface-text-supporting), or var(--colour-interface-text-semantic-error) when error
+- [x] Create InputText component with forwardRef-free pattern (React 19 style, ref as prop)
+- [x] Props: className, error (string | boolean), disabled, leadingIcon (ReactNode), trailingIcon (ReactNode), helperText (string), plus all native input HTML attributes via InputHTMLAttributes
+- [x] Outer wrapper: flex col, gap 2px (gap-2xs), items-start
+- [x] Input row: flex row, items-center, gap 6px (gap-s), white background, 2px solid border, 12px radius (rad-input), min-h 44px, pl 12px (pad-m), pr 18px (pad-l), py 12px (pad-m)
+- [x] State: Default - border var(--colour-interface-form-border-default), placeholder text color var(--colour-interface-text-placeholder)
+- [x] State: Hover - border var(--colour-interface-form-border-hover) via hover: pseudo on the wrapper div
+- [x] State: Focus (keyboard) - 3px outer ring var(--colour-interface-form-border-focus) via focus-visible using box-shadow, inner border stays default
+- [x] State: Active (mouse focus) - border var(--colour-interface-form-border-active) via focus-within:not(:has(:focus-visible)) or similar CSS approach
+- [x] State: Filled - text color var(--colour-interface-text-heavy), handled naturally by the input element having a value
+- [x] State: Error - border var(--colour-interface-form-border-error), helper text turns var(--colour-interface-text-semantic-error)
+- [x] State: Disabled - opacity 50%, border-dashed, pointer-events-none via disabled attribute + aria-disabled
+- [x] Optional leading icon slot (24px, left of input) wrapped in aria-hidden span
+- [x] Optional trailing icon slot (24px, right of input) wrapped in aria-hidden span
+- [x] Inner input element: flex-1, transparent background, no border/outline, text-medium-m, inherits text color
+- [x] Optional helper text below input row: text-medium-s, pl 4px (pad-xs), color var(--colour-interface-text-supporting), or var(--colour-interface-text-semantic-error) when error
 
 ### Task 2: Create Storybook stories
 
 **Files:**
 - Create: `src/components/ui/input-text.stories.tsx`
 
-- [ ] Create stories file with meta for UI/InputText, following button.stories.tsx pattern
-- [ ] Default story
-- [ ] WithHelperText story
-- [ ] WithError story (error string displayed as helper text)
-- [ ] Disabled story
-- [ ] WithLeadingIcon story (using Icon component with iconoir icon)
-- [ ] WithTrailingIcon story
-- [ ] WithBothIcons story
-- [ ] Filled story (with defaultValue set)
-- [ ] StateGrid story showing all visual variants side by side for comparison with Figma
+- [x] Create stories file with meta for UI/InputText, following button.stories.tsx pattern
+- [x] Default story
+- [x] WithHelperText story
+- [x] WithError story (error string displayed as helper text)
+- [x] Disabled story
+- [x] WithLeadingIcon story (using Icon component with iconoir icon)
+- [x] WithTrailingIcon story
+- [x] WithBothIcons story
+- [x] Filled story (with defaultValue set)
+- [x] StateGrid story showing all visual variants side by side for comparison with Figma
 
 ### Task 3: Lint and verify
 
-- [ ] Run `npm run lint` and fix any issues
-- [ ] Verify in Storybook that all states match Figma design
+- [x] Run `npm run lint` and fix any issues
+- [x] Verify in Storybook that all states match Figma design
 
 ## Verification
 
-- [ ] Manual test: all 7 states visible and matching Figma screenshot in Storybook
-- [ ] Run linter: `npm run lint`
-- [ ] Verify component accepts all standard input HTML attributes (type, name, value, onChange, etc.)
+- [x] Manual test: all 7 states visible and matching Figma screenshot in Storybook
+- [x] Run linter: `npm run lint`
+- [x] Verify component accepts all standard input HTML attributes (type, name, value, onChange, etc.)
 
 ## Cleanup
 
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Move this plan to `docs/plans/completed/`
