@@ -185,17 +185,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           delete token.error;
         } else if (!googleAccessToken && !googleIdToken) {
           // Google sign-in did not return any usable token
-          token.error = "BackendAuthError";
+          token.error = "BackendAuthError:no_token";
+        } else if (result.status === null) {
+          // Network or timeout error
+          token.error = "BackendAuthError:network";
         } else {
-          // Backend auth failed — prevent creating a session without backend tokens
-          token.error = "BackendAuthError";
+          // Backend returned an HTTP error (e.g. 401, 403, 500)
+          token.error = `BackendAuthError:${result.status}`;
         }
         return token;
       }
 
       // If the initial backend exchange failed, the session is permanently broken.
       // Surface the error so the middleware redirects to login for a fresh attempt.
-      if (token.error === "BackendAuthError") {
+      if (typeof token.error === "string" && token.error.startsWith("BackendAuthError")) {
         return token;
       }
 

@@ -53,8 +53,8 @@ The current code sends `{ token: account.access_token }` to `POST /auth/google/t
 - Modify: `src/app/auth-error/page.tsx`
 
 **Steps:**
-- [ ] Store a more specific error reason in the JWT (e.g., "BackendAuthError:401" vs "BackendAuthError:network" vs "BackendAuthError:no_token") so the UI can show a more helpful message
-- [ ] Update the auth-error page to distinguish between "account not approved" (current message) and "authentication service error" (new case for 401/network failures)
+- [x] Store a more specific error reason in the JWT (e.g., "BackendAuthError:401" vs "BackendAuthError:network" vs "BackendAuthError:no_token") so the UI can show a more helpful message
+- [x] Update the auth-error page to distinguish between "account not approved" (current message) and "authentication service error" (new case for 401/network failures)
 
 ---
 
