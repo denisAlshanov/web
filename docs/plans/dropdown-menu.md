@@ -92,18 +92,18 @@
 - [x] Run tests — must pass before next task
 
 ### Task 2: Implement DropdownMenuItem with CVA variants (TDD)
-- [ ] Write tests: renders icon (via `<Icon>` wrapper) + text label
-- [ ] Write tests: Default state has `--colour-interface-background-secondary-default` background
-- [ ] Write tests: component renders as a menu item (Radix `DropdownMenu.Item`)
-- [ ] Write tests: accepts custom `icon` prop (React component) and `children` text
-- [ ] Write tests: accepts `onClick` handler and fires when clicked
-- [ ] Implement `DropdownMenuItem` in `src/components/ui/dropdown-menu.tsx`:
+- [x] Write tests: renders icon (via `<Icon>` wrapper) + text label
+- [x] Write tests: Default state has `--colour-interface-background-secondary-default` background
+- [x] Write tests: component renders as a menu item (Radix `DropdownMenu.Item`)
+- [x] Write tests: accepts custom `icon` prop (React component) and `children` text
+- [x] Write tests: accepts `onClick` handler and fires when clicked
+- [x] Implement `DropdownMenuItem` in `src/components/ui/dropdown-menu.tsx`:
   - CVA base: `flex items-center h-[40px] gap-[var(--number-spacing-gap-gap-s)] pl-[var(--number-spacing-padding-pad-s)] pr-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-m)] w-full text-medium-s text-[color:var(--colour-interface-text-default)] cursor-pointer transition-colors`
   - Default: `bg-[var(--colour-interface-background-secondary-default)]`
   - Hover: `hover:bg-[var(--colour-interface-background-secondary-hover)]` / `data-[highlighted]:bg-[var(--colour-interface-background-secondary-hover)]`
   - Focus: `focus-visible:bg-[var(--colour-interface-background-secondary-focus)] focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-[var(--colour-interface-border-primary-focus)]`
   - Active: `active:bg-[var(--colour-interface-background-secondary-active)]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Implement DropdownMenuContent panel (TDD)
 - [ ] Write tests: renders children (DropdownMenuItem items)
