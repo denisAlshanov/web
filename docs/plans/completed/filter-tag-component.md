@@ -64,54 +64,54 @@ Create a new `FilterTag` UI component (`src/components/ui/filter-tag.tsx`) — a
 ## Implementation Steps
 
 ### Task 1: Create non-editable FilterTag with CVA variants
-- [ ] Create `src/components/ui/filter-tag.tsx`
-- [ ] Define `filterTagVariants` CVA with base styles: height (h-9), min-w (min-w-16), padding (pad-m), gap (gap-xs), border-radius (rad-button), typography (text-semibold-s), border (2px solid border-primary-light), transition-colors, cursor-pointer, inline-flex items-center justify-center
-- [ ] Add `selected` boolean variant: `false` = default styling, `true` = inverse bg + onHeavy text + no border
-- [ ] Add CSS pseudo-class states for non-selected: `hover:bg-[secondary-hover]`, `active:bg-[secondary-active] active:text-[default]`, `focus-visible:ring-2 ring-[border-primary-focus]`
-- [ ] Add `aria-disabled:opacity-50 aria-disabled:pointer-events-none` for disabled state
-- [ ] Define `FilterTagProps`: `children` (string), `selected?`, `disabled?`, `leadingIcon?` (ComponentType), `trailingIcon?` (ComponentType), `className?`, `onClick?`, plus standard button HTML attributes
-- [ ] Render as `<button>` with Icon wrapper for leading/trailing icons; icon color switches based on `selected` (onHeavy vs supporting)
-- [ ] Export `FilterTag`, `filterTagVariants`
-- [ ] Write unit tests: renders default state with text, renders with leading/trailing icons, applies selected styles, applies disabled opacity, forwards className
-- [ ] Write unit tests: onClick fires when not disabled, onClick does not fire when disabled
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/filter-tag.tsx`
+- [x] Define `filterTagVariants` CVA with base styles: height (h-9), min-w (min-w-16), padding (pad-m), gap (gap-xs), border-radius (rad-button), typography (text-semibold-s), border (2px solid border-primary-light), transition-colors, cursor-pointer, inline-flex items-center justify-center
+- [x] Add `selected` boolean variant: `false` = default styling, `true` = inverse bg + onHeavy text + no border
+- [x] Add CSS pseudo-class states for non-selected: `hover:bg-[secondary-hover]`, `active:bg-[secondary-active] active:text-[default]`, `focus-visible:ring-2 ring-[border-primary-focus]`
+- [x] Add `aria-disabled:opacity-50 aria-disabled:pointer-events-none` for disabled state
+- [x] Define `FilterTagProps`: `children` (string), `selected?`, `disabled?`, `leadingIcon?` (ComponentType), `trailingIcon?` (ComponentType), `className?`, `onClick?`, plus standard button HTML attributes
+- [x] Render as `<button>` with Icon wrapper for leading/trailing icons; icon color switches based on `selected` (onHeavy vs supporting)
+- [x] Export `FilterTag`, `filterTagVariants`
+- [x] Write unit tests: renders default state with text, renders with leading/trailing icons, applies selected styles, applies disabled opacity, forwards className
+- [x] Write unit tests: onClick fires when not disabled, onClick does not fire when disabled
+- [x] Run tests — must pass before next task
 
 ### Task 2: Add editable mode with action buttons
-- [ ] Add `editable?: boolean` prop to `FilterTagProps`
-- [ ] Add `editing?: boolean` prop — controlled state for "actively editing" (shows check icon, medium border)
-- [ ] Add callbacks: `onEdit?: () => void`, `onDelete?: () => void`, `onConfirm?: () => void`
-- [ ] When `editable` and not `selected` and not `disabled`: render edit (EditPencil) and delete (Trash) icon buttons, hidden by default, visible on hover via `group` + `group-hover:flex` pattern
-- [ ] When `editing`: show Check icon button instead of edit/trash, change border to `border-primary-medium`, text to `text-default`
-- [ ] Action icon buttons: small click targets (24px), prevent event propagation to parent button
-- [ ] Write unit tests: editable mode renders edit/delete buttons, editing mode renders confirm button
-- [ ] Write unit tests: onEdit/onDelete/onConfirm callbacks fire correctly
-- [ ] Write unit tests: action buttons not shown when selected or disabled
-- [ ] Run tests — must pass before next task
+- [x] Add `editable?: boolean` prop to `FilterTagProps`
+- [x] Add `editing?: boolean` prop — controlled state for "actively editing" (shows check icon, medium border)
+- [x] Add callbacks: `onEdit?: () => void`, `onDelete?: () => void`, `onConfirm?: () => void`
+- [x] When `editable` and not `selected` and not `disabled`: render edit (EditPencil) and delete (Trash) icon buttons, hidden by default, visible on hover via `group` + `group-hover:flex` pattern
+- [x] When `editing`: show Check icon button instead of edit/trash, change border to `border-primary-medium`, text to `text-default`
+- [x] Action icon buttons: small click targets (24px), prevent event propagation to parent button
+- [x] Write unit tests: editable mode renders edit/delete buttons, editing mode renders confirm button
+- [x] Write unit tests: onEdit/onDelete/onConfirm callbacks fire correctly
+- [x] Write unit tests: action buttons not shown when selected or disabled
+- [x] Run tests — must pass before next task
 
 ### Task 3: Add Storybook stories
-- [ ] Create `src/components/ui/filter-tag.stories.tsx`
-- [ ] Add `Default` story
-- [ ] Add stories: `WithLeadingIcon`, `WithTrailingIcon`, `WithBothIcons`
-- [ ] Add `Selected` story (dark bg)
-- [ ] Add `Disabled` story
-- [ ] Add hover/focus/active pseudo-state stories
-- [ ] Add `Editable` story (shows action buttons on hover)
-- [ ] Add `Editing` story (shows check icon, medium border)
-- [ ] Add `EditableSelected` story
-- [ ] Add `StateGrid` story showing all states side by side
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/filter-tag.stories.tsx`
+- [x] Add `Default` story
+- [x] Add stories: `WithLeadingIcon`, `WithTrailingIcon`, `WithBothIcons`
+- [x] Add `Selected` story (dark bg)
+- [x] Add `Disabled` story
+- [x] Add hover/focus/active pseudo-state stories
+- [x] Add `Editable` story (shows action buttons on hover)
+- [x] Add `Editing` story (shows check icon, medium border)
+- [x] Add `EditableSelected` story
+- [x] Add `StateGrid` story showing all states side by side
+- [x] Run tests — must pass before next task
 
 ### Task 4: Verify acceptance criteria
-- [ ] All 6 non-editable states render correctly (Default, Disabled, Hover, Active, Focused, Selected)
-- [ ] All 6 editable states render correctly with action buttons
-- [ ] Icons use the `Icon` wrapper, not raw iconoir
-- [ ] All colors from design tokens, no hardcoded values
-- [ ] Run full test suite (`npm run test`)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Visual comparison with Figma in Storybook
+- [x] All 6 non-editable states render correctly (Default, Disabled, Hover, Active, Focused, Selected)
+- [x] All 6 editable states render correctly with action buttons
+- [x] Icons use the `Icon` wrapper, not raw iconoir
+- [x] All colors from design tokens, no hardcoded values
+- [x] Run full test suite (`npm run test`)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Visual comparison with Figma in Storybook
 
 ### Task 5: [Final] Update documentation
-- [ ] Update this plan to completed status
+- [x] Update this plan to completed status
 
 *Note: ralphex automatically moves completed plans to `docs/plans/completed/`*
 
@@ -124,6 +124,7 @@ interface FilterTagProps
     VariantProps<typeof filterTagVariants> {
   children: string;
   selected?: boolean;
+  disabled?: boolean;
   editable?: boolean;
   editing?: boolean;
   leadingIcon?: ComponentType<SVGProps<SVGSVGElement>>;
@@ -132,6 +133,7 @@ interface FilterTagProps
   onDelete?: () => void;
   onConfirm?: () => void;
   className?: string;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 ```
 
@@ -141,7 +143,7 @@ const filterTagVariants = cva(
   [
     "group inline-flex items-center justify-center",
     "h-9 min-w-16",
-    "p-[var(--number-spacing-padding-pad-m)]",
+    "px-[var(--number-spacing-padding-pad-m)]",
     "gap-[var(--number-spacing-gap-gap-xs)]",
     "rounded-[var(--number-radius-rad-button)]",
     "text-semibold-s",
@@ -177,7 +179,7 @@ const filterTagVariants = cva(
 Uses `focus-visible:ring-2` (box-shadow based) to create the outer focus ring, while the existing 2px border provides the inner border — matching the double-border effect in Figma without nested containers.
 
 ### Editable Action Buttons
-Hidden by default via `hidden group-hover:flex` (or `opacity-0 group-hover:opacity-100`) on the action button wrapper. The `group` class on the root element enables hover-driven visibility.
+Hidden by default via `hidden group-hover:flex group-focus-visible:flex` on the action button wrapper. The `group` class on the root element enables hover-driven and focus-driven visibility.
 
 ### Icon Color Logic
 - Non-selected: `supporting` (default icon color)
