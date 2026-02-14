@@ -141,15 +141,15 @@
 - [x] Run tests — must pass before next task
 
 ### Task 6: Verify acceptance criteria
-- [ ] Verify item matches Figma: icon + text, 40px height, 4 state backgrounds
-- [ ] Verify panel matches Figma: rounded 18px, shadow, min-width 120px, overflow clip
-- [ ] Verify trigger: 40x40 pill, hamburger `Menu` icon
-- [ ] Verify dropdown opens/closes correctly with click and Escape
-- [ ] Verify keyboard navigation: arrow keys between items, Enter/Space to activate
-- [ ] Verify `role="menu"` and `role="menuitem"` ARIA attributes
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify item matches Figma: icon + text, 40px height, 4 state backgrounds
+- [x] Verify panel matches Figma: rounded 18px, shadow, min-width 120px, overflow clip
+- [x] Verify trigger: 40x40 pill, hamburger `Menu` icon
+- [x] Verify dropdown opens/closes correctly with click and Escape
+- [x] Verify keyboard navigation: arrow keys between items, Enter/Space to activate
+- [x] Verify `role="menu"` and `role="menuitem"` ARIA attributes
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 7: [Final] Update documentation
 - [ ] Update any relevant docs if new patterns were discovered (Radix DropdownMenu usage)

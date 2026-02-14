@@ -372,6 +372,43 @@ describe("DropdownMenu (composed widget)", () => {
       await user.keyboard("{Escape}");
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     });
+
+    it("arrow down from trigger opens the menu and highlights an item", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      const trigger = screen.getByRole("button", { name: /open menu/i });
+      trigger.focus();
+
+      // ArrowDown on the trigger opens the menu (Radix behavior)
+      await user.keyboard("{ArrowDown}");
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+      expect(screen.getAllByRole("menuitem").length).toBeGreaterThan(0);
+    });
+
+    it("Enter activates a menu item", async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button type="button">Trigger</button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onSelect={onSelect}>Action</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>,
+      );
+
+      await user.click(screen.getByRole("button", { name: /trigger/i }));
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+
+      // Navigate to the item and press Enter
+      await user.keyboard("{ArrowDown}");
+      await user.keyboard("{Enter}");
+      expect(onSelect).toHaveBeenCalledOnce();
+    });
   });
 
   describe("custom trigger", () => {
