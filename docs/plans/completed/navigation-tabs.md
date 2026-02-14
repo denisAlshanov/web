@@ -59,65 +59,65 @@
 ## Implementation Steps
 
 ### Task 1: Install dependencies and set up test infrastructure
-- [ ] Install `@radix-ui/react-tabs` via npm
-- [ ] Verify Vitest and React Testing Library are available (install if needed)
-- [ ] Create empty `src/components/ui/tabs.tsx` with placeholder exports
-- [ ] Create test file `src/components/ui/__tests__/tabs.test.tsx` with initial test structure
-- [ ] Run tests - must pass before next task
+- [x] Install `@radix-ui/react-tabs` via npm
+- [x] Verify Vitest and React Testing Library are available (install if needed)
+- [x] Create empty `src/components/ui/tabs.tsx` with placeholder exports
+- [x] Create test file `src/components/ui/__tests__/tabs.test.tsx` with initial test structure
+- [x] Run tests - must pass before next task
 
 ### Task 2: Implement Tab trigger component (TDD)
-- [ ] Write tests for `Tab` component: renders text label, renders with leading icon, applies `text-medium-s` typography
-- [ ] Write tests for Tab states: default has no bottom border, hover state applies light border, focus-visible applies medium border, active (selected) applies dark border + heavy text
-- [ ] Write tests for accessibility: has `role="tab"`, `aria-selected` toggles, keyboard focusable
-- [ ] Implement `Tab` component with CVA variants in `src/components/ui/tabs.tsx`:
+- [x] Write tests for `Tab` component: renders text label, renders with leading icon, applies `text-medium-s` typography
+- [x] Write tests for Tab states: default has no bottom border, hover state applies light border, focus-visible applies medium border, active (selected) applies dark border + heavy text
+- [x] Write tests for accessibility: has `role="tab"`, `aria-selected` toggles, keyboard focusable
+- [x] Implement `Tab` component with CVA variants in `src/components/ui/tabs.tsx`:
   - Base styles: flex, gap-s (6px), padding (8px / 12px / 8px), cursor-pointer, text-medium-s
   - Default: text-default color, no bottom border
   - Hover: `hover:border-b-[1.8px] hover:border-[var(--colour-interface-border-primary-light)]`
   - Focus: `focus-visible:border-b-[1.8px] focus-visible:border-[var(--colour-interface-border-primary-medium)]`
   - Active (via Radix `data-[state=active]`): border-b-[1.8px] with `--colour-brandMode-primary-800`, text `--colour-interface-text-heavy`
   - Support optional `leadingIcon` prop (renders via `<Icon>` wrapper)
-- [ ] Run tests - must pass before next task
+- [x] Run tests - must pass before next task
 
 ### Task 3: Implement TabList and TabContent containers (TDD)
-- [ ] Write tests for `TabList`: renders as horizontal flex row, has bottom border, applies correct gap and padding
-- [ ] Write tests for `TabContent`: renders panel content when tab is active, has correct ARIA attributes
-- [ ] Write tests for composed usage: `Tabs` root + `TabList` + `Tab` triggers + `TabContent` panels work together
-- [ ] Implement `TabList` component wrapping `Radix.TabsList`:
+- [x] Write tests for `TabList`: renders as horizontal flex row, has bottom border, applies correct gap and padding
+- [x] Write tests for `TabContent`: renders panel content when tab is active, has correct ARIA attributes
+- [x] Write tests for composed usage: `Tabs` root + `TabList` + `Tab` triggers + `TabContent` panels work together
+- [x] Implement `TabList` component wrapping `Radix.TabsList`:
   - Flex row, gap-m (12px), padding-left pad-m (12px), border-bottom 1px `--colour-interface-border-secondary-light`
   - Accept `className` override via `cn()`
-- [ ] Implement `TabContent` component wrapping `Radix.TabsContent`:
+- [x] Implement `TabContent` component wrapping `Radix.TabsContent`:
   - Minimal styling, accept `className` override
-- [ ] Export `Tabs` (root), `TabList`, `Tab`, `TabContent` from `src/components/ui/tabs.tsx`
-- [ ] Run tests - must pass before next task
+- [x] Export `Tabs` (root), `TabList`, `Tab`, `TabContent` from `src/components/ui/tabs.tsx`
+- [x] Run tests - must pass before next task
 
 ### Task 4: Implement controlled and uncontrolled modes (TDD)
-- [ ] Write tests for uncontrolled mode: first tab active by default via `defaultValue`
-- [ ] Write tests for controlled mode: `value` + `onValueChange` props control active tab
-- [ ] Write tests for programmatic tab switching
-- [ ] Implement controlled/uncontrolled support via Radix `Tabs` root props passthrough
-- [ ] Run tests - must pass before next task
+- [x] Write tests for uncontrolled mode: first tab active by default via `defaultValue`
+- [x] Write tests for controlled mode: `value` + `onValueChange` props control active tab
+- [x] Write tests for programmatic tab switching
+- [x] Implement controlled/uncontrolled support via Radix `Tabs` root props passthrough
+- [x] Run tests - must pass before next task
 
 ### Task 5: Create Storybook stories
-- [ ] Create `src/components/ui/tabs.stories.tsx` with Meta setup
-- [ ] Add `Default` story: basic 3-tab example with text-only tabs
-- [ ] Add `WithIcons` story: tabs with leading icons using `<Icon>` wrapper
-- [ ] Add `ActiveStates` story: grid showing all 4 tab states (Default, Hover, Focus, Active)
-- [ ] Add `Controlled` story: demonstrates controlled tab switching
-- [ ] Add `ManyTabs` story: 10 tabs matching the Figma Tab View layout
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests - must pass before next task
+- [x] Create `src/components/ui/tabs.stories.tsx` with Meta setup
+- [x] Add `Default` story: basic 3-tab example with text-only tabs
+- [x] Add `WithIcons` story: tabs with leading icons using `<Icon>` wrapper
+- [x] Add `ActiveStates` story: grid showing all 4 tab states (Default, Hover, Focus, Active)
+- [x] Add `Controlled` story: demonstrates controlled tab switching
+- [x] Add `ManyTabs` story: 10 tabs matching the Figma Tab View layout
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests - must pass before next task
 
 ### Task 6: Verify acceptance criteria
-- [ ] Verify all Figma design specifications are matched (spacing, colors, typography, borders)
-- [ ] Verify keyboard navigation works (arrow keys between tabs, Tab key to content)
-- [ ] Verify ARIA attributes are correct (`role="tablist"`, `role="tab"`, `role="tabpanel"`)
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) - all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify all Figma design specifications are matched (spacing, colors, typography, borders)
+- [x] Verify keyboard navigation works (arrow keys between tabs, Tab key to content)
+- [x] Verify ARIA attributes are correct (`role="tablist"`, `role="tab"`, `role="tabpanel"`)
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) - all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 7: [Final] Update documentation
-- [ ] Update `docs/component-creation-guide.md` if new patterns were discovered
-- [ ] Add Tabs to the component inventory in any relevant docs
+- [x] Update `docs/component-creation-guide.md` if new patterns were discovered (no new patterns — Tabs follows existing Radix wrapper pattern)
+- [x] Add Tabs to the component inventory in any relevant docs (no component inventory exists; Tabs already listed in component-creation-guide build order and state matrix)
 
 ## Technical Details
 
