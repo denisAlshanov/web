@@ -102,16 +102,16 @@ Create a new `FilterTag` UI component (`src/components/ui/filter-tag.tsx`) — a
 - [x] Run tests — must pass before next task
 
 ### Task 4: Verify acceptance criteria
-- [ ] All 6 non-editable states render correctly (Default, Disabled, Hover, Active, Focused, Selected)
-- [ ] All 6 editable states render correctly with action buttons
-- [ ] Icons use the `Icon` wrapper, not raw iconoir
-- [ ] All colors from design tokens, no hardcoded values
-- [ ] Run full test suite (`npm run test`)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Visual comparison with Figma in Storybook
+- [x] All 6 non-editable states render correctly (Default, Disabled, Hover, Active, Focused, Selected)
+- [x] All 6 editable states render correctly with action buttons
+- [x] Icons use the `Icon` wrapper, not raw iconoir
+- [x] All colors from design tokens, no hardcoded values
+- [x] Run full test suite (`npm run test`)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Visual comparison with Figma in Storybook
 
 ### Task 5: [Final] Update documentation
-- [ ] Update this plan to completed status
+- [x] Update this plan to completed status
 
 *Note: ralphex automatically moves completed plans to `docs/plans/completed/`*
 
