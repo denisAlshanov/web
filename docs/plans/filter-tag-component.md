@@ -64,17 +64,17 @@ Create a new `FilterTag` UI component (`src/components/ui/filter-tag.tsx`) — a
 ## Implementation Steps
 
 ### Task 1: Create non-editable FilterTag with CVA variants
-- [ ] Create `src/components/ui/filter-tag.tsx`
-- [ ] Define `filterTagVariants` CVA with base styles: height (h-9), min-w (min-w-16), padding (pad-m), gap (gap-xs), border-radius (rad-button), typography (text-semibold-s), border (2px solid border-primary-light), transition-colors, cursor-pointer, inline-flex items-center justify-center
-- [ ] Add `selected` boolean variant: `false` = default styling, `true` = inverse bg + onHeavy text + no border
-- [ ] Add CSS pseudo-class states for non-selected: `hover:bg-[secondary-hover]`, `active:bg-[secondary-active] active:text-[default]`, `focus-visible:ring-2 ring-[border-primary-focus]`
-- [ ] Add `aria-disabled:opacity-50 aria-disabled:pointer-events-none` for disabled state
-- [ ] Define `FilterTagProps`: `children` (string), `selected?`, `disabled?`, `leadingIcon?` (ComponentType), `trailingIcon?` (ComponentType), `className?`, `onClick?`, plus standard button HTML attributes
-- [ ] Render as `<button>` with Icon wrapper for leading/trailing icons; icon color switches based on `selected` (onHeavy vs supporting)
-- [ ] Export `FilterTag`, `filterTagVariants`
-- [ ] Write unit tests: renders default state with text, renders with leading/trailing icons, applies selected styles, applies disabled opacity, forwards className
-- [ ] Write unit tests: onClick fires when not disabled, onClick does not fire when disabled
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/filter-tag.tsx`
+- [x] Define `filterTagVariants` CVA with base styles: height (h-9), min-w (min-w-16), padding (pad-m), gap (gap-xs), border-radius (rad-button), typography (text-semibold-s), border (2px solid border-primary-light), transition-colors, cursor-pointer, inline-flex items-center justify-center
+- [x] Add `selected` boolean variant: `false` = default styling, `true` = inverse bg + onHeavy text + no border
+- [x] Add CSS pseudo-class states for non-selected: `hover:bg-[secondary-hover]`, `active:bg-[secondary-active] active:text-[default]`, `focus-visible:ring-2 ring-[border-primary-focus]`
+- [x] Add `aria-disabled:opacity-50 aria-disabled:pointer-events-none` for disabled state
+- [x] Define `FilterTagProps`: `children` (string), `selected?`, `disabled?`, `leadingIcon?` (ComponentType), `trailingIcon?` (ComponentType), `className?`, `onClick?`, plus standard button HTML attributes
+- [x] Render as `<button>` with Icon wrapper for leading/trailing icons; icon color switches based on `selected` (onHeavy vs supporting)
+- [x] Export `FilterTag`, `filterTagVariants`
+- [x] Write unit tests: renders default state with text, renders with leading/trailing icons, applies selected styles, applies disabled opacity, forwards className
+- [x] Write unit tests: onClick fires when not disabled, onClick does not fire when disabled
+- [x] Run tests — must pass before next task
 
 ### Task 2: Add editable mode with action buttons
 - [ ] Add `editable?: boolean` prop to `FilterTagProps`
