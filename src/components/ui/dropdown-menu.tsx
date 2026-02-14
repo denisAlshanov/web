@@ -38,10 +38,11 @@ function DropdownMenuContent({
 /* ─── DropdownMenuItem ─── */
 
 interface DropdownMenuItemProps
-  extends React.ComponentPropsWithoutRef<typeof RadixDropdownMenu.Item> {
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof RadixDropdownMenu.Item>,
+    "asChild"
+  > {
   icon?: ComponentType<SVGProps<SVGSVGElement>>;
-  children: React.ReactNode;
-  className?: string;
 }
 
 function DropdownMenuItem({
@@ -50,6 +51,10 @@ function DropdownMenuItem({
   className,
   ...props
 }: DropdownMenuItemProps) {
+  // Strip asChild at runtime to prevent Radix Slot crash when passed via JS spread.
+  // TypeScript already omits it from DropdownMenuItemProps, but JS callers can still sneak it in.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { asChild, ...safeProps } = props as Record<string, unknown>;
   return (
     <RadixDropdownMenu.Item
       className={cn(
@@ -62,10 +67,11 @@ function DropdownMenuItem({
         "data-[highlighted]:bg-[var(--colour-interface-background-secondary-hover)]",
         "focus-visible:bg-[var(--colour-interface-background-secondary-focus)] focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-[var(--colour-interface-border-primary-focus)]",
         "active:bg-[var(--colour-interface-background-secondary-active)]",
+        "data-[disabled]:opacity-50 data-[disabled]:pointer-events-none data-[disabled]:cursor-default",
         "outline-none",
         className,
       )}
-      {...props}
+      {...(safeProps as Omit<typeof props, "asChild">)}
     >
       {icon && <Icon icon={icon} size="md" />}
       {children}

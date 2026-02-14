@@ -119,19 +119,19 @@ describe("DropdownMenuItem", () => {
     });
   });
 
-  describe("onClick handler", () => {
-    it("calls onClick when the item is clicked", async () => {
+  describe("onSelect handler", () => {
+    it("calls onSelect when the item is clicked", async () => {
       const user = userEvent.setup();
-      const onClick = vi.fn();
+      const onSelect = vi.fn();
 
       renderMenuItem(
-        <DropdownMenuItem icon={PlusIcon} onSelect={onClick}>
+        <DropdownMenuItem icon={PlusIcon} onSelect={onSelect}>
           Add item
         </DropdownMenuItem>,
       );
 
       await user.click(screen.getByRole("menuitem"));
-      expect(onClick).toHaveBeenCalledOnce();
+      expect(onSelect).toHaveBeenCalledOnce();
     });
   });
 
@@ -145,6 +145,93 @@ describe("DropdownMenuItem", () => {
 
       const item = screen.getByRole("menuitem");
       expect(item).toHaveClass("custom-test-class");
+    });
+  });
+
+  describe("hover vs focus visual separation", () => {
+    it("data-[highlighted] applies only background, not focus ring", () => {
+      renderMenuItem(
+        <DropdownMenuItem icon={PlusIcon}>Add item</DropdownMenuItem>,
+      );
+
+      const item = screen.getByRole("menuitem");
+      // data-[highlighted] should set hover background
+      expect(item.className).toContain(
+        "data-[highlighted]:bg-[var(--colour-interface-background-secondary-hover)]",
+      );
+      // data-[highlighted] should NOT set focus ring
+      expect(item.className).not.toContain("data-[highlighted]:ring-");
+    });
+
+    it("focus-visible applies background and focus ring", () => {
+      renderMenuItem(
+        <DropdownMenuItem icon={PlusIcon}>Add item</DropdownMenuItem>,
+      );
+
+      const item = screen.getByRole("menuitem");
+      expect(item.className).toContain(
+        "focus-visible:bg-[var(--colour-interface-background-secondary-focus)]",
+      );
+      expect(item.className).toContain("focus-visible:ring-3");
+      expect(item.className).toContain(
+        "focus-visible:ring-[var(--colour-interface-border-primary-focus)]",
+      );
+    });
+  });
+
+  describe("asChild rejection", () => {
+    it("ignores asChild passed via JS spread and still renders correctly", () => {
+      // Simulate a JS caller sneaking asChild through a spread object
+      const sneakyProps = { asChild: true } as Record<string, unknown>;
+      renderMenuItem(
+        <DropdownMenuItem icon={PlusIcon} {...sneakyProps}>
+          Safe item
+        </DropdownMenuItem>,
+      );
+
+      // Should render normally — not crash from Radix Slot single-child error
+      expect(screen.getByRole("menuitem")).toBeInTheDocument();
+      expect(screen.getByText("Safe item")).toBeInTheDocument();
+      expect(screen.getByTestId("plus-icon")).toBeInTheDocument();
+    });
+  });
+
+  describe("disabled state", () => {
+    it("disabled item has data-disabled attribute", () => {
+      renderMenuItem(
+        <DropdownMenuItem icon={PlusIcon} disabled>
+          Disabled item
+        </DropdownMenuItem>,
+      );
+
+      const item = screen.getByRole("menuitem");
+      expect(item).toHaveAttribute("data-disabled");
+    });
+
+    it("disabled item does not call onSelect when clicked", async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+
+      renderMenuItem(
+        <DropdownMenuItem icon={PlusIcon} disabled onSelect={onSelect}>
+          Disabled item
+        </DropdownMenuItem>,
+      );
+
+      await user.click(screen.getByRole("menuitem"));
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
+    it("disabled item has disabled styling classes", () => {
+      renderMenuItem(
+        <DropdownMenuItem icon={PlusIcon} disabled>
+          Disabled item
+        </DropdownMenuItem>,
+      );
+
+      const item = screen.getByRole("menuitem");
+      expect(item.className).toContain("data-[disabled]:opacity-50");
+      expect(item.className).toContain("data-[disabled]:pointer-events-none");
     });
   });
 });
@@ -408,6 +495,19 @@ describe("DropdownMenu (composed widget)", () => {
       await user.keyboard("{ArrowDown}");
       await user.keyboard("{Enter}");
       expect(onSelect).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("menu closes after item selection", () => {
+    it("closes the menu after clicking a menu item", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      await user.click(screen.getByRole("button", { name: /open menu/i }));
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+
+      await user.click(screen.getByRole("menuitem", { name: /add item/i }));
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     });
   });
 

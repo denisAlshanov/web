@@ -152,8 +152,8 @@
 - [x] Verify Storybook builds without errors
 
 ### Task 7: [Final] Update documentation
-- [ ] Update any relevant docs if new patterns were discovered (Radix DropdownMenu usage)
-- [ ] Ensure dropdown-menu components are documented
+- [x] Update any relevant docs if new patterns were discovered (Radix DropdownMenu usage)
+- [x] Ensure dropdown-menu components are documented
 
 ## Technical Details
 
