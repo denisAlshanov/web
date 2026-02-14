@@ -223,6 +223,10 @@ export interface UpdateScheduleEndDateRequest {
   end_date: string | null;
 }
 
+export interface GoogleTokenRequest {
+  token: string;
+}
+
 export interface RefreshTokenRequest {
   refresh_token: string;
 }
