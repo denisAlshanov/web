@@ -85,11 +85,11 @@
 - [x] Run tests — must pass before next task
 
 ### Task 2: Implement NavbarItem component with CVA variants (TDD)
-- [ ] Write tests for NavbarItem: renders with text label in expanded mode
-- [ ] Write tests for NavbarItem: renders icon-only in collapsed mode (no text visible)
-- [ ] Write tests for NavbarItem: applies correct typography — `text-medium-m` for default, `text-semibold-m` for active
-- [ ] Write tests for NavbarItem: renders outline icon when not active, solid icon when active
-- [ ] Implement `NavbarItem` component in `src/components/ui/navbar-item.tsx`:
+- [x] Write tests for NavbarItem: renders with text label in expanded mode
+- [x] Write tests for NavbarItem: renders icon-only in collapsed mode (no text visible)
+- [x] Write tests for NavbarItem: applies correct typography — `text-medium-m` for default, `text-semibold-m` for active
+- [x] Write tests for NavbarItem: renders outline icon when not active, solid icon when active
+- [x] Implement `NavbarItem` component in `src/components/ui/navbar-item.tsx`:
   - CVA base: `flex items-center h-[56px] rounded-[var(--number-radius-rad-button)] px-[var(--number-spacing-padding-pad-l)] py-[var(--number-spacing-padding-pad-m)] gap-[var(--number-spacing-gap-gap-m)] transition-colors cursor-pointer`
   - Collapsed variant: `justify-center w-[56px]` (icon only)
   - Expanded variant: full width (icon + text)
@@ -97,7 +97,7 @@
   - Hover: `hover:bg-[var(--colour-interface-background-singletone-hover)]`
   - Focus: `focus-visible:bg-[var(--colour-interface-background-singletone-focus)] focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)]`
   - Active: `bg-[var(--colour-interface-background-singletone-default)] shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]` + heavy text + solid icon
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Add active state icon switching and accessibility (TDD)
 - [ ] Write tests for active state: shadow is applied when active
