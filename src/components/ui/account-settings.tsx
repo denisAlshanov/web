@@ -72,4 +72,42 @@ function AccountSettingsItem({
   );
 }
 
-export { AccountSettingsItem, accountSettingsItemVariants };
+// ---------------------------------------------------------------------------
+// RolePill
+// ---------------------------------------------------------------------------
+
+const rolePillVariants = cva(
+  [
+    "inline-flex items-center justify-center",
+    "px-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-s)]",
+    "rounded-[var(--number-radius-rad-pill)]",
+    "text-medium-s text-[color:var(--colour-interface-text-default)]",
+  ].join(" "),
+  {
+    variants: {
+      role: {
+        host: "bg-[var(--colour-interface-background-primary-default)]",
+        producer:
+          "bg-[var(--colour-interface-background-semantic-danger-hover)]",
+      },
+    },
+  },
+);
+
+interface RolePillProps extends VariantProps<typeof rolePillVariants> {
+  role: "host" | "producer";
+  className?: string;
+}
+
+function RolePill({ role, className }: RolePillProps) {
+  return (
+    <span className={cn(rolePillVariants({ role }), className)}>{role}</span>
+  );
+}
+
+export {
+  AccountSettingsItem,
+  accountSettingsItemVariants,
+  RolePill,
+  rolePillVariants,
+};

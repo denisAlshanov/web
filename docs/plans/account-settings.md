@@ -144,15 +144,15 @@
 - [x] Run tests — must pass before next task
 
 ### Task 3: Implement RolePill sub-component (TDD)
-- [ ] Write tests: "host" role renders with blue-ish bg (`--colour-interface-background-primary-default`)
-- [ ] Write tests: "producer" role renders with pink bg (`--colour-interface-background-semantic-danger-hover`)
-- [ ] Write tests: renders role text (lowercase) with correct typography (`text-medium-s`)
-- [ ] Implement `RolePill` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: "host" role renders with blue-ish bg (`--colour-interface-background-primary-default`)
+- [x] Write tests: "producer" role renders with pink bg (`--colour-interface-background-semantic-danger-hover`)
+- [x] Write tests: renders role text (lowercase) with correct typography (`text-medium-s`)
+- [x] Implement `RolePill` in `src/components/ui/account-settings.tsx`:
   - CVA `role` variant: `host` and `producer`
   - Base: `inline-flex items-center justify-center px-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-s)] rounded-[var(--number-radius-rad-pill)] text-medium-s text-[color:var(--colour-interface-text-default)]`
   - host: `bg-[var(--colour-interface-background-primary-default)]`
   - producer: `bg-[var(--colour-interface-background-semantic-danger-hover)]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 4: Implement AccountSettingsDropdown panel (TDD)
 - [ ] Write tests: renders avatar image (64x64)
