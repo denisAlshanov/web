@@ -65,7 +65,7 @@ export function SideNavbar({
     <nav
       aria-label="Main navigation"
       className={cn(
-        "flex flex-col bg-[var(--colour-interface-surface-base)]",
+        "flex h-full shrink-0 flex-col bg-[var(--colour-interface-surface-base)]",
         "px-[12px] pt-[32px] pb-[60px]",
         collapsed ? "w-[120px]" : [
           "w-[228px]",
@@ -75,7 +75,7 @@ export function SideNavbar({
         className,
       )}
     >
-      <div className={cn("flex items-center pl-[8px]", collapsed ? "justify-center pl-0" : "gap-[12px]")}>
+      <div className={cn("flex items-center", collapsed ? "justify-center" : "pl-[8px] gap-[12px]")}>
         <MediaPlansLogo />
         {!collapsed && (
           <span className="text-semibold-l text-[color:var(--colour-interface-text-heavy)]">
@@ -84,7 +84,7 @@ export function SideNavbar({
         )}
       </div>
 
-      <div className="flex flex-col gap-[16px] mt-[80px]">
+      <div className={cn("flex flex-col gap-[16px] mt-[80px]", collapsed && "items-center")}>
         {NAV_ITEMS.map((item) => (
           <NavbarItem
             key={item.id}
