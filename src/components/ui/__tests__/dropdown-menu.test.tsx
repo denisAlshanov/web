@@ -146,3 +146,107 @@ describe("DropdownMenuItem", () => {
     });
   });
 });
+
+/**
+ * Helper to render DropdownMenuContent within the required Radix context.
+ * Forces `open` so the content is always visible for unit tests.
+ */
+function renderContent(
+  contentProps?: Partial<
+    React.ComponentPropsWithoutRef<typeof DropdownMenuContent>
+  >,
+  children?: React.ReactNode,
+) {
+  return render(
+    <DropdownMenu open>
+      <DropdownMenuTrigger asChild>
+        <span>trigger</span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent {...contentProps}>
+        {children ?? (
+          <>
+            <DropdownMenuItem icon={PlusIcon}>Item 1</DropdownMenuItem>
+            <DropdownMenuItem icon={EditIcon}>Item 2</DropdownMenuItem>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>,
+  );
+}
+
+describe("DropdownMenuContent", () => {
+  describe("renders children (DropdownMenuItem items)", () => {
+    it("renders multiple DropdownMenuItem children", () => {
+      renderContent();
+
+      expect(screen.getByText("Item 1")).toBeInTheDocument();
+      expect(screen.getByText("Item 2")).toBeInTheDocument();
+      expect(screen.getAllByRole("menuitem")).toHaveLength(2);
+    });
+
+    it("renders a single child", () => {
+      renderContent(
+        {},
+        <DropdownMenuItem icon={PlusIcon}>Only item</DropdownMenuItem>,
+      );
+
+      expect(screen.getByText("Only item")).toBeInTheDocument();
+      expect(screen.getAllByRole("menuitem")).toHaveLength(1);
+    });
+  });
+
+  describe("min-width of 120px", () => {
+    it("has min-w-[120px] class", () => {
+      renderContent();
+
+      const content = screen.getByRole("menu");
+      expect(content.className).toContain("min-w-[120px]");
+    });
+  });
+
+  describe("border-radius and shadow", () => {
+    it("has correct border-radius token class", () => {
+      renderContent();
+
+      const content = screen.getByRole("menu");
+      expect(content.className).toContain(
+        "rounded-[var(--number-radius-rad-modal)]",
+      );
+    });
+
+    it("has correct shadow class", () => {
+      renderContent();
+
+      const content = screen.getByRole("menu");
+      expect(content.className).toContain(
+        "shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]",
+      );
+    });
+  });
+
+  describe("overflow is clipped", () => {
+    it("has overflow-clip class", () => {
+      renderContent();
+
+      const content = screen.getByRole("menu");
+      expect(content.className).toContain("overflow-clip");
+    });
+  });
+
+  describe("props forwarding", () => {
+    it("forwards custom className", () => {
+      renderContent({ className: "custom-content-class" });
+
+      const content = screen.getByRole("menu");
+      expect(content).toHaveClass("custom-content-class");
+    });
+
+    it("has flex column layout", () => {
+      renderContent();
+
+      const content = screen.getByRole("menu");
+      expect(content.className).toContain("flex");
+      expect(content.className).toContain("flex-col");
+    });
+  });
+});

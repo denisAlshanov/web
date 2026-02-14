@@ -106,16 +106,16 @@
 - [x] Run tests — must pass before next task
 
 ### Task 3: Implement DropdownMenuContent panel (TDD)
-- [ ] Write tests: renders children (DropdownMenuItem items)
-- [ ] Write tests: has min-width of 120px
-- [ ] Write tests: has correct border-radius (18px) and shadow
-- [ ] Write tests: overflow is clipped (rounded corners work with items)
-- [ ] Implement `DropdownMenuContent` in `src/components/ui/dropdown-menu.tsx`:
+- [x] Write tests: renders children (DropdownMenuItem items)
+- [x] Write tests: has min-width of 120px
+- [x] Write tests: has correct border-radius (18px) and shadow
+- [x] Write tests: overflow is clipped (rounded corners work with items)
+- [x] Implement `DropdownMenuContent` in `src/components/ui/dropdown-menu.tsx`:
   - Wraps `Radix.DropdownMenuContent`
   - Styles: `flex flex-col min-w-[120px] overflow-clip rounded-[var(--number-radius-rad-modal)] shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]`
   - Accept `className`, `align`, `sideOffset` props
   - Default `sideOffset`: 6px (gap between trigger and dropdown)
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 4: Implement DropdownMenu composed widget (TDD)
 - [ ] Write tests: renders trigger button (hamburger `Menu` icon, 40x40 pill)
