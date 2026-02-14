@@ -108,26 +108,26 @@
 - [x] Run tests — must pass before next task
 
 ### Task 4: Create Storybook stories
-- [ ] Create `src/components/ui/navbar-item.stories.tsx` with Meta setup
-- [ ] Add `Default` story: single expanded navbar item (Home, not active)
-- [ ] Add `Active` story: expanded navbar item with active state (solid icon, shadow, semibold text)
-- [ ] Add `Collapsed` story: collapsed icon-only item
-- [ ] Add `CollapsedActive` story: collapsed active item with solid icon and shadow
-- [ ] Add `AllStates` story: grid showing Default, Hover, Focus, Active for expanded mode
-- [ ] Add `AllItems` story: all 6 nav items (Home, Shows, Team, Guests, Manage, Calendar) in both active and inactive states
-- [ ] Add `CollapsedAllItems` story: all 6 items in collapsed mode, active and inactive
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/navbar-item.stories.tsx` with Meta setup
+- [x] Add `Default` story: single expanded navbar item (Home, not active)
+- [x] Add `Active` story: expanded navbar item with active state (solid icon, shadow, semibold text)
+- [x] Add `Collapsed` story: collapsed icon-only item
+- [x] Add `CollapsedActive` story: collapsed active item with solid icon and shadow
+- [x] Add `AllStates` story: grid showing Default, Hover, Focus, Active for expanded mode
+- [x] Add `AllItems` story: all 6 nav items (Home, Shows, Team, Guests, Manage, Calendar) in both active and inactive states
+- [x] Add `CollapsedAllItems` story: all 6 items in collapsed mode, active and inactive
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
-- [ ] Verify all Figma design specifications are matched (spacing, colors, typography, border-radius, shadow)
-- [ ] Verify outline icons render for default/hover/focus states
-- [ ] Verify solid icons render for active state
-- [ ] Verify collapsed mode shows icon only at 56x56
-- [ ] Verify expanded mode shows icon + text
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify all Figma design specifications are matched (spacing, colors, typography, border-radius, shadow)
+- [x] Verify outline icons render for default/hover/focus states
+- [x] Verify solid icons render for active state
+- [x] Verify collapsed mode shows icon only at 56x56
+- [x] Verify expanded mode shows icon + text
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 6: [Final] Update documentation
 - [ ] Update `docs/component-creation-guide.md` if new patterns were discovered (custom SVG icon pattern)
