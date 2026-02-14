@@ -7,14 +7,14 @@ const meta = {
   component: SideNavbar,
   tags: ["autodocs"],
   argTypes: {
-    collapsed: { control: "boolean" },
+    defaultCollapsed: { control: "boolean" },
     activeItem: {
       control: "select",
       options: ["home", "shows", "calendar", "team", "guests", "manage"],
     },
   },
   args: {
-    collapsed: false,
+    defaultCollapsed: false,
     activeItem: "home",
   },
   decorators: [
@@ -37,7 +37,7 @@ export const Expanded: Story = {};
 
 export const Collapsed: Story = {
   args: {
-    collapsed: true,
+    defaultCollapsed: true,
   },
 };
 
@@ -55,7 +55,7 @@ export const SideBySide: Story = {
   render: () => (
     <div style={{ display: "flex", gap: 32, height: "100vh" }}>
       <SideNavbar activeItem="home" />
-      <SideNavbar collapsed activeItem="home" />
+      <SideNavbar defaultCollapsed activeItem="home" />
     </div>
   ),
 };
