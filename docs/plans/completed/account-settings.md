@@ -24,10 +24,10 @@
 | Text | "Alexander Plushev" (dynamic) | `text-semibold-m` (16px/600) |
 | Text color | `#44484c` | `--colour-interface-text-default` |
 | Chevron icon | `NavArrowDown` (closed) / `NavArrowUp` (open) | 24x24 |
-| Default bg | white | `--colour-interface-background-singletone-default` |
-| Hover bg | `#f5f5f5` | `--colour-interface-background-singletone-hover` |
-| Focus bg | white + 3px border `#3ab6e5` | `--colour-interface-background-singletone-focus` + `--colour-interface-border-primary-focus` |
-| Active bg | `#eee` | `--colour-interface-background-singletone-active` |
+| Default bg | white | `--colour-interface-background-singleTone-default` |
+| Hover bg | `#f5f5f5` | `--colour-interface-background-singleTone-hover` |
+| Focus bg | white + 3px border `#3ab6e5` | `--colour-interface-background-singleTone-focus` + `--colour-interface-border-primary-focus` |
+| Active bg | `#eee` | `--colour-interface-background-singleTone-active` |
 
 #### Account Settings Item (menu item)
 | Property | Value | Token |
@@ -41,10 +41,10 @@
 **Default style states:**
 | State | Background | Token |
 |-------|-----------|-------|
-| Default | white | `--colour-interface-background-singletone-default` |
-| Hover | `#f5f5f5` | `--colour-interface-background-singletone-hover` |
-| Focus | white + 3px border `#3ab6e5` | `--colour-interface-background-singletone-focus` + `--colour-interface-border-primary-focus` |
-| Active | `#eee` | `--colour-interface-background-singletone-active` |
+| Default | white | `--colour-interface-background-singleTone-default` |
+| Hover | `#f5f5f5` | `--colour-interface-background-singleTone-hover` |
+| Focus | white + 3px border `#3ab6e5` | `--colour-interface-background-singleTone-focus` + `--colour-interface-border-primary-focus` |
+| Active | `#eee` | `--colour-interface-background-singleTone-active` |
 | Text color | `#44484c` | `--colour-interface-text-default` |
 
 **Danger style states:**
@@ -117,23 +117,23 @@
 ## Implementation Steps
 
 ### Task 1: Install Radix Popover dependency
-- [ ] Install `@radix-ui/react-popover` via npm
-- [ ] Verify import works
-- [ ] Run tests — must pass before next task
+- [x] Install `@radix-ui/react-popover` via npm
+- [x] Verify import works
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement AccountSettingsItem with CVA variants (TDD)
-- [ ] Write tests: Default style renders icon + text with correct colors
-- [ ] Write tests: Danger style renders icon + text with danger colors (#a3113b)
-- [ ] Write tests: accepts custom `icon` prop (React component) and `children` text
-- [ ] Write tests: component renders as a button by default
-- [ ] Implement `AccountSettingsItem` in `src/components/ui/account-settings.tsx`:
-  - CVA `style` variant: `default` and `danger`
+- [x] Write tests: Default style renders icon + text with correct colors
+- [x] Write tests: Danger style renders icon + text with danger colors (#a3113b)
+- [x] Write tests: accepts custom `icon` prop (React component) and `children` text
+- [x] Write tests: component renders as a button by default
+- [x] Implement `AccountSettingsItem` in `src/components/ui/account-settings.tsx`:
+  - CVA `intent` variant: `default` and `danger`
   - Base: `flex items-center gap-[var(--number-spacing-gap-gap-s)] pl-[var(--number-spacing-padding-pad-s)] pr-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-m)] rounded-[var(--number-radius-rad-inner-card)] text-medium-m cursor-pointer transition-colors`
   - Default style:
-    - `bg-[var(--colour-interface-background-singletone-default)]`
-    - `hover:bg-[var(--colour-interface-background-singletone-hover)]`
-    - `focus-visible:bg-[var(--colour-interface-background-singletone-focus)] focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)]`
-    - `active:bg-[var(--colour-interface-background-singletone-active)]`
+    - `bg-[var(--colour-interface-background-singleTone-default)]`
+    - `hover:bg-[var(--colour-interface-background-singleTone-hover)]`
+    - `focus-visible:bg-[var(--colour-interface-background-singleTone-focus)] focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)]`
+    - `active:bg-[var(--colour-interface-background-singleTone-active)]`
     - Text: `text-[color:var(--colour-interface-text-default)]`
   - Danger style:
     - `bg-[var(--colour-interface-background-semantic-danger-default)]`
@@ -141,72 +141,72 @@
     - `focus-visible:bg-[var(--colour-interface-background-semantic-danger-focus)]`
     - `active:bg-[var(--colour-interface-background-semantic-danger-active)]`
     - Text: `text-[color:var(--colour-interface-text-semantic-danger)]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Implement RolePill sub-component (TDD)
-- [ ] Write tests: "host" role renders with blue-ish bg (`--colour-interface-background-primary-default`)
-- [ ] Write tests: "producer" role renders with pink bg (`--colour-interface-background-semantic-danger-hover`)
-- [ ] Write tests: renders role text (lowercase) with correct typography (`text-medium-s`)
-- [ ] Implement `RolePill` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: "host" role renders with blue-ish bg (`--colour-interface-background-primary-default`)
+- [x] Write tests: "producer" role renders with pink bg (`--colour-interface-background-semantic-danger-hover`)
+- [x] Write tests: renders role text (lowercase) with correct typography (`text-medium-s`)
+- [x] Implement `RolePill` in `src/components/ui/account-settings.tsx`:
   - CVA `role` variant: `host` and `producer`
   - Base: `inline-flex items-center justify-center px-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-s)] rounded-[var(--number-radius-rad-pill)] text-medium-s text-[color:var(--colour-interface-text-default)]`
   - host: `bg-[var(--colour-interface-background-primary-default)]`
   - producer: `bg-[var(--colour-interface-background-semantic-danger-hover)]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 4: Implement AccountSettingsDropdown panel (TDD)
-- [ ] Write tests: renders avatar image (64x64)
-- [ ] Write tests: renders user name ("Alexander Plushev") with bold 18px styling
-- [ ] Write tests: renders role pills ("host", "producer")
-- [ ] Write tests: renders "SETTINGS" header (uppercase, supporting color)
-- [ ] Write tests: renders "Account Info" item with `User` icon (Default style)
-- [ ] Write tests: renders "Log out" item with `LogOut` icon (Danger style)
-- [ ] Implement `AccountSettingsDropdown` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: renders avatar image (64x64)
+- [x] Write tests: renders user name ("Alexander Plushev") with bold 18px styling
+- [x] Write tests: renders role pills ("host", "producer")
+- [x] Write tests: renders "SETTINGS" header (uppercase, supporting color)
+- [x] Write tests: renders "Account Info" item with `User` icon (Default style)
+- [x] Write tests: renders "Log out" item with `LogOut` icon (Danger style)
+- [x] Implement `AccountSettingsDropdown` in `src/components/ui/account-settings.tsx`:
   - Props: `userName: string`, `avatarUrl?: string`, `roles: Array<"host" | "producer">`, `onAccountInfoClick?: () => void`, `onLogoutClick?: () => void`
   - Container: white bg, rounded-18px (rad-modal), shadow, asymmetric padding (24px top, 12px left, 24px right, 18px bottom)
   - Profile section: avatar (64x64 circle) + name (bold 18px, `--colour-interface-text-heavy`) + role pills
   - Menu section: "SETTINGS" header (`text-heading-eyebrow`) + AccountSettingsItem entries
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 5: Implement AccountSettings composed widget (TDD)
-- [ ] Write tests: trigger renders user name + NavArrowDown icon when closed
-- [ ] Write tests: trigger renders user name + NavArrowUp icon when open
-- [ ] Write tests: clicking trigger opens the dropdown
-- [ ] Write tests: dropdown has correct ARIA attributes (role, aria-expanded)
-- [ ] Write tests: pressing Escape closes the dropdown
-- [ ] Implement `AccountSettings` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: trigger renders user name + NavArrowDown icon when closed
+- [x] Write tests: trigger renders user name + NavArrowUp icon when open
+- [x] Write tests: clicking trigger opens the dropdown
+- [x] Write tests: dropdown has correct ARIA attributes (role, aria-expanded)
+- [x] Write tests: pressing Escape closes the dropdown
+- [x] Implement `AccountSettings` in `src/components/ui/account-settings.tsx`:
   - Uses `@radix-ui/react-popover` (Root, Trigger, Content)
   - Trigger: flex row, name text (`text-semibold-m`) + chevron icon (NavArrowDown/NavArrowUp based on open state)
   - Trigger states via CVA: default, hover, focus, active (same as the item default style)
   - Content: renders `AccountSettingsDropdown` inside popover
   - Props: `userName`, `avatarUrl`, `roles`, `onAccountInfoClick`, `onLogoutClick`, `className`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 6: Create Storybook stories
-- [ ] Create `src/components/ui/account-settings.stories.tsx` with Meta setup
-- [ ] Add `Default` story: AccountSettings trigger (closed state)
-- [ ] Add `Open` story: AccountSettings with dropdown open (showing full dropdown panel)
-- [ ] Add `ItemDefault` story: AccountSettingsItem with Default style in all states
-- [ ] Add `ItemDanger` story: AccountSettingsItem with Danger style in all states
-- [ ] Add `DropdownPanel` story: standalone AccountSettingsDropdown panel
-- [ ] Add `RolePills` story: host and producer pills side by side
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/account-settings.stories.tsx` with Meta setup
+- [x] Add `Default` story: AccountSettings trigger (closed state)
+- [x] Add `Open` story: AccountSettings with dropdown open (showing full dropdown panel)
+- [x] Add `ItemDefault` story: AccountSettingsItem with Default style in all states
+- [x] Add `ItemDanger` story: AccountSettingsItem with Danger style in all states
+- [x] Add `DropdownPanel` story: standalone AccountSettingsDropdown panel
+- [x] Add `RolePills` story: host and producer pills side by side
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 7: Verify acceptance criteria
-- [ ] Verify trigger matches Figma: name + chevron, 4 state backgrounds
-- [ ] Verify dropdown matches Figma: avatar, name (bold 18px), role pills, "SETTINGS" header, menu items
-- [ ] Verify "Account Info" item uses `User` icon with default styling
-- [ ] Verify "Log out" item uses `LogOut` icon with danger red (#a3113b) styling
-- [ ] Verify role pills: "host" (blue bg), "producer" (pink bg)
-- [ ] Verify popover opens/closes correctly with click and Escape
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify trigger matches Figma: name + chevron, 4 state backgrounds
+- [x] Verify dropdown matches Figma: avatar, name (bold 18px), role pills, "SETTINGS" header, menu items
+- [x] Verify "Account Info" item uses `User` icon with default styling
+- [x] Verify "Log out" item uses `LogOut` icon with danger red (#a3113b) styling
+- [x] Verify role pills: "host" (blue bg), "producer" (pink bg)
+- [x] Verify popover opens/closes correctly with click and Escape
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 8: [Final] Update documentation
-- [ ] Update any relevant docs if new patterns were discovered (Radix Popover usage)
-- [ ] Add AccountSettings components to component inventory
+- [x] Update any relevant docs if new patterns were discovered (Radix Popover usage)
+- [x] Add AccountSettings components to component inventory
 
 ## Technical Details
 
@@ -225,7 +225,7 @@
 // Individual menu item (reusable)
 <AccountSettingsItem
   icon={User}
-  style="default"
+  intent="default"
   onClick={() => {}}
 >
   Account Info
@@ -233,7 +233,7 @@
 
 <AccountSettingsItem
   icon={LogOut}
-  style="danger"
+  intent="danger"
   onClick={() => {}}
 >
   Log out
@@ -288,10 +288,10 @@ interface AccountSettingsProps extends AccountSettingsDropdownProps {
 ### Design Token References
 ```css
 /* Backgrounds */
---colour-interface-background-singletone-default: white;
---colour-interface-background-singletone-hover: #f5f5f5;
---colour-interface-background-singletone-focus: white;
---colour-interface-background-singletone-active: #eee;
+--colour-interface-background-singleTone-default: white;
+--colour-interface-background-singleTone-hover: #f5f5f5;
+--colour-interface-background-singleTone-focus: white;
+--colour-interface-background-singleTone-active: #eee;
 --colour-interface-background-primary-default: #f7fbff;
 --colour-interface-background-semantic-danger-default: white;
 --colour-interface-background-semantic-danger-hover: #fce3e7;
