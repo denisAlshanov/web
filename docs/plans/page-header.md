@@ -118,17 +118,17 @@
 - [x] Run tests — must pass before next task
 
 ### Task 4: Create Storybook stories
-- [ ] Create `src/components/layout/page-header.stories.tsx` with Meta setup
-- [ ] Add `Level1WithHeading` story: primary page with heading + tabs
-- [ ] Add `Level1NoHeading` story: primary page tabs only
-- [ ] Add `Level1Scrolled` story: primary page scrolled (with border + shadow)
-- [ ] Add `Level2WithHeading` story: sub-page with heading + back arrow + menu
-- [ ] Add `Level2NoHeading` story: sub-page back arrow + menu only
-- [ ] Add `Level2Scrolled` story: sub-page scrolled
-- [ ] Add `Level2WithHelperText` story: sub-page with helper text next to menu
-- [ ] Add `AllVariants` story: grid showing all 8 variants
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/layout/page-header.stories.tsx` with Meta setup
+- [x] Add `Level1WithHeading` story: primary page with heading + tabs
+- [x] Add `Level1NoHeading` story: primary page tabs only
+- [x] Add `Level1Scrolled` story: primary page scrolled (with border + shadow)
+- [x] Add `Level2WithHeading` story: sub-page with heading + back arrow + menu
+- [x] Add `Level2NoHeading` story: sub-page back arrow + menu only
+- [x] Add `Level2Scrolled` story: sub-page scrolled
+- [x] Add `Level2WithHelperText` story: sub-page with helper text next to menu
+- [x] Add `AllVariants` story: grid showing all 8 variants
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
 - [ ] Verify Level 1 matches Figma: heading (36px bold), account settings (right), tab view (below)
