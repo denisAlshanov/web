@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
-async function exchangeGoogleToken(accessToken: string): Promise<{
+type BackendAuthResult = {
   access_token: string;
   refresh_token: string;
   expires_in: number;
@@ -15,21 +15,27 @@ async function exchangeGoogleToken(accessToken: string): Promise<{
     is_root: boolean;
     avatar_url: string;
   };
-} | null> {
+};
+
+type ExchangeResult =
+  | { ok: true; data: BackendAuthResult }
+  | { ok: false; status: number | null };
+
+async function exchangeGoogleToken(googleToken: string): Promise<ExchangeResult> {
   const apiBaseUrl = process.env.API_BASE_URL;
   if (!apiBaseUrl) {
     console.error("API_BASE_URL is not configured");
-    return null;
+    return { ok: false, status: null };
   }
 
   try {
     const url = `${apiBaseUrl}/auth/google/token`;
-    const payload = { token: accessToken };
+    const payload = { token: googleToken };
     console.log("[auth] Exchanging Google token with backend:", {
       url,
       payload_keys: Object.keys(payload),
-      token_length: accessToken.length,
-      token_prefix: accessToken.substring(0, 10) + "...",
+      token_length: googleToken.length,
+      token_prefix: googleToken.substring(0, 10) + "...",
     });
 
     const response = await fetch(url, {
@@ -55,15 +61,15 @@ async function exchangeGoogleToken(accessToken: string): Promise<{
           body,
         },
       );
-      return null;
+      return { ok: false, status: response.status };
     }
 
     const json = await response.json();
     console.log("[auth] Backend auth succeeded, user:", json.data?.user?.email);
-    return json.data;
+    return { ok: true, data: json.data };
   } catch (error) {
     console.error("[auth] Failed to exchange token with backend (network/timeout):", error);
-    return null;
+    return { ok: false, status: null };
   }
 }
 
@@ -137,30 +143,51 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         const googleAccessToken = account.access_token;
+        const googleIdToken = account.id_token;
+
+        let result: ExchangeResult = { ok: false, status: null };
+
+        // Primary attempt: use access_token (expected by backend)
         if (googleAccessToken) {
-          const backendAuth = await exchangeGoogleToken(googleAccessToken);
-          if (backendAuth) {
-            token.backendAccessToken = backendAuth.access_token;
-            token.backendRefreshToken = backendAuth.refresh_token;
-            token.backendExpiresAt =
-              Math.floor(Date.now() / 1000) + backendAuth.expires_in;
-            token.backendUser = {
-              id: backendAuth.user.id,
-              email: backendAuth.user.email,
-              firstName: backendAuth.user.first_name,
-              lastName: backendAuth.user.last_name,
-              roles: backendAuth.user.roles,
-              status: backendAuth.user.status,
-              isRoot: backendAuth.user.is_root,
-              avatarUrl: backendAuth.user.avatar_url,
-            };
-            delete token.error;
-          } else {
-            // Backend auth failed — prevent creating a session without backend tokens
-            token.error = "BackendAuthError";
+          result = await exchangeGoogleToken(googleAccessToken);
+        }
+
+        // Fallback: if access_token exchange failed with 401, try id_token
+        if (!result.ok && result.status === 401 && googleIdToken) {
+          console.warn(
+            "[auth] access_token exchange returned 401, attempting fallback with id_token",
+          );
+          result = await exchangeGoogleToken(googleIdToken);
+          if (result.ok) {
+            console.warn(
+              "[auth] id_token fallback SUCCEEDED — the backend expects id_token, not access_token. " +
+              "Update the code to use id_token as the primary token.",
+            );
           }
+        }
+
+        if (result.ok) {
+          const backendAuth = result.data;
+          token.backendAccessToken = backendAuth.access_token;
+          token.backendRefreshToken = backendAuth.refresh_token;
+          token.backendExpiresAt =
+            Math.floor(Date.now() / 1000) + backendAuth.expires_in;
+          token.backendUser = {
+            id: backendAuth.user.id,
+            email: backendAuth.user.email,
+            firstName: backendAuth.user.first_name,
+            lastName: backendAuth.user.last_name,
+            roles: backendAuth.user.roles,
+            status: backendAuth.user.status,
+            isRoot: backendAuth.user.is_root,
+            avatarUrl: backendAuth.user.avatar_url,
+          };
+          delete token.error;
+        } else if (!googleAccessToken && !googleIdToken) {
+          // Google sign-in did not return any usable token
+          token.error = "BackendAuthError";
         } else {
-          // Google sign-in did not return an access_token
+          // Backend auth failed — prevent creating a session without backend tokens
           token.error = "BackendAuthError";
         }
         return token;

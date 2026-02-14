@@ -40,9 +40,9 @@ The current code sends `{ token: account.access_token }` to `POST /auth/google/t
 - Modify: `src/lib/auth.ts`
 
 **Steps:**
-- [ ] After the access_token exchange fails with 401, attempt the same exchange using `account.id_token` (Google OIDC JWT) as a fallback
-- [ ] If the id_token exchange succeeds, log a warning indicating the backend expects id_token so the code can be updated permanently
-- [ ] Keep the access_token as the primary attempt since the user confirmed that's what the backend expects
+- [x] After the access_token exchange fails with 401, attempt the same exchange using `account.id_token` (Google OIDC JWT) as a fallback
+- [x] If the id_token exchange succeeds, log a warning indicating the backend expects id_token so the code can be updated permanently
+- [x] Keep the access_token as the primary attempt since the user confirmed that's what the backend expects
 
 ---
 
