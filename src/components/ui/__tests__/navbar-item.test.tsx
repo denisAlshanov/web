@@ -53,12 +53,23 @@ describe("NavbarItem", () => {
       expect(screen.getByTestId("outline-icon")).toBeInTheDocument();
     });
 
-    it("hides text visually in collapsed mode", () => {
+    it("hides text visually in collapsed mode with opacity-0", () => {
       render(<NavbarItem {...defaultProps} collapsed />);
-      // Text should exist in DOM for accessibility but be visually hidden
       const label = screen.getByText("Home");
       expect(label).toBeInTheDocument();
-      expect(label).toHaveClass("sr-only");
+      expect(label).toHaveClass("opacity-0");
+    });
+
+    it("has opacity transition classes when collapsed", () => {
+      render(<NavbarItem {...defaultProps} collapsed />);
+      const label = screen.getByText("Home");
+      expect(label).toHaveClass("transition-opacity", "duration-150", "opacity-0");
+    });
+
+    it("has opacity-100 and transition classes when expanded", () => {
+      render(<NavbarItem {...defaultProps} />);
+      const label = screen.getByText("Home");
+      expect(label).toHaveClass("transition-opacity", "duration-150", "opacity-100");
     });
   });
 
@@ -176,6 +187,18 @@ describe("NavbarItem", () => {
       const element = screen.getByRole("button");
       expect(element).toHaveAttribute("aria-current", "page");
       expect(element).toHaveAttribute("aria-label", "Home");
+    });
+
+    it("has aria-hidden on label text when collapsed", () => {
+      render(<NavbarItem {...defaultProps} collapsed />);
+      const label = screen.getByText("Home");
+      expect(label).toHaveAttribute("aria-hidden", "true");
+    });
+
+    it("does not have aria-hidden on label text when expanded", () => {
+      render(<NavbarItem {...defaultProps} />);
+      const label = screen.getByText("Home");
+      expect(label).not.toHaveAttribute("aria-hidden");
     });
   });
 

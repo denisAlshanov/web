@@ -629,7 +629,7 @@ scroll && "border-b border-b-[var(--colour-interface-border-primary-light)] shad
 
 | Component | File | Description |
 |-----------|------|-------------|
-| `SideNavbar` | `layout/side-navbar.tsx` | Left sidebar with nav items, supports collapsed state |
+| `SideNavbar` | `layout/side-navbar.tsx` | Left sidebar with nav items; logo click toggles collapsed/expanded with CSS transition; `onToggle` callback for parent sync |
 | `PageHeader` | `layout/page-header.tsx` | Top header bar, Level 1 (tabs) and Level 2 (back/menu), scroll state |
 
 ## Complex Components

@@ -33,32 +33,32 @@
 ## Implementation Steps
 
 ### Task 1: Add internal collapsed state and logo click handler
-- [ ] Add `useState` for internal `collapsed` state in `SideNavbar`, defaulting to `collapsed` prop value
-- [ ] Add `onToggle` optional callback to `SideNavbarProps` interface
-- [ ] Wrap logo area in a `<button>` with `onClick` that toggles state and calls `onToggle`
-- [ ] Add `title` attribute to logo button: "Collapse sidebar" when expanded, "Expand sidebar" when collapsed
-- [ ] Add `cursor-pointer` to the logo button
-- [ ] Write tests: clicking logo toggles collapsed state
-- [ ] Write tests: `onToggle` callback fires with new collapsed value
-- [ ] Write tests: logo button has correct `title` attribute in both states
-- [ ] Run tests - must pass before next task
+- [x] Add `useState` for internal `collapsed` state in `SideNavbar`, defaulting to `collapsed` prop value
+- [x] Add `onToggle` optional callback to `SideNavbarProps` interface
+- [x] Wrap logo area in a `<button>` with `onClick` that toggles state and calls `onToggle`
+- [x] Add `title` attribute to logo button: "Collapse sidebar" when expanded, "Expand sidebar" when collapsed
+- [x] Add `cursor-pointer` to the logo button
+- [x] Write tests: clicking logo toggles collapsed state
+- [x] Write tests: `onToggle` callback fires with new collapsed value
+- [x] Write tests: logo button has correct `title` attribute in both states
+- [x] Run tests - must pass before next task
 
 ### Task 2: Add CSS transition animations
-- [ ] Add `transition-[width]` and `duration-200` `ease-in-out` classes to the `<nav>` element
-- [ ] Add `transition-opacity` `duration-150` to the "MediaPlans" text span (render always, use opacity + sr-only for collapsed)
-- [ ] Add `transition-opacity` `duration-150` to nav item labels in `navbar-item.tsx` (render always, use opacity-0 + sr-only for collapsed instead of conditional render)
-- [ ] Add `overflow-hidden` to the `<nav>` to prevent content overflow during animation
-- [ ] Verify border and shadow still apply correctly in expanded mode
-- [ ] Update existing tests if render behavior changed (always-render vs conditional)
-- [ ] Run tests - must pass before next task
+- [x] Add `transition-[width]` and `duration-200` `ease-in-out` classes to the `<nav>` element
+- [x] Add `transition-opacity` `duration-150` to the "MediaPlans" text span (render always, use opacity + sr-only for collapsed)
+- [x] Add `transition-opacity` `duration-150` to nav item labels in `navbar-item.tsx` (render always, use opacity-0 + sr-only for collapsed instead of conditional render)
+- [x] Add `overflow-hidden` to the `<nav>` to prevent content overflow during animation
+- [x] Verify border and shadow still apply correctly in expanded mode
+- [x] Update existing tests if render behavior changed (always-render vs conditional)
+- [x] Run tests - must pass before next task
 
 ### Task 3: Verify acceptance criteria
-- [ ] Verify clicking logo toggles sidebar between expanded and collapsed
-- [ ] Verify smooth width transition animation (~200ms)
-- [ ] Verify text labels fade out/in smoothly
-- [ ] Verify tooltip shows correct text in both states
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter - all issues must be fixed
+- [x] Verify clicking logo toggles sidebar between expanded and collapsed
+- [x] Verify smooth width transition animation (~200ms)
+- [x] Verify text labels fade out/in smoothly
+- [x] Verify tooltip shows correct text in both states
+- [x] Run full test suite (unit tests)
+- [x] Run linter - all issues must be fixed
 
 ## Technical Details
 
