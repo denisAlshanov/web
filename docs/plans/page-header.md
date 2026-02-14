@@ -110,12 +110,12 @@
 - [x] Run tests — must pass before next task
 
 ### Task 3: Implement scroll state styling (TDD)
-- [ ] Write tests: scroll=false has no bottom border or shadow
-- [ ] Write tests: scroll=true adds bottom border (`--colour-interface-border-primary-light`) and shadow
-- [ ] Write tests: scroll state works for both Level 1 and Level 2
-- [ ] Implement scroll conditional styling:
+- [x] Write tests: scroll=false has no bottom border or shadow
+- [x] Write tests: scroll=true adds bottom border (`--colour-interface-border-primary-light`) and shadow
+- [x] Write tests: scroll state works for both Level 1 and Level 2
+- [x] Implement scroll conditional styling:
   - `scroll && "border-b border-[var(--colour-interface-border-primary-light)] shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]"`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 4: Create Storybook stories
 - [ ] Create `src/components/layout/page-header.stories.tsx` with Meta setup

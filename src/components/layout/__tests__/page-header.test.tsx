@@ -289,4 +289,72 @@ describe("PageHeader", () => {
       expect(screen.getByTestId("account-settings")).toBeInTheDocument();
     });
   });
+
+  describe("Scroll state", () => {
+    it("has no bottom border or shadow when scroll=false", () => {
+      render(<PageHeader level={1} heading="Shows" scroll={false} />);
+      const header = screen.getByRole("banner");
+      expect(header.className).not.toContain(
+        "--colour-interface-border-primary-light",
+      );
+      expect(header.className).not.toContain("shadow-");
+    });
+
+    it("has no bottom border or shadow by default (scroll defaults to false)", () => {
+      render(<PageHeader level={1} heading="Shows" />);
+      const header = screen.getByRole("banner");
+      expect(header.className).not.toContain(
+        "--colour-interface-border-primary-light",
+      );
+      expect(header.className).not.toContain("shadow-");
+    });
+
+    it("adds bottom border with correct token when scroll=true", () => {
+      render(<PageHeader level={1} heading="Shows" scroll={true} />);
+      const header = screen.getByRole("banner");
+      expect(header.className).toContain("border-b");
+      expect(header.className).toContain(
+        "--colour-interface-border-primary-light",
+      );
+    });
+
+    it("adds shadow when scroll=true", () => {
+      render(<PageHeader level={1} heading="Shows" scroll={true} />);
+      const header = screen.getByRole("banner");
+      expect(header.className).toContain(
+        "shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]",
+      );
+    });
+
+    it("applies scroll styling to Level 1", () => {
+      render(<PageHeader level={1} heading="Shows" scroll={true} />);
+      const header = screen.getByRole("banner");
+      expect(header.className).toContain("border-b");
+      expect(header.className).toContain(
+        "shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]",
+      );
+    });
+
+    it("applies scroll styling to Level 2", () => {
+      render(
+        <PageHeader level={2} heading="Show Details" scroll={true} />,
+      );
+      const header = screen.getByRole("banner");
+      expect(header.className).toContain("border-b");
+      expect(header.className).toContain(
+        "shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]",
+      );
+    });
+
+    it("does not apply scroll styling to Level 2 when scroll=false", () => {
+      render(
+        <PageHeader level={2} heading="Show Details" scroll={false} />,
+      );
+      const header = screen.getByRole("banner");
+      expect(header.className).not.toContain(
+        "--colour-interface-border-primary-light",
+      );
+      expect(header.className).not.toContain("shadow-");
+    });
+  });
 });
