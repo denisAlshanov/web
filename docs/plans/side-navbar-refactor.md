@@ -45,42 +45,42 @@
 ## Implementation Steps
 
 ### Task 1: Update SideNavbar to hover-expand with overlay positioning
-- [ ] Replace `useState` toggle with `onMouseEnter`/`onMouseLeave` for expand/collapse
-- [ ] Change collapsed width from `w-[120px]` to `w-[60px]`
-- [ ] Keep expanded width at `w-[228px]`
-- [ ] Make the sidebar `position: absolute` (or fixed) with `z-index` so it overlays content when expanded
+- [x] Replace `useState` toggle with `onMouseEnter`/`onMouseLeave` for expand/collapse
+- [x] Change collapsed width from `w-[120px]` to `w-[60px]`
+- [x] Keep expanded width at `w-[228px]`
+- [x] Make the sidebar `position: absolute` (or fixed) with `z-index` so it overlays content when expanded
   - Collapsed: `position: relative` with `w-[60px]` (takes up space in flow)
   - Expanded: `position: absolute` with `w-[228px]`, `top-0`, `left-0`, `bottom-0`, `z-50`
   - Actually, always render as absolute/fixed inside a 60px spacer wrapper — see Task 2
-- [ ] Add shadow on expanded: `shadow-[1px_0px_10px_0px_rgba(38,44,52,0.08)]`
-- [ ] Add border-right on expanded: `border-r border-[var(--colour-interface-border-primary-light)]`
-- [ ] Remove the logo click toggle handler; keep logo as static display element
-- [ ] Remove `defaultCollapsed` prop (always collapsed by default, expands only on hover)
-- [ ] Remove `onToggle` callback prop (no longer user-toggled)
-- [ ] Adjust internal padding: collapsed `px-[2px]` to center 56px items in 60px; keep expanded `px-[12px]`
-- [ ] Update tests in `src/components/layout/__tests__/side-navbar.test.tsx`:
+- [x] Add shadow on expanded: `shadow-[1px_0px_10px_0px_rgba(38,44,52,0.08)]`
+- [x] Add border-right on expanded: `border-r border-[var(--colour-interface-border-primary-light)]`
+- [x] Remove the logo click toggle handler; keep logo as static display element
+- [x] Remove `defaultCollapsed` prop (always collapsed by default, expands only on hover)
+- [x] Remove `onToggle` callback prop (no longer user-toggled)
+- [x] Adjust internal padding: collapsed `px-[2px]` to center 56px items in 60px; keep expanded `px-[12px]`
+- [x] Update tests in `src/components/layout/__tests__/side-navbar.test.tsx`:
   - Remove tests for click-to-toggle behavior
   - Add tests for mouseEnter → expanded, mouseLeave → collapsed
   - Test collapsed width is 60px
   - Test expanded state has shadow and border classes
   - Test that `aria-label` on nav items remains for accessibility
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 2: Update AppLayout to use fixed spacer for sidebar
-- [ ] Instead of SideNavbar participating in flex layout, use a wrapper approach:
+- [x] Instead of SideNavbar participating in flex layout, use a wrapper approach:
   - Render a fixed `w-[60px] shrink-0` spacer div in the flex row
   - Render SideNavbar as `absolute top-0 left-0 bottom-0 z-50` overlapping the spacer (and overflowing on expand)
-- [ ] Content area remains `flex-1` and never moves — it always starts at 60px from left
-- [ ] Update tests in `src/components/layout/__tests__/app-layout.test.tsx`:
+- [x] Content area remains `flex-1` and never moves — it always starts at 60px from left
+- [x] Update tests in `src/components/layout/__tests__/app-layout.test.tsx`:
   - Test that spacer div has `w-[60px]`
   - Test that SideNavbar is positioned absolutely
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Adjust NavbarItem collapsed padding for 60px sidebar
-- [ ] Review NavbarItem collapsed dimensions — currently `w-[56px]` (56px square)
-- [ ] Verify it fits within the 60px sidebar (56px + 2px padding each side = 60px) — adjust if needed
-- [ ] Update NavbarItem tests if any dimension assertions change
-- [ ] Run tests — must pass before next task
+- [x] Review NavbarItem collapsed dimensions — currently `w-[56px]` (56px square)
+- [x] Verify it fits within the 60px sidebar (56px + 2px padding each side = 60px) — adjust if needed
+- [x] Update NavbarItem tests if any dimension assertions change
+- [x] Run tests — must pass before next task
 
 ### Task 4: Update Storybook stories
 - [ ] Update `src/components/layout/side-navbar.stories.tsx`:

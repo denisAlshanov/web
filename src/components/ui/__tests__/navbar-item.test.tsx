@@ -53,6 +53,18 @@ describe("NavbarItem", () => {
       expect(screen.getByTestId("outline-icon")).toBeInTheDocument();
     });
 
+    it("has 56px width when collapsed (fits within 60px sidebar)", () => {
+      render(<NavbarItem {...defaultProps} collapsed />);
+      const element = screen.getByRole("button");
+      expect(element).toHaveClass("w-[56px]");
+    });
+
+    it("has full width when expanded", () => {
+      render(<NavbarItem {...defaultProps} />);
+      const element = screen.getByRole("button");
+      expect(element).toHaveClass("w-full");
+    });
+
     it("hides text visually in collapsed mode with opacity-0", () => {
       render(<NavbarItem {...defaultProps} collapsed />);
       const label = screen.getByText("Home");

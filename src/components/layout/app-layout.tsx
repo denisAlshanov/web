@@ -28,8 +28,9 @@ export function AppLayout({
   );
 
   return (
-    <div className="flex h-screen">
-      <SideNavbar defaultCollapsed={true} activeItem={activeNavItem} />
+    <div className="relative flex h-screen">
+      <div className="w-[60px] shrink-0" aria-hidden="true" />
+      <SideNavbar activeItem={activeNavItem} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <PageHeader
           heading={heading}
