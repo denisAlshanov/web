@@ -82,67 +82,67 @@
 ## Implementation Steps
 
 ### Task 1: Implement Level 1 PageHeader (TDD)
-- [ ] Write tests: Level 1 renders page heading (`text-heading-l`) when showHeading=true
-- [ ] Write tests: Level 1 hides heading when showHeading=false (header height shrinks to 80px)
-- [ ] Write tests: Level 1 renders AccountSettings trigger (right-aligned)
-- [ ] Write tests: Level 1 renders TabList when tabbedView=true, hides when false
-- [ ] Implement Level 1 `PageHeader` in `src/components/layout/page-header.tsx`:
+- [x] Write tests: Level 1 renders page heading (`text-heading-l`) when showHeading=true
+- [x] Write tests: Level 1 hides heading when showHeading=false (header height shrinks to 80px)
+- [x] Write tests: Level 1 renders AccountSettings trigger (right-aligned)
+- [x] Write tests: Level 1 renders TabList when tabbedView=true, hides when false
+- [x] Implement Level 1 `PageHeader` in `src/components/layout/page-header.tsx`:
   - Props: `level?: 1 | 2`, `heading?: string`, `showHeading?: boolean`, `scroll?: boolean`, `tabbedView?: boolean`, `tabs?: ReactNode`, `accountSettings?: ReactNode`, `onBackClick?: () => void`, `showMenu?: boolean`, `onMenuClick?: () => void`, `helperText?: string`, `showHelperText?: boolean`, `className?: string`
   - Container: `bg-[var(--colour-interface-surface-base)]`, flex column
   - Header area: heading left, AccountSettings right
   - Tab area: renders `tabs` slot (accepts `<TabList>` children)
   - Gap: 36px between header and tabs
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement Level 2 PageHeader (TDD)
-- [ ] Write tests: Level 2 renders page heading (`text-heading-m`) when showHeading=true
-- [ ] Write tests: Level 2 hides heading when showHeading=false
-- [ ] Write tests: Level 2 renders back arrow button (`ArrowLeft` icon) on left
-- [ ] Write tests: Level 2 renders menu button (`Menu` icon) on right when showMenu=true
-- [ ] Write tests: Level 2 renders helper text when showHelperText=true
-- [ ] Write tests: back button fires `onBackClick` callback when clicked
-- [ ] Write tests: menu button fires `onMenuClick` callback when clicked
-- [ ] Implement Level 2 layout:
+- [x] Write tests: Level 2 renders page heading (`text-heading-m`) when showHeading=true
+- [x] Write tests: Level 2 hides heading when showHeading=false
+- [x] Write tests: Level 2 renders back arrow button (`ArrowLeft` icon) on left
+- [x] Write tests: Level 2 renders menu button (`Menu` icon) on right when showMenu=true
+- [x] Write tests: Level 2 renders helper text when showHelperText=true
+- [x] Write tests: back button fires `onBackClick` callback when clicked
+- [x] Write tests: menu button fires `onMenuClick` callback when clicked
+- [x] Implement Level 2 layout:
   - Header area: heading left (24px bold), AccountSettings right
   - Inner navigation bar: back arrow (40x40 pill) left, button container (helper text + menu) right
   - Gap: 4px, padding-bottom: 12px
   - Inner nav right padding: 48px
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Implement scroll state styling (TDD)
-- [ ] Write tests: scroll=false has no bottom border or shadow
-- [ ] Write tests: scroll=true adds bottom border (`--colour-interface-border-primary-light`) and shadow
-- [ ] Write tests: scroll state works for both Level 1 and Level 2
-- [ ] Implement scroll conditional styling:
+- [x] Write tests: scroll=false has no bottom border or shadow
+- [x] Write tests: scroll=true adds bottom border (`--colour-interface-border-primary-light`) and shadow
+- [x] Write tests: scroll state works for both Level 1 and Level 2
+- [x] Implement scroll conditional styling:
   - `scroll && "border-b border-[var(--colour-interface-border-primary-light)] shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]"`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 4: Create Storybook stories
-- [ ] Create `src/components/layout/page-header.stories.tsx` with Meta setup
-- [ ] Add `Level1WithHeading` story: primary page with heading + tabs
-- [ ] Add `Level1NoHeading` story: primary page tabs only
-- [ ] Add `Level1Scrolled` story: primary page scrolled (with border + shadow)
-- [ ] Add `Level2WithHeading` story: sub-page with heading + back arrow + menu
-- [ ] Add `Level2NoHeading` story: sub-page back arrow + menu only
-- [ ] Add `Level2Scrolled` story: sub-page scrolled
-- [ ] Add `Level2WithHelperText` story: sub-page with helper text next to menu
-- [ ] Add `AllVariants` story: grid showing all 8 variants
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/layout/page-header.stories.tsx` with Meta setup
+- [x] Add `Level1WithHeading` story: primary page with heading + tabs
+- [x] Add `Level1NoHeading` story: primary page tabs only
+- [x] Add `Level1Scrolled` story: primary page scrolled (with border + shadow)
+- [x] Add `Level2WithHeading` story: sub-page with heading + back arrow + menu
+- [x] Add `Level2NoHeading` story: sub-page back arrow + menu only
+- [x] Add `Level2Scrolled` story: sub-page scrolled
+- [x] Add `Level2WithHelperText` story: sub-page with helper text next to menu
+- [x] Add `AllVariants` story: grid showing all 8 variants
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
-- [ ] Verify Level 1 matches Figma: heading (36px bold), account settings (right), tab view (below)
-- [ ] Verify Level 2 matches Figma: heading (24px bold), back arrow (left), menu (right), account settings (right)
-- [ ] Verify scroll state: border + shadow applied correctly for both levels
-- [ ] Verify showHeading toggle changes header height (Lvl 1: 140px→80px, Lvl 2: 96px→80px)
-- [ ] Verify icons: `ArrowLeft` for back, `Menu` for hamburger
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify Level 1 matches Figma: heading (36px bold), account settings (right), tab view (below)
+- [x] Verify Level 2 matches Figma: heading (24px bold), back arrow (left), menu (right), account settings (right)
+- [x] Verify scroll state: border + shadow applied correctly for both levels
+- [x] Verify showHeading toggle changes header height (Lvl 1: 140px→80px, Lvl 2: 96px→80px)
+- [x] Verify icons: `ArrowLeft` for back, `Menu` for hamburger
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 6: [Final] Update documentation
-- [ ] Update any relevant docs if new layout patterns were discovered
-- [ ] Ensure layout component patterns are documented
+- [x] Update any relevant docs if new layout patterns were discovered
+- [x] Ensure layout component patterns are documented
 
 ## Technical Details
 
