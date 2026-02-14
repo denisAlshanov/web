@@ -131,14 +131,14 @@
 - [x] Run tests — must pass before next task
 
 ### Task 5: Create Storybook stories
-- [ ] Create `src/components/ui/dropdown-menu.stories.tsx` with Meta setup
-- [ ] Add `Default` story: DropdownMenu with hamburger trigger and several items
-- [ ] Add `WithIcons` story: items with various iconoir icons (Plus, Edit, Copy, etc.)
-- [ ] Add `ItemStates` story: grid showing all 4 item states (Default, Hover, Focus, Active)
-- [ ] Add `MenuPanel` story: standalone DropdownMenuContent panel with items
-- [ ] Add `CustomTrigger` story: using a Button as trigger instead of IconButton
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/dropdown-menu.stories.tsx` with Meta setup
+- [x] Add `Default` story: DropdownMenu with hamburger trigger and several items
+- [x] Add `WithIcons` story: items with various iconoir icons (Plus, Edit, Copy, etc.)
+- [x] Add `ItemStates` story: grid showing all 4 item states (Default, Hover, Focus, Active)
+- [x] Add `MenuPanel` story: standalone DropdownMenuContent panel with items
+- [x] Add `CustomTrigger` story: using a Button as trigger instead of IconButton
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 6: Verify acceptance criteria
 - [ ] Verify item matches Figma: icon + text, 40px height, 4 state backgrounds
