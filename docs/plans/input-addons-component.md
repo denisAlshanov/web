@@ -56,73 +56,73 @@ Create a new `InputAddons` UI component (`src/components/ui/input-addons.tsx`) �
 ## Implementation Steps
 
 ### Task 1: Create InputAddons with base layout and state-aware borders
-- [ ] Create `src/components/ui/input-addons.tsx`
-- [ ] Define `InputAddonsProps` extending `React.InputHTMLAttributes<HTMLInputElement>`: `leadAddon?` (string), `trailAddon?` (string), `error?` (string | boolean), `helperText?` (string), `className?`, `ref?`
-- [ ] Render outer wrapper: `flex flex-col gap-[gap-2xs] items-start` (same as InputText)
-- [ ] Render input container: `flex items-stretch h-12 border-2 rounded-[rad-input] bg-[surface-base]` with state-aware border classes using `has-[:focus...]` pattern from InputText
-- [ ] Add error border overrides (must override hover/focus/active states, matching InputText pattern)
-- [ ] Add disabled state: `opacity-50 pointer-events-none` on outer wrapper
-- [ ] Render `<input>` element: `flex-1 min-w-0 bg-transparent border-none outline-none text-medium-m` with placeholder/filled text colors
-- [ ] Forward all standard input HTML attributes and ref to the `<input>` element
-- [ ] Export `InputAddons`
-- [ ] Write unit tests: renders input element, forwards ref, forwards standard HTML attributes (name, value, onChange)
-- [ ] Write unit tests: disabled state applies opacity and prevents interaction
-- [ ] Write unit tests: forwards className to root wrapper
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/input-addons.tsx`
+- [x] Define `InputAddonsProps` extending `React.InputHTMLAttributes<HTMLInputElement>`: `leadAddon?` (string), `trailAddon?` (string), `error?` (string | boolean), `helperText?` (string), `className?`, `ref?`
+- [x] Render outer wrapper: `flex flex-col gap-[gap-2xs] items-start` (same as InputText)
+- [x] Render input container: `flex items-stretch h-12 border-2 rounded-[rad-input] bg-[surface-base]` with state-aware border classes using `has-[:focus...]` pattern from InputText
+- [x] Add error border overrides (must override hover/focus/active states, matching InputText pattern)
+- [x] Add disabled state: `opacity-50 pointer-events-none` on outer wrapper
+- [x] Render `<input>` element: `flex-1 min-w-0 bg-transparent border-none outline-none text-medium-m` with placeholder/filled text colors
+- [x] Forward all standard input HTML attributes and ref to the `<input>` element
+- [x] Export `InputAddons`
+- [x] Write unit tests: renders input element, forwards ref, forwards standard HTML attributes (name, value, onChange)
+- [x] Write unit tests: disabled state applies opacity and prevents interaction
+- [x] Write unit tests: forwards className to root wrapper
+- [x] Run tests — must pass before next task
 
 ### Task 2: Add lead and trail addon blocks
-- [ ] When `leadAddon` is set, render lead addon block: `flex items-center bg-[surface-secondary] rounded-l-[rad-input] border-l-2 pl-[pad-m] pr-[pad-s]` with text in `text-medium-m text-heavy`
-- [ ] When `trailAddon` is set, render trail addon block: `flex items-center bg-[surface-secondary] rounded-r-[rad-input] border-r-2 pl-[pad-s] pr-[pad-m]` with text in `text-medium-m text-heavy text-right`
-- [ ] Addon border color tracks the outer container state — apply same `has-[:focus...]` border-color selectors to addon borders (via group selector on the input container)
-- [ ] When no addons, input gets its own horizontal padding (`px-[pad-m]`)
-- [ ] When lead addon present, adjust input left padding (reduced, gap provides spacing)
-- [ ] When trail addon present, adjust input right padding similarly
-- [ ] Write unit tests: lead addon renders with correct text
-- [ ] Write unit tests: trail addon renders with correct text
-- [ ] Write unit tests: both addons render together
-- [ ] Write unit tests: neither addon renders when props not provided (input still works)
-- [ ] Run tests — must pass before next task
+- [x] When `leadAddon` is set, render lead addon block: `flex items-center bg-[surface-secondary] rounded-l-[rad-input] border-l-2 pl-[pad-m] pr-[pad-s]` with text in `text-medium-m text-heavy`
+- [x] When `trailAddon` is set, render trail addon block: `flex items-center bg-[surface-secondary] rounded-r-[rad-input] border-r-2 pl-[pad-s] pr-[pad-m]` with text in `text-medium-m text-heavy text-right`
+- [x] Addon border color tracks the outer container state — apply same `has-[:focus...]` border-color selectors to addon borders (via group selector on the input container)
+- [x] When no addons, input gets its own horizontal padding (`px-[pad-m]`)
+- [x] When lead addon present, adjust input left padding (reduced, gap provides spacing)
+- [x] When trail addon present, adjust input right padding similarly
+- [x] Write unit tests: lead addon renders with correct text
+- [x] Write unit tests: trail addon renders with correct text
+- [x] Write unit tests: both addons render together
+- [x] Write unit tests: neither addon renders when props not provided (input still works)
+- [x] Run tests — must pass before next task
 
 ### Task 3: Add helper text and error state
-- [ ] Add helper text below input container: `text-medium-s text-[text-supporting] pl-[pad-xs]`
-- [ ] Error message overrides helper text: `text-[text-semantic-error]` with `aria-live="polite"`
-- [ ] Set `aria-invalid` on input when error is truthy and not disabled
-- [ ] Set `aria-describedby` linking input to helper/error text element
-- [ ] Generate stable IDs with `React.useId()` (same pattern as InputText)
-- [ ] Write unit tests: helper text renders below input
-- [ ] Write unit tests: error message replaces helper text with error styling
-- [ ] Write unit tests: aria-invalid set on input when error
-- [ ] Write unit tests: aria-describedby links input to description
-- [ ] Run tests — must pass before next task
+- [x] Add helper text below input container: `text-medium-s text-[text-supporting] pl-[pad-xs]`
+- [x] Error message overrides helper text: `text-[text-semantic-error]` with `aria-live="polite"`
+- [x] Set `aria-invalid` on input when error is truthy and not disabled
+- [x] Set `aria-describedby` linking input to helper/error text element
+- [x] Generate stable IDs with `React.useId()` (same pattern as InputText)
+- [x] Write unit tests: helper text renders below input
+- [x] Write unit tests: error message replaces helper text with error styling
+- [x] Write unit tests: aria-invalid set on input when error
+- [x] Write unit tests: aria-describedby links input to description
+- [x] Run tests — must pass before next task
 
 ### Task 4: Add Storybook stories
-- [ ] Create `src/components/ui/input-addons.stories.tsx`
-- [ ] Add `Default` story with both addons (lead="https//:", trail=".io")
-- [ ] Add `LeadAddonOnly` story (just prefix)
-- [ ] Add `TrailAddonOnly` story (just suffix)
-- [ ] Add `NoAddons` story (plain input, edge case)
-- [ ] Add `Filled` story with pre-filled value
-- [ ] Add `WithError` story showing error message
-- [ ] Add `WithHelperText` story showing helper text
-- [ ] Add `Disabled` story
-- [ ] Add `StateGrid` story showing all 7 states
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/input-addons.stories.tsx`
+- [x] Add `Default` story with both addons (lead="https//:", trail=".io")
+- [x] Add `LeadAddonOnly` story (just prefix)
+- [x] Add `TrailAddonOnly` story (just suffix)
+- [x] Add `NoAddons` story (plain input, edge case)
+- [x] Add `Filled` story with pre-filled value
+- [x] Add `WithError` story showing error message
+- [x] Add `WithHelperText` story showing helper text
+- [x] Add `Disabled` story
+- [x] Add `StateGrid` story showing all 7 states
+- [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
-- [ ] All 7 states render correctly (Default, Hover, Focus, Active, Filled, Error, Disabled)
-- [ ] Lead and trail addons independently optional
-- [ ] Addon separator border color tracks input state
-- [ ] Focus ring appears as 3px outer ring (box-shadow)
-- [ ] Error state overrides all borders to error color
-- [ ] Helper/error text renders with correct styling and ARIA attributes
-- [ ] Addon text uses `text-heavy` color, not placeholder color
-- [ ] All colors from design tokens
-- [ ] Run full test suite (`npm run test`)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Visual comparison with Figma in Storybook
+- [x] All 7 states render correctly (Default, Hover, Focus, Active, Filled, Error, Disabled)
+- [x] Lead and trail addons independently optional
+- [x] Addon separator border color tracks input state
+- [x] Focus ring appears as 3px outer ring (box-shadow)
+- [x] Error state overrides all borders to error color
+- [x] Helper/error text renders with correct styling and ARIA attributes
+- [x] Addon text uses `text-heavy` color, not placeholder color
+- [x] All colors from design tokens
+- [x] Run full test suite (`npm run test`)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Visual comparison with Figma in Storybook
 
 ### Task 6: [Final] Update documentation
-- [ ] Update this plan to completed status
+- [x] Update this plan to completed status
 
 *Note: ralphex automatically moves completed plans to `docs/plans/completed/`*
 
