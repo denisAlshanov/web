@@ -76,13 +76,13 @@
 ## Implementation Steps
 
 ### Task 1: Create custom solid SVG icon components
-- [ ] Create directory `src/components/ui/icons/`
-- [ ] Extract solid icon SVG paths from Figma for all 6 nav items (HomeSimpleDoorSolid, TvSolid, GroupSolid, UserSquareSolid, WrenchSolid, CalendarSolid)
-- [ ] Implement each solid icon as a React component matching the `ComponentType<SVGProps<SVGSVGElement>>` interface (same as iconoir icons) so they work with the existing `<Icon>` wrapper
-- [ ] Create barrel export `src/components/ui/icons/index.ts`
-- [ ] Write tests: each solid icon renders an SVG element with correct viewBox
-- [ ] Write tests: each solid icon forwards className, width, height props
-- [ ] Run tests — must pass before next task
+- [x] Create directory `src/components/ui/icons/`
+- [x] Extract solid icon SVG paths from Figma for all 6 nav items (HomeSimpleDoorSolid, TvSolid, GroupSolid, UserSquareSolid, WrenchSolid, CalendarSolid)
+- [x] Implement each solid icon as a React component matching the `ComponentType<SVGProps<SVGSVGElement>>` interface (same as iconoir icons) so they work with the existing `<Icon>` wrapper
+- [x] Create barrel export `src/components/ui/icons/index.ts`
+- [x] Write tests: each solid icon renders an SVG element with correct viewBox
+- [x] Write tests: each solid icon forwards className, width, height props
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement NavbarItem component with CVA variants (TDD)
 - [ ] Write tests for NavbarItem: renders with text label in expanded mode
