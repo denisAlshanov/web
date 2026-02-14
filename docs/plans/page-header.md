@@ -82,17 +82,17 @@
 ## Implementation Steps
 
 ### Task 1: Implement Level 1 PageHeader (TDD)
-- [ ] Write tests: Level 1 renders page heading (`text-heading-l`) when showHeading=true
-- [ ] Write tests: Level 1 hides heading when showHeading=false (header height shrinks to 80px)
-- [ ] Write tests: Level 1 renders AccountSettings trigger (right-aligned)
-- [ ] Write tests: Level 1 renders TabList when tabbedView=true, hides when false
-- [ ] Implement Level 1 `PageHeader` in `src/components/layout/page-header.tsx`:
+- [x] Write tests: Level 1 renders page heading (`text-heading-l`) when showHeading=true
+- [x] Write tests: Level 1 hides heading when showHeading=false (header height shrinks to 80px)
+- [x] Write tests: Level 1 renders AccountSettings trigger (right-aligned)
+- [x] Write tests: Level 1 renders TabList when tabbedView=true, hides when false
+- [x] Implement Level 1 `PageHeader` in `src/components/layout/page-header.tsx`:
   - Props: `level?: 1 | 2`, `heading?: string`, `showHeading?: boolean`, `scroll?: boolean`, `tabbedView?: boolean`, `tabs?: ReactNode`, `accountSettings?: ReactNode`, `onBackClick?: () => void`, `showMenu?: boolean`, `onMenuClick?: () => void`, `helperText?: string`, `showHelperText?: boolean`, `className?: string`
   - Container: `bg-[var(--colour-interface-surface-base)]`, flex column
   - Header area: heading left, AccountSettings right
   - Tab area: renders `tabs` slot (accepts `<TabList>` children)
   - Gap: 36px between header and tabs
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement Level 2 PageHeader (TDD)
 - [ ] Write tests: Level 2 renders page heading (`text-heading-m`) when showHeading=true
