@@ -77,16 +77,16 @@ Create a new `FilterTag` UI component (`src/components/ui/filter-tag.tsx`) — a
 - [x] Run tests — must pass before next task
 
 ### Task 2: Add editable mode with action buttons
-- [ ] Add `editable?: boolean` prop to `FilterTagProps`
-- [ ] Add `editing?: boolean` prop — controlled state for "actively editing" (shows check icon, medium border)
-- [ ] Add callbacks: `onEdit?: () => void`, `onDelete?: () => void`, `onConfirm?: () => void`
-- [ ] When `editable` and not `selected` and not `disabled`: render edit (EditPencil) and delete (Trash) icon buttons, hidden by default, visible on hover via `group` + `group-hover:flex` pattern
-- [ ] When `editing`: show Check icon button instead of edit/trash, change border to `border-primary-medium`, text to `text-default`
-- [ ] Action icon buttons: small click targets (24px), prevent event propagation to parent button
-- [ ] Write unit tests: editable mode renders edit/delete buttons, editing mode renders confirm button
-- [ ] Write unit tests: onEdit/onDelete/onConfirm callbacks fire correctly
-- [ ] Write unit tests: action buttons not shown when selected or disabled
-- [ ] Run tests — must pass before next task
+- [x] Add `editable?: boolean` prop to `FilterTagProps`
+- [x] Add `editing?: boolean` prop — controlled state for "actively editing" (shows check icon, medium border)
+- [x] Add callbacks: `onEdit?: () => void`, `onDelete?: () => void`, `onConfirm?: () => void`
+- [x] When `editable` and not `selected` and not `disabled`: render edit (EditPencil) and delete (Trash) icon buttons, hidden by default, visible on hover via `group` + `group-hover:flex` pattern
+- [x] When `editing`: show Check icon button instead of edit/trash, change border to `border-primary-medium`, text to `text-default`
+- [x] Action icon buttons: small click targets (24px), prevent event propagation to parent button
+- [x] Write unit tests: editable mode renders edit/delete buttons, editing mode renders confirm button
+- [x] Write unit tests: onEdit/onDelete/onConfirm callbacks fire correctly
+- [x] Write unit tests: action buttons not shown when selected or disabled
+- [x] Run tests — must pass before next task
 
 ### Task 3: Add Storybook stories
 - [ ] Create `src/components/ui/filter-tag.stories.tsx`

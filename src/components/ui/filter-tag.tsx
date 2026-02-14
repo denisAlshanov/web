@@ -2,6 +2,7 @@
 
 import type { ComponentType, SVGProps } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { Check, EditPencil, Trash } from "iconoir-react";
 
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
@@ -50,8 +51,13 @@ export interface FilterTagProps
   children: string;
   selected?: boolean;
   disabled?: boolean;
+  editable?: boolean;
+  editing?: boolean;
   leadingIcon?: ComponentType<SVGProps<SVGSVGElement>>;
   trailingIcon?: ComponentType<SVGProps<SVGSVGElement>>;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onConfirm?: () => void;
   className?: string;
   ref?: React.Ref<HTMLButtonElement>;
 }
@@ -60,20 +66,34 @@ function FilterTag({
   children,
   selected = false,
   disabled = false,
+  editable = false,
+  editing = false,
   leadingIcon,
   trailingIcon,
+  onEdit,
+  onDelete,
+  onConfirm,
   className,
   onClick,
   ref,
   ...props
 }: FilterTagProps) {
-  const iconColor = selected ? "onHeavy" : "supporting";
+  const iconColor = selected ? "onHeavy" : editing ? "default" : "supporting";
+
+  const showActionButtons = editable && !selected && !disabled && !editing;
+  const showConfirmButton = editable && editing && !selected && !disabled;
 
   return (
     <button
       ref={ref}
       type="button"
-      className={cn(filterTagVariants({ selected }), className)}
+      className={cn(
+        filterTagVariants({ selected }),
+        editing &&
+          !selected &&
+          "border-[var(--colour-interface-border-primary-medium)] text-[color:var(--colour-interface-text-default)]",
+        className,
+      )}
       aria-disabled={disabled || undefined}
       onClick={disabled ? undefined : onClick}
       {...props}
@@ -82,8 +102,68 @@ function FilterTag({
         <Icon icon={leadingIcon} color={iconColor} size="sm" />
       )}
       {children}
-      {trailingIcon && (
+      {trailingIcon && !showActionButtons && !showConfirmButton && (
         <Icon icon={trailingIcon} color={iconColor} size="sm" />
+      )}
+      {showActionButtons && (
+        <span className="hidden gap-[var(--number-spacing-gap-gap-xs)] group-hover:flex group-focus-visible:flex">
+          <span
+            role="button"
+            aria-label="Edit"
+            tabIndex={-1}
+            className="inline-flex h-6 w-6 items-center justify-center rounded-full transition-colors hover:bg-[var(--colour-interface-background-secondary-hover)]"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit?.();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.stopPropagation();
+                onEdit?.();
+              }
+            }}
+          >
+            <Icon icon={EditPencil} color="supporting" size="sm" />
+          </span>
+          <span
+            role="button"
+            aria-label="Delete"
+            tabIndex={-1}
+            className="inline-flex h-6 w-6 items-center justify-center rounded-full transition-colors hover:bg-[var(--colour-interface-background-secondary-hover)]"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete?.();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.stopPropagation();
+                onDelete?.();
+              }
+            }}
+          >
+            <Icon icon={Trash} color="supporting" size="sm" />
+          </span>
+        </span>
+      )}
+      {showConfirmButton && (
+        <span
+          role="button"
+          aria-label="Confirm"
+          tabIndex={-1}
+          className="inline-flex h-6 w-6 items-center justify-center rounded-full transition-colors hover:bg-[var(--colour-interface-background-secondary-hover)]"
+          onClick={(e) => {
+            e.stopPropagation();
+            onConfirm?.();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.stopPropagation();
+              onConfirm?.();
+            }
+          }}
+        >
+          <Icon icon={Check} color="default" size="sm" />
+        </span>
       )}
     </button>
   );

@@ -180,4 +180,228 @@ describe("FilterTag", () => {
       expect(handleClick).not.toHaveBeenCalled();
     });
   });
+
+  describe("editable mode", () => {
+    it("renders edit and delete action buttons when editable", () => {
+      render(<FilterTag editable>Genre</FilterTag>);
+
+      expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Delete" }),
+      ).toBeInTheDocument();
+    });
+
+    it("does not render action buttons when not editable", () => {
+      render(<FilterTag>Genre</FilterTag>);
+
+      expect(
+        screen.queryByRole("button", { name: "Edit" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Delete" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("hides action buttons by default via hidden class", () => {
+      render(<FilterTag editable>Genre</FilterTag>);
+
+      const editBtn = screen.getByRole("button", { name: "Edit" });
+      const wrapper = editBtn.parentElement!;
+      expect(wrapper.className).toContain("hidden");
+      expect(wrapper.className).toContain("group-hover:flex");
+    });
+
+    it("does not render action buttons when selected", () => {
+      render(
+        <FilterTag editable selected>
+          Genre
+        </FilterTag>,
+      );
+
+      expect(
+        screen.queryByRole("button", { name: "Edit" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Delete" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("does not render action buttons when disabled", () => {
+      render(
+        <FilterTag editable disabled>
+          Genre
+        </FilterTag>,
+      );
+
+      expect(
+        screen.queryByRole("button", { name: "Edit" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Delete" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("calls onEdit when edit button is clicked", async () => {
+      const user = userEvent.setup();
+      const handleEdit = vi.fn();
+
+      render(
+        <FilterTag editable onEdit={handleEdit}>
+          Genre
+        </FilterTag>,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Edit" }));
+      expect(handleEdit).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onDelete when delete button is clicked", async () => {
+      const user = userEvent.setup();
+      const handleDelete = vi.fn();
+
+      render(
+        <FilterTag editable onDelete={handleDelete}>
+          Genre
+        </FilterTag>,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Delete" }));
+      expect(handleDelete).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not propagate action button clicks to parent onClick", async () => {
+      const user = userEvent.setup();
+      const handleClick = vi.fn();
+      const handleEdit = vi.fn();
+
+      render(
+        <FilterTag editable onClick={handleClick} onEdit={handleEdit}>
+          Genre
+        </FilterTag>,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Edit" }));
+      expect(handleEdit).toHaveBeenCalledTimes(1);
+      expect(handleClick).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("editing state", () => {
+    it("renders confirm button when editing", () => {
+      render(
+        <FilterTag editable editing>
+          Genre
+        </FilterTag>,
+      );
+
+      expect(
+        screen.getByRole("button", { name: "Confirm" }),
+      ).toBeInTheDocument();
+    });
+
+    it("does not render edit/delete buttons when editing", () => {
+      render(
+        <FilterTag editable editing>
+          Genre
+        </FilterTag>,
+      );
+
+      expect(
+        screen.queryByRole("button", { name: "Edit" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Delete" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("applies medium border and default text color when editing", () => {
+      render(
+        <FilterTag editable editing>
+          Genre
+        </FilterTag>,
+      );
+
+      const el = screen.getByRole("button", { name: "Genre" });
+      expect(el.className).toContain(
+        "border-[var(--colour-interface-border-primary-medium)]",
+      );
+      expect(el.className).toContain(
+        "text-[color:var(--colour-interface-text-default)]",
+      );
+    });
+
+    it("calls onConfirm when confirm button is clicked", async () => {
+      const user = userEvent.setup();
+      const handleConfirm = vi.fn();
+
+      render(
+        <FilterTag editable editing onConfirm={handleConfirm}>
+          Genre
+        </FilterTag>,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Confirm" }));
+      expect(handleConfirm).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not propagate confirm click to parent onClick", async () => {
+      const user = userEvent.setup();
+      const handleClick = vi.fn();
+      const handleConfirm = vi.fn();
+
+      render(
+        <FilterTag
+          editable
+          editing
+          onClick={handleClick}
+          onConfirm={handleConfirm}
+        >
+          Genre
+        </FilterTag>,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Confirm" }));
+      expect(handleConfirm).toHaveBeenCalledTimes(1);
+      expect(handleClick).not.toHaveBeenCalled();
+    });
+
+    it("does not show confirm button when selected", () => {
+      render(
+        <FilterTag editable editing selected>
+          Genre
+        </FilterTag>,
+      );
+
+      expect(
+        screen.queryByRole("button", { name: "Confirm" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("does not show confirm button when disabled", () => {
+      render(
+        <FilterTag editable editing disabled>
+          Genre
+        </FilterTag>,
+      );
+
+      expect(
+        screen.queryByRole("button", { name: "Confirm" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("applies default icon color when editing", () => {
+      render(
+        <FilterTag editable editing leadingIcon={Plus}>
+          Genre
+        </FilterTag>,
+      );
+
+      const icon = screen
+        .getByRole("button", { name: "Genre" })
+        .querySelector("svg");
+      expect(icon?.getAttribute("class")).toContain(
+        "text-[color:var(--colour-interface-icon-default)]",
+      );
+    });
+  });
 });
