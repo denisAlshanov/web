@@ -52,11 +52,11 @@ describe("AccountSettingsDropdown", () => {
       expect(screen.getByText("Alexander Plushev")).toBeInTheDocument();
     });
 
-    it("applies bold styling with heavy text color token", () => {
+    it("applies heading-s typography with heavy text color token", () => {
       render(<AccountSettingsDropdown {...defaultProps} />);
 
       const name = screen.getByText("Alexander Plushev");
-      expect(name.className).toContain("font-bold");
+      expect(name.className).toContain("text-heading-s");
       expect(name.className).toContain(
         "text-[color:var(--colour-interface-text-heavy)]",
       );
@@ -90,24 +90,24 @@ describe("AccountSettingsDropdown", () => {
   });
 
   describe("settings header", () => {
-    it("renders SETTINGS header in uppercase", () => {
+    it("renders Settings header with eyebrow uppercase style", () => {
       render(<AccountSettingsDropdown {...defaultProps} />);
 
-      const header = screen.getByText("SETTINGS");
+      const header = screen.getByText("Settings");
       expect(header).toBeInTheDocument();
     });
 
     it("applies eyebrow typography class", () => {
       render(<AccountSettingsDropdown {...defaultProps} />);
 
-      const header = screen.getByText("SETTINGS");
+      const header = screen.getByText("Settings");
       expect(header.className).toContain("text-heading-eyebrow");
     });
 
     it("applies supporting text color", () => {
       render(<AccountSettingsDropdown {...defaultProps} />);
 
-      const header = screen.getByText("SETTINGS");
+      const header = screen.getByText("Settings");
       expect(header.className).toContain(
         "text-[color:var(--colour-interface-text-supporting)]",
       );
@@ -123,7 +123,7 @@ describe("AccountSettingsDropdown", () => {
       });
       expect(accountInfoButton).toBeInTheDocument();
       expect(accountInfoButton.className).toContain(
-        "bg-[var(--colour-interface-background-singletone-default)]",
+        "bg-[var(--colour-interface-background-singleTone-default)]",
       );
     });
 
@@ -168,9 +168,7 @@ describe("AccountSettingsDropdown", () => {
     it("applies modal border radius token", () => {
       render(<AccountSettingsDropdown {...defaultProps} />);
 
-      const container = screen
-        .getByText("Alexander Plushev")
-        .closest("[data-testid='account-settings-dropdown']")!;
+      const container = screen.getByTestId("account-settings-dropdown");
       expect(container.className).toContain(
         "rounded-[var(--number-radius-rad-modal)]",
       );
@@ -179,9 +177,7 @@ describe("AccountSettingsDropdown", () => {
     it("applies white surface background", () => {
       render(<AccountSettingsDropdown {...defaultProps} />);
 
-      const container = screen
-        .getByText("Alexander Plushev")
-        .closest("[data-testid='account-settings-dropdown']")!;
+      const container = screen.getByTestId("account-settings-dropdown");
       expect(container.className).toContain(
         "bg-[var(--colour-interface-surface-base)]",
       );
@@ -195,9 +191,7 @@ describe("AccountSettingsDropdown", () => {
         />,
       );
 
-      const container = screen
-        .getByText("Alexander Plushev")
-        .closest("[data-testid='account-settings-dropdown']")!;
+      const container = screen.getByTestId("account-settings-dropdown");
       expect(container).toHaveClass("custom-dropdown");
     });
   });

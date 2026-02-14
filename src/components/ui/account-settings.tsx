@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ComponentType, type SVGProps } from "react";
-import Image from "next/image";
 import * as Popover from "@radix-ui/react-popover";
 import { cva, type VariantProps } from "class-variance-authority";
 import { User, LogOut, NavArrowDown, NavArrowUp } from "iconoir-react";
@@ -24,12 +23,12 @@ const accountSettingsItemVariants = cva(
   ].join(" "),
   {
     variants: {
-      style: {
+      intent: {
         default: [
-          "bg-[var(--colour-interface-background-singletone-default)]",
-          "hover:bg-[var(--colour-interface-background-singletone-hover)]",
-          "focus-visible:bg-[var(--colour-interface-background-singletone-focus)]",
-          "active:bg-[var(--colour-interface-background-singletone-active)]",
+          "bg-[var(--colour-interface-background-singleTone-default)]",
+          "hover:bg-[var(--colour-interface-background-singleTone-hover)]",
+          "focus-visible:bg-[var(--colour-interface-background-singleTone-focus)]",
+          "active:bg-[var(--colour-interface-background-singleTone-active)]",
           "text-[color:var(--colour-interface-text-default)]",
         ].join(" "),
         danger: [
@@ -42,7 +41,7 @@ const accountSettingsItemVariants = cva(
       },
     },
     defaultVariants: {
-      style: "default",
+      intent: "default",
     },
   },
 );
@@ -56,17 +55,17 @@ interface AccountSettingsItemProps
 
 function AccountSettingsItem({
   icon,
-  style,
+  intent,
   className,
   children,
   ...props
 }: AccountSettingsItemProps) {
-  const iconColor = style === "danger" ? "danger" : "default";
+  const iconColor = intent === "danger" ? "danger" : "default";
 
   return (
     <button
       type="button"
-      className={cn(accountSettingsItemVariants({ style }), className)}
+      className={cn(accountSettingsItemVariants({ intent }), className)}
       {...props}
     >
       <Icon icon={icon} color={iconColor} size="md" />
@@ -129,6 +128,9 @@ function AccountSettingsDropdown({
   onLogoutClick,
   className,
 }: AccountSettingsDropdownProps) {
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
+  const imgError = avatarUrl != null && failedUrl === avatarUrl;
+
   return (
     <div
       data-testid="account-settings-dropdown"
@@ -143,48 +145,52 @@ function AccountSettingsDropdown({
     >
       {/* Profile section */}
       <div className="flex flex-col items-center gap-[var(--number-spacing-padding-pad-m)]">
-        {avatarUrl ? (
-          <Image
+        {avatarUrl && !imgError ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
             src={avatarUrl}
             alt={userName}
             width={64}
             height={64}
-            className="rounded-full object-cover"
+            className="h-16 w-16 rounded-full object-cover"
+            onError={() => setFailedUrl(avatarUrl)}
           />
         ) : (
           <div
             aria-label={userName}
-            className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--colour-interface-background-singletone-hover)] text-heading-m text-[color:var(--colour-interface-text-default)]"
+            className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--colour-interface-background-singleTone-hover)] text-heading-m text-[color:var(--colour-interface-text-default)]"
           >
-            {userName.charAt(0).toUpperCase()}
+            {userName.charAt(0).toUpperCase() || "?"}
           </div>
         )}
-        <span className="font-bold text-lg leading-6 text-[color:var(--colour-interface-text-heavy)]">
+        <span className="text-heading-s text-[color:var(--colour-interface-text-heavy)]">
           {userName}
         </span>
-        <div className="flex gap-[var(--number-spacing-gap-gap-s)]">
-          {roles.map((role) => (
-            <RolePill key={role} role={role} />
-          ))}
-        </div>
+        {roles.length > 0 && (
+          <div className="flex gap-[var(--number-spacing-gap-gap-s)]">
+            {roles.map((role, index) => (
+              <RolePill key={`${role}-${index}`} role={role} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Menu section */}
       <div className="flex flex-col">
-        <span className="text-heading-eyebrow text-[color:var(--colour-interface-text-supporting)] pb-1">
-          SETTINGS
+        <span className="text-heading-eyebrow text-[color:var(--colour-interface-text-supporting)] pb-[var(--number-spacing-padding-pad-xs)]">
+          Settings
         </span>
         <div className="flex flex-col gap-[var(--number-spacing-gap-gap-s)]">
           <AccountSettingsItem
             icon={User}
-            style="default"
+            intent="default"
             onClick={onAccountInfoClick}
           >
             Account Info
           </AccountSettingsItem>
           <AccountSettingsItem
             icon={LogOut}
-            style="danger"
+            intent="danger"
             onClick={onLogoutClick}
           >
             Log out
@@ -199,7 +205,8 @@ function AccountSettingsDropdown({
 // AccountSettings (composed widget)
 // ---------------------------------------------------------------------------
 
-interface AccountSettingsProps extends AccountSettingsDropdownProps {
+interface AccountSettingsProps
+  extends Omit<AccountSettingsDropdownProps, "className"> {
   className?: string;
 }
 
@@ -218,6 +225,7 @@ function AccountSettings({
       <Popover.Trigger asChild>
         <button
           type="button"
+          aria-label={`Account settings for ${userName}`}
           className={cn(
             "flex items-center",
             "gap-[var(--number-spacing-gap-gap-s)]",
@@ -225,10 +233,10 @@ function AccountSettings({
             "rounded-[var(--number-radius-rad-inner-card)]",
             "text-semibold-m text-[color:var(--colour-interface-text-default)]",
             "cursor-pointer transition-colors",
-            "bg-[var(--colour-interface-background-singletone-default)]",
-            "hover:bg-[var(--colour-interface-background-singletone-hover)]",
-            "focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)] focus-visible:bg-[var(--colour-interface-background-singletone-focus)]",
-            "active:bg-[var(--colour-interface-background-singletone-active)]",
+            "bg-[var(--colour-interface-background-singleTone-default)]",
+            "hover:bg-[var(--colour-interface-background-singleTone-hover)]",
+            "focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)] focus-visible:bg-[var(--colour-interface-background-singleTone-focus)]",
+            "active:bg-[var(--colour-interface-background-singleTone-active)]",
             className,
           )}
         >
@@ -256,8 +264,14 @@ function AccountSettings({
             userName={userName}
             avatarUrl={avatarUrl}
             roles={roles}
-            onAccountInfoClick={onAccountInfoClick}
-            onLogoutClick={onLogoutClick}
+            onAccountInfoClick={() => {
+              setOpen(false);
+              onAccountInfoClick?.();
+            }}
+            onLogoutClick={() => {
+              setOpen(false);
+              onLogoutClick?.();
+            }}
           />
         </Popover.Content>
       </Popover.Portal>

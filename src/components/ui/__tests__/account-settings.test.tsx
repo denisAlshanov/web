@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { AccountSettings } from "../account-settings";
 
@@ -50,6 +50,53 @@ describe("AccountSettings", () => {
       expect(
         screen.getByTestId("account-settings-dropdown"),
       ).toBeInTheDocument();
+    });
+
+    it("clicking trigger again closes the dropdown", async () => {
+      const user = userEvent.setup();
+      render(<AccountSettings {...defaultProps} />);
+
+      const trigger = screen.getByRole("button");
+      await user.click(trigger);
+      expect(
+        screen.getByTestId("account-settings-dropdown"),
+      ).toBeInTheDocument();
+
+      await user.click(trigger);
+      expect(
+        screen.queryByTestId("account-settings-dropdown"),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  describe("callback propagation", () => {
+    it("calls onAccountInfoClick through the popover", async () => {
+      const user = userEvent.setup();
+      const onAccountInfoClick = vi.fn();
+      render(
+        <AccountSettings
+          {...defaultProps}
+          onAccountInfoClick={onAccountInfoClick}
+        />,
+      );
+
+      await user.click(screen.getByRole("button"));
+      await user.click(screen.getByRole("button", { name: /account info/i }));
+
+      expect(onAccountInfoClick).toHaveBeenCalledOnce();
+    });
+
+    it("calls onLogoutClick through the popover", async () => {
+      const user = userEvent.setup();
+      const onLogoutClick = vi.fn();
+      render(
+        <AccountSettings {...defaultProps} onLogoutClick={onLogoutClick} />,
+      );
+
+      await user.click(screen.getByRole("button"));
+      await user.click(screen.getByRole("button", { name: /log out/i }));
+
+      expect(onLogoutClick).toHaveBeenCalledOnce();
     });
   });
 

@@ -26,7 +26,7 @@ describe("AccountSettingsItem", () => {
   describe("Default style", () => {
     it("renders icon and text with default colors", () => {
       render(
-        <AccountSettingsItem icon={UserIcon} style="default">
+        <AccountSettingsItem icon={UserIcon} intent="default">
           Account Info
         </AccountSettingsItem>,
       );
@@ -37,7 +37,7 @@ describe("AccountSettingsItem", () => {
 
     it("applies default text color token", () => {
       render(
-        <AccountSettingsItem icon={UserIcon} style="default">
+        <AccountSettingsItem icon={UserIcon} intent="default">
           Account Info
         </AccountSettingsItem>,
       );
@@ -50,14 +50,14 @@ describe("AccountSettingsItem", () => {
 
     it("applies default background tokens", () => {
       render(
-        <AccountSettingsItem icon={UserIcon} style="default">
+        <AccountSettingsItem icon={UserIcon} intent="default">
           Account Info
         </AccountSettingsItem>,
       );
 
       const button = screen.getByRole("button");
       expect(button.className).toContain(
-        "bg-[var(--colour-interface-background-singletone-default)]",
+        "bg-[var(--colour-interface-background-singleTone-default)]",
       );
     });
   });
@@ -65,7 +65,7 @@ describe("AccountSettingsItem", () => {
   describe("Danger style", () => {
     it("renders icon and text with danger colors", () => {
       render(
-        <AccountSettingsItem icon={LogOutIcon} style="danger">
+        <AccountSettingsItem icon={LogOutIcon} intent="danger">
           Log out
         </AccountSettingsItem>,
       );
@@ -76,7 +76,7 @@ describe("AccountSettingsItem", () => {
 
     it("applies danger text color token", () => {
       render(
-        <AccountSettingsItem icon={LogOutIcon} style="danger">
+        <AccountSettingsItem icon={LogOutIcon} intent="danger">
           Log out
         </AccountSettingsItem>,
       );
@@ -89,7 +89,7 @@ describe("AccountSettingsItem", () => {
 
     it("applies danger background tokens", () => {
       render(
-        <AccountSettingsItem icon={LogOutIcon} style="danger">
+        <AccountSettingsItem icon={LogOutIcon} intent="danger">
           Log out
         </AccountSettingsItem>,
       );
@@ -102,7 +102,7 @@ describe("AccountSettingsItem", () => {
 
     it("uses danger icon color", () => {
       render(
-        <AccountSettingsItem icon={LogOutIcon} style="danger">
+        <AccountSettingsItem icon={LogOutIcon} intent="danger">
           Log out
         </AccountSettingsItem>,
       );

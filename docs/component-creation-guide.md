@@ -166,6 +166,44 @@ export function DialogContent({
 }
 ```
 
+### Popover pattern (controlled open state)
+
+For composed widgets that need a trigger button + popover panel (e.g., AccountSettings), use `@radix-ui/react-popover` with controlled `open` state:
+
+```tsx
+// src/components/ui/account-settings.tsx (simplified)
+import { useState } from "react";
+import * as Popover from "@radix-ui/react-popover";
+import { NavArrowDown, NavArrowUp } from "iconoir-react";
+import { Icon } from "@/components/ui/icon";
+
+function AccountSettings({ userName, ...props }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger asChild>
+        <button type="button" className={cn(/* trigger styles */)}>
+          {userName}
+          <Icon icon={open ? NavArrowUp : NavArrowDown} color="default" size="md" />
+        </button>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content align="end" sideOffset={8}>
+          {/* Dropdown panel content */}
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+}
+```
+
+Key points:
+- Use `open` + `onOpenChange` for controlled state when the trigger needs to reflect open/closed (e.g., swapping chevron icons).
+- Use `asChild` on `Popover.Trigger` to render your own styled button instead of a Radix-generated wrapper.
+- Wrap `Popover.Content` in `Popover.Portal` so the dropdown renders outside the DOM hierarchy (avoids clipping by overflow containers).
+- Use `align` and `sideOffset` on `Popover.Content` for positioning relative to the trigger.
+
 ### When to use Radix vs plain HTML
 
 | Use Radix | Use plain HTML |
@@ -382,6 +420,8 @@ Which states each component must implement. **Required (R)** states must be impl
 | **DataTable** (row) | R | R | — | — | R | — | — | — | — | — | R |
 | **DataTable** (container) | R | — | — | — | — | — | R | R | — | — | — |
 | **NavbarItem** | R | R | — | R | R | — | — | — | — | — | — |
+| **AccountSettings** (trigger) | R | R | R | — | R | — | — | — | — | R | — |
+| **AccountSettings** (item) | R | R | R | — | R | — | — | — | — | — | — |
 | **Skeleton** | R | — | — | — | — | — | — | — | — | — | — |
 | **Separator** | R | — | — | — | — | — | — | — | — | — | — |
 | **Label** | R | — | — | — | — | R | — | R | — | — | — |
@@ -562,6 +602,9 @@ Build custom in `src/components/features/schedule-grid.tsx`:
 | Storybook story | `src/components/ui/dropdown-menu.stories.tsx` |
 | Feature component | `src/components/features/episode-card.tsx` |
 | Layout component | `src/components/layout/side-navbar.tsx` |
+| Composed widget (multiple sub-components) | `src/components/ui/account-settings.tsx` |
+
+When a widget is composed of tightly-coupled sub-components (e.g., AccountSettingsItem, RolePill, AccountSettingsDropdown, AccountSettings), keep them all in a single file and export each one as a named export. This avoids unnecessary file fragmentation for components that are always used together.
 
 ## Build Order
 
@@ -570,6 +613,6 @@ Build custom in `src/components/features/schedule-grid.tsx`:
 | 1. Foundation | `cn()` util, Button, Input, Label, Badge, Separator |
 | 2. Forms | Select, Checkbox, Radio, Switch, Textarea, FormField |
 | 3. Overlays | Dialog, Popover, DropdownMenu, Tooltip, Toast |
-| 4. Navigation | Tabs, Sidebar, Header, Breadcrumb |
+| 4. Navigation | Tabs, Sidebar, Header, Breadcrumb, AccountSettings |
 | 5. Data | DataTable, Pagination, Filters, Search |
 | 6. Domain | EpisodeCard, ShowCard, ScheduleGrid, Calendar |
