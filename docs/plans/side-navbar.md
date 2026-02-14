@@ -82,33 +82,33 @@
 ## Implementation Steps
 
 ### Task 1: Create SideNavbar component structure (TDD)
-- [ ] Write tests: SideNavbar renders with `role="navigation"` and `aria-label`
-- [ ] Write tests: expanded mode renders MediaPlansLogo + "MediaPlans" text
-- [ ] Write tests: expanded mode renders all 6 nav items with correct labels (Home, Shows, Calendar, Team, Guests, Manage)
-- [ ] Write tests: collapsed mode renders MediaPlansLogo without "MediaPlans" text
-- [ ] Write tests: collapsed mode renders all 6 nav items with `collapsed` prop
-- [ ] Implement `SideNavbar` in `src/components/layout/side-navbar.tsx`:
+- [x] Write tests: SideNavbar renders with `role="navigation"` and `aria-label`
+- [x] Write tests: expanded mode renders MediaPlansLogo + "MediaPlans" text
+- [x] Write tests: expanded mode renders all 6 nav items with correct labels (Home, Shows, Calendar, Team, Guests, Manage)
+- [x] Write tests: collapsed mode renders MediaPlansLogo without "MediaPlans" text
+- [x] Write tests: collapsed mode renders all 6 nav items with `collapsed` prop
+- [x] Implement `SideNavbar` in `src/components/layout/side-navbar.tsx`:
   - Props: `collapsed?: boolean`, `activeItem?: string`, `onItemClick?: (item: string) => void`, `className?: string`
   - Expanded: 228px wide, flex column, `bg-[var(--colour-interface-surface-base)]`, right border + shadow
   - Collapsed: 120px wide, flex column, same bg, no border/shadow
   - Logo section: `<MediaPlansLogo>` + conditional "MediaPlans" text (`text-semibold-l`)
   - Menu section: 6 `<NavbarItem>` components with correct icon pairs and labels
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement active item and styling details (TDD)
-- [ ] Write tests: only the active item has `active={true}`, rest have `active={false}`
-- [ ] Write tests: `activeItem` prop controls which item is active (default: "home")
-- [ ] Write tests: `onItemClick` fires with item identifier when a nav item is clicked
-- [ ] Write tests: expanded mode has right border `--colour-interface-border-primary-light` and shadow
-- [ ] Write tests: collapsed mode has NO right border or shadow
-- [ ] Implement active item logic: compare `activeItem` prop to each item's identifier
-- [ ] Implement styling:
+- [x] Write tests: only the active item has `active={true}`, rest have `active={false}`
+- [x] Write tests: `activeItem` prop controls which item is active (default: "home")
+- [x] Write tests: `onItemClick` fires with item identifier when a nav item is clicked
+- [x] Write tests: expanded mode has right border `--colour-interface-border-primary-light` and shadow
+- [x] Write tests: collapsed mode has NO right border or shadow
+- [x] Implement active item logic: compare `activeItem` prop to each item's identifier
+- [x] Implement styling:
   - Expanded: `border-r border-[var(--colour-interface-border-primary-light)] shadow-[1px_0px_10px_0px_rgba(38,44,52,0.08)]`
   - Collapsed: no border/shadow
   - Gap between logo and menu: 80px (`gap-[80px]` or explicit spacing)
   - Menu items gap: 16px
   - Padding: `px-[12px] pt-[32px] pb-[60px]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Create Storybook stories
 - [ ] Create `src/components/layout/side-navbar.stories.tsx` with Meta setup
