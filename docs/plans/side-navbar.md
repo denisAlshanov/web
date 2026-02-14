@@ -111,23 +111,23 @@
 - [x] Run tests — must pass before next task
 
 ### Task 3: Create Storybook stories
-- [ ] Create `src/components/layout/side-navbar.stories.tsx` with Meta setup
-- [ ] Add `Expanded` story: full sidebar with Home active, all 6 items with correct labels
-- [ ] Add `Collapsed` story: collapsed sidebar with Home active, icon-only items
-- [ ] Add `ExpandedShowsActive` story: expanded with Shows as active item
-- [ ] Add `SideBySide` story: both expanded and collapsed rendered side by side for visual comparison with Figma
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/layout/side-navbar.stories.tsx` with Meta setup
+- [x] Add `Expanded` story: full sidebar with Home active, all 6 items with correct labels
+- [x] Add `Collapsed` story: collapsed sidebar with Home active, icon-only items
+- [x] Add `ExpandedShowsActive` story: expanded with Shows as active item
+- [x] Add `SideBySide` story: both expanded and collapsed rendered side by side for visual comparison with Figma
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 4: Verify acceptance criteria
-- [ ] Verify expanded mode matches Figma: 228px width, right border + shadow, logo + "MediaPlans" text, all 6 items with labels
-- [ ] Verify collapsed mode matches Figma: 120px width, no border/shadow, logo icon only, icon-only items
-- [ ] Verify exact item order: Home, Shows, Calendar, Team, Guests, Manage
-- [ ] Verify exact icons: outline for inactive, solid for active
-- [ ] Verify active item styling: shadow + semibold text + solid icon
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify expanded mode matches Figma: 228px width, right border + shadow, logo + "MediaPlans" text, all 6 items with labels
+- [x] Verify collapsed mode matches Figma: 120px width, no border/shadow, logo icon only, icon-only items
+- [x] Verify exact item order: Home, Shows, Calendar, Team, Guests, Manage
+- [x] Verify exact icons: outline for inactive, solid for active
+- [x] Verify active item styling: shadow + semibold text + solid icon
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 5: [Final] Update documentation
 - [ ] Update any relevant docs if new layout component patterns were discovered
