@@ -117,9 +117,9 @@
 ## Implementation Steps
 
 ### Task 1: Install Radix Popover dependency
-- [ ] Install `@radix-ui/react-popover` via npm
-- [ ] Verify import works
-- [ ] Run tests — must pass before next task
+- [x] Install `@radix-ui/react-popover` via npm
+- [x] Verify import works
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement AccountSettingsItem with CVA variants (TDD)
 - [ ] Write tests: Default style renders icon + text with correct colors
