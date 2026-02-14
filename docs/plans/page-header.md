@@ -131,14 +131,14 @@
 - [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
-- [ ] Verify Level 1 matches Figma: heading (36px bold), account settings (right), tab view (below)
-- [ ] Verify Level 2 matches Figma: heading (24px bold), back arrow (left), menu (right), account settings (right)
-- [ ] Verify scroll state: border + shadow applied correctly for both levels
-- [ ] Verify showHeading toggle changes header height (Lvl 1: 140px→80px, Lvl 2: 96px→80px)
-- [ ] Verify icons: `ArrowLeft` for back, `Menu` for hamburger
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify Level 1 matches Figma: heading (36px bold), account settings (right), tab view (below)
+- [x] Verify Level 2 matches Figma: heading (24px bold), back arrow (left), menu (right), account settings (right)
+- [x] Verify scroll state: border + shadow applied correctly for both levels
+- [x] Verify showHeading toggle changes header height (Lvl 1: 140px→80px, Lvl 2: 96px→80px)
+- [x] Verify icons: `ArrowLeft` for back, `Menu` for hamburger
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 6: [Final] Update documentation
 - [ ] Update any relevant docs if new layout patterns were discovered
