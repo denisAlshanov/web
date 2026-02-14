@@ -96,7 +96,7 @@ export default function AuthErrorPage() {
         <MediaPlansLogo />
       </div>
 
-      <Suspense>
+      <Suspense fallback={<div className="flex justify-center pt-[320px]" />}>
         <AuthErrorContent />
       </Suspense>
     </div>

@@ -32,7 +32,7 @@ Copy `.env.example` to `.env.local` and fill in values. Required variables:
 - `src/lib/api-client.ts` — Typed API client with automatic token refresh and request deduplication
 - `src/types/api.ts` — All backend API request/response types and enums
 - `src/types/next-auth.d.ts` — Type augmentation for NextAuth session/JWT
-- `src/middleware.ts` — Route protection (redirects unauthenticated users to `/login`; redirects `BackendAuthError` users to `/auth-error`)
+- `src/middleware.ts` — Route protection (redirects unauthenticated users to `/login`; redirects `BackendAuthError:*` users to `/auth-error?reason=...`)
 - `src/styles/tokens.css` — Auto-generated CSS custom properties (do not edit manually)
 - `tokens/` — Figma design token JSON files (DTCG format)
 - `scripts/transform-tokens.ts` — Transforms token JSON into `src/styles/tokens.css`

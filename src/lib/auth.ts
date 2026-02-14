@@ -62,7 +62,6 @@ async function exchangeGoogleToken(googleToken: string): Promise<ExchangeResult>
       url,
       payload_keys: Object.keys(payload),
       token_length: googleToken.length,
-      token_prefix: googleToken.substring(0, 10) + "...",
     });
 
     const response = await fetch(url, {
@@ -73,9 +72,10 @@ async function exchangeGoogleToken(googleToken: string): Promise<ExchangeResult>
     });
 
     if (!response.ok) {
-      let body = "";
+      let bodyPreview = "";
       try {
-        body = await response.text();
+        const raw = await response.text();
+        bodyPreview = raw.substring(0, 500);
       } catch {
         // ignore body read errors
       }
@@ -84,15 +84,24 @@ async function exchangeGoogleToken(googleToken: string): Promise<ExchangeResult>
         {
           status: response.status,
           statusText: response.statusText,
-          headers: Object.fromEntries(response.headers.entries()),
-          body,
+          contentType: response.headers.get("content-type"),
+          body: bodyPreview,
         },
       );
       return { ok: false, status: response.status };
     }
 
     const json = await response.json();
-    console.log("[auth] Backend auth succeeded, user:", json.data?.user?.email);
+    if (
+      !json.data?.user ||
+      !json.data?.access_token ||
+      !json.data?.refresh_token ||
+      typeof json.data?.expires_in !== "number"
+    ) {
+      console.error("[auth] Backend returned 200 but missing required fields (user, access_token, refresh_token, or expires_in)");
+      return { ok: false, status: null };
+    }
+    console.log("[auth] Backend auth succeeded, user:", json.data.user.email);
     return { ok: true, data: json.data };
   } catch (error) {
     console.error("[auth] Failed to exchange token with backend (network/timeout):", error);
@@ -116,12 +125,26 @@ async function refreshBackendToken(refreshToken: string): Promise<{
       signal: AbortSignal.timeout(10_000),
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.error("[auth] Backend token refresh failed:", {
+        status: response.status,
+        statusText: response.statusText,
+      });
+      return null;
+    }
 
     const json = await response.json();
+    if (
+      !json.data?.access_token ||
+      !json.data?.refresh_token ||
+      typeof json.data?.expires_in !== "number"
+    ) {
+      console.error("[auth] Refresh endpoint returned 200 but unexpected body shape");
+      return null;
+    }
     return json.data;
   } catch {
-    console.error("Backend token refresh failed");
+    console.error("[auth] Backend token refresh failed");
     return null;
   }
 }
@@ -179,10 +202,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           result = await exchangeGoogleToken(googleAccessToken);
         }
 
-        // Fallback: if access_token exchange failed with 401, try id_token
-        if (!result.ok && result.status === 401 && googleIdToken) {
+        // Fallback: try id_token if access_token was absent or exchange returned 401
+        if (!result.ok && (result.status === 401 || !googleAccessToken) && googleIdToken) {
           console.warn(
-            "[auth] access_token exchange returned 401, attempting fallback with id_token",
+            !googleAccessToken
+              ? "[auth] No access_token available, attempting exchange with id_token"
+              : "[auth] access_token exchange returned 401, attempting fallback with id_token",
           );
           result = await exchangeGoogleToken(googleIdToken);
           if (result.ok) {

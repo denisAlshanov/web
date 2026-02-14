@@ -11,7 +11,9 @@ export default auth((req) => {
     return Response.redirect(new URL("/", req.nextUrl.origin));
   }
 
-  const isBackendAuthError = req.auth?.error?.startsWith("BackendAuthError");
+  const authError = req.auth?.error;
+  const isBackendAuthError =
+    typeof authError === "string" && authError.startsWith("BackendAuthError");
 
   // Redirect users with BackendAuthError to /auth-error
   if (isBackendAuthError && !isAuthErrorPage) {
