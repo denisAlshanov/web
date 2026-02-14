@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { ArrowLeft, Menu } from "iconoir-react";
 
@@ -42,20 +44,20 @@ function PageHeader({
   helperText,
   showHelperText = false,
 }: PageHeaderProps) {
+  const hasHeading = showHeading && !!heading;
   const headerHeight =
     level === 1
-      ? showHeading
+      ? hasHeading
         ? "h-[140px]"
         : "h-[80px]"
-      : showHeading
+      : hasHeading
         ? "h-[96px]"
         : "h-[80px]";
 
   return (
     <header
-      role="banner"
       className={cn(
-        "flex flex-col bg-[var(--colour-interface-surface-base)]",
+        "relative flex flex-col bg-[var(--colour-interface-surface-base)]",
         headerHeight,
         scroll &&
           "border-b border-b-[var(--colour-interface-border-primary-light)] shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]",
@@ -63,8 +65,8 @@ function PageHeader({
       )}
     >
       {/* Top area: heading + account settings */}
-      <div className="relative flex flex-1 items-start">
-        {showHeading && heading && (
+      <div className="flex flex-1 items-start pr-[54px]">
+        {hasHeading && (
           <h1
             className={cn(
               "pl-3 self-end",
@@ -75,9 +77,8 @@ function PageHeader({
             {heading}
           </h1>
         )}
-
         {accountSettings && (
-          <div className="absolute top-4 right-[54px]">{accountSettings}</div>
+          <div className="ml-auto pt-4">{accountSettings}</div>
         )}
       </div>
 
@@ -87,34 +88,37 @@ function PageHeader({
       )}
 
       {/* Level 2: inner navigation bar */}
-      {level === 2 && (
-        <div className="flex h-12 items-center gap-1 pb-3 pr-12">
-          {onBackClick && (
-            <IconButton
-              variant="ghost"
-              size="xs"
-              icon={<Icon icon={ArrowLeft} size="md" />}
-              aria-label="Back"
-              onClick={onBackClick}
-            />
-          )}
-
-          <div className="ml-auto flex items-center gap-2">
-            {showHelperText && helperText && (
-              <span className="text-medium-m text-[color:var(--colour-interface-text-supporting)]">
-                {helperText}
-              </span>
-            )}
-
-            {showMenu && onMenuClick && (
+      {level === 2 &&
+        (onBackClick || (showMenu && onMenuClick) || (showHelperText && helperText)) && (
+        <div className="pb-3">
+          <div className="flex h-12 items-center pr-[48px]">
+            {onBackClick && (
               <IconButton
                 variant="ghost"
                 size="xs"
-                icon={<Icon icon={Menu} size="md" />}
-                aria-label="Menu"
-                onClick={onMenuClick}
+                icon={<Icon icon={ArrowLeft} size="md" />}
+                aria-label="Back"
+                onClick={onBackClick}
               />
             )}
+
+            <div className="ml-auto flex items-center gap-2">
+              {showHelperText && helperText && (
+                <span className="text-medium-m text-[color:var(--colour-interface-text-supporting)]">
+                  {helperText}
+                </span>
+              )}
+
+              {showMenu && onMenuClick && (
+                <IconButton
+                  variant="ghost"
+                  size="xs"
+                  icon={<Icon icon={Menu} size="md" />}
+                  aria-label="Menu"
+                  onClick={onMenuClick}
+                />
+              )}
+            </div>
           </div>
         </div>
       )}

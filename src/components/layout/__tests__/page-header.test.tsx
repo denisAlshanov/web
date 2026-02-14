@@ -290,6 +290,45 @@ describe("PageHeader", () => {
     });
   });
 
+  describe("Cross-level isolation", () => {
+    it("does not render back or menu buttons at level 1", () => {
+      render(
+        <PageHeader
+          level={1}
+          heading="Shows"
+          onBackClick={() => {}}
+          showMenu={true}
+          onMenuClick={() => {}}
+        />,
+      );
+      expect(
+        screen.queryByRole("button", { name: /back/i }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: /menu/i }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("does not render tabs at level 2 even when tabbedView=true and tabs are provided", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          tabbedView={true}
+          tabs={<div data-testid="tab-list">Tabs</div>}
+        />,
+      );
+      expect(screen.queryByTestId("tab-list")).not.toBeInTheDocument();
+    });
+
+    it("does not render back button when onBackClick is not provided", () => {
+      render(<PageHeader level={2} heading="Show Details" />);
+      expect(
+        screen.queryByRole("button", { name: /back/i }),
+      ).not.toBeInTheDocument();
+    });
+  });
+
   describe("Scroll state", () => {
     it("has no bottom border or shadow when scroll=false", () => {
       render(<PageHeader level={1} heading="Shows" scroll={false} />);
@@ -321,15 +360,6 @@ describe("PageHeader", () => {
     it("adds shadow when scroll=true", () => {
       render(<PageHeader level={1} heading="Shows" scroll={true} />);
       const header = screen.getByRole("banner");
-      expect(header.className).toContain(
-        "shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]",
-      );
-    });
-
-    it("applies scroll styling to Level 1", () => {
-      render(<PageHeader level={1} heading="Shows" scroll={true} />);
-      const header = screen.getByRole("banner");
-      expect(header.className).toContain("border-b");
       expect(header.className).toContain(
         "shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]",
       );

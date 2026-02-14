@@ -574,6 +574,64 @@ All tokens are in `src/styles/tokens.css` (auto-generated, do not edit). Key nam
 
 7. **Compare** — Open Storybook side-by-side with Figma and verify pixel-perfect match.
 
+## Layout Components
+
+Layout components (`src/components/layout/`) are structural, page-level components that compose UI primitives into app shell sections. Unlike `ui/` components that use CVA for variants, layout components use plain conditional rendering and `cn()` for styling since their variations involve structural layout changes rather than visual style swaps.
+
+### Patterns
+
+#### Slot-based composition
+
+Layout components accept child components as `ReactNode` props ("slots") rather than rendering them internally. This keeps the layout decoupled from the specific UI primitives it hosts:
+
+```tsx
+interface PageHeaderProps {
+  tabs?: React.ReactNode;              // Accepts <TabList> children
+  accountSettings?: React.ReactNode;   // Accepts <AccountSettings> trigger
+}
+
+// Usage
+<PageHeader
+  tabs={<TabList><Tab value="upcoming">Upcoming</Tab></TabList>}
+  accountSettings={<AccountSettings userName="Alex" />}
+/>
+```
+
+#### Level-based structure
+
+When Figma defines distinct page hierarchies (e.g., primary page vs sub-page), use a `level` prop that switches the entire layout structure via conditional rendering:
+
+```tsx
+interface PageHeaderProps {
+  level?: 1 | 2;  // 1 = primary page with tabs, 2 = sub-page with back/menu
+}
+
+// Level 1 renders: heading + tabs area
+// Level 2 renders: heading + inner nav bar (back button, helper text, menu)
+```
+
+#### Scroll-state styling
+
+Headers that respond to page scroll use a `scroll` boolean prop to conditionally apply border and shadow:
+
+```tsx
+scroll && "border-b border-b-[var(--colour-interface-border-primary-light)] shadow-[0px_4px_8px_0px_rgba(67,73,82,0.04)]"
+```
+
+### Key rules
+
+1. **No CVA** — Layout components use `cn()` with conditional classes directly. CVA adds overhead for components where variants change structure, not just style.
+2. **Slots over imports** — Accept composed children as `ReactNode` props. Don't import `TabList` or `AccountSettings` directly inside the layout component.
+3. **Semantic HTML** — Use `<header>`, `<nav>`, `<main>`, `<aside>` with appropriate `role` and `aria-label` attributes.
+4. **Fixed dimensions from Figma** — Layout components often have explicit heights from Figma specs (e.g., `h-[140px]`, `h-[80px]`). Use these directly rather than relying on content-driven sizing.
+
+### Existing layout components
+
+| Component | File | Description |
+|-----------|------|-------------|
+| `SideNavbar` | `layout/side-navbar.tsx` | Left sidebar with nav items, supports collapsed state |
+| `PageHeader` | `layout/page-header.tsx` | Top header bar, Level 1 (tabs) and Level 2 (back/menu), scroll state |
+
 ## Complex Components
 
 ### Data Tables

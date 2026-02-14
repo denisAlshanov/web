@@ -219,7 +219,7 @@ export const Level2WithHelperText: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-      <p style={{ margin: 0, fontSize: "0.75rem", color: "#888" }}>
+      <p style={{ margin: 0, fontSize: "0.75rem", color: "var(--colour-interface-text-supporting)" }}>
         All 8 variants: 2 levels x 2 scroll states x 2 heading states
       </p>
 
