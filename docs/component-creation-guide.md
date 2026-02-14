@@ -18,12 +18,12 @@ Guide for building UI components from Figma designs. Components use **Radix UI p
 src/components/
 ├── ui/              # Design system primitives (Button, Input, Select, Dialog, ...)
 ├── features/        # Domain-specific composites (DataTable, ScheduleGrid, EpisodeCard, ...)
-└── layout/          # App shell (Sidebar, Header, PageShell, ...)
+└── layout/          # App shell (SideNavbar, Header, PageShell, ...)
 ```
 
 - `ui/` — Reusable, context-free primitives. One component per file. Named in kebab-case (`dropdown-menu.tsx`).
 - `features/` — Business-domain composites that combine `ui/` primitives with app-specific logic.
-- `layout/` — Structural page-level components (sidebars, headers, shells).
+- `layout/` — Structural page-level components (SideNavbar, headers, page shells).
 
 ## Utility: `cn()` helper
 
@@ -561,7 +561,7 @@ Build custom in `src/components/features/schedule-grid.tsx`:
 | Component file | `src/components/ui/dropdown-menu.tsx` |
 | Storybook story | `src/components/ui/dropdown-menu.stories.tsx` |
 | Feature component | `src/components/features/episode-card.tsx` |
-| Layout component | `src/components/layout/sidebar.tsx` |
+| Layout component | `src/components/layout/side-navbar.tsx` |
 
 ## Build Order
 
