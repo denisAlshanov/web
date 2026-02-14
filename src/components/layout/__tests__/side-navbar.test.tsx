@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -6,13 +6,6 @@ import { SideNavbar } from "../side-navbar";
 
 describe("SideNavbar", () => {
   const NAV_LABELS = ["Home", "Shows", "Calendar", "Team", "Guests", "Manage"];
-
-  /** Get only nav item buttons (excludes the logo toggle button). */
-  function getNavButtons() {
-    return screen
-      .getAllByRole("button")
-      .filter((btn) => !btn.hasAttribute("aria-label") || !btn.getAttribute("aria-label")?.includes("sidebar"));
-  }
 
   describe("navigation landmark", () => {
     it("renders with role='navigation'", () => {
@@ -27,52 +20,32 @@ describe("SideNavbar", () => {
     });
   });
 
-  describe("expanded mode (default)", () => {
+  describe("collapsed state (default)", () => {
+    it("starts collapsed with 120px width", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("w-[120px]");
+    });
+
     it("renders MediaPlansLogo", () => {
       render(<SideNavbar />);
-      expect(screen.getByRole("img", { name: "MediaPlans logo" })).toBeInTheDocument();
-    });
-
-    it("renders 'MediaPlans' text", () => {
-      render(<SideNavbar />);
-      expect(screen.getByText("MediaPlans")).toBeInTheDocument();
-    });
-
-    it("renders all 6 nav items with correct labels", () => {
-      render(<SideNavbar />);
-      for (const label of NAV_LABELS) {
-        expect(screen.getByText(label)).toBeInTheDocument();
-      }
-    });
-
-    it("renders nav items in correct order", () => {
-      render(<SideNavbar />);
-      const buttons = getNavButtons();
-      const labels = buttons.map((btn) => btn.textContent?.trim());
-      expect(labels).toEqual(NAV_LABELS);
-    });
-  });
-
-  describe("collapsed mode", () => {
-    it("renders MediaPlansLogo", () => {
-      render(<SideNavbar defaultCollapsed />);
       expect(screen.getByRole("img", { name: "MediaPlans logo" })).toBeInTheDocument();
     });
 
     it("renders 'MediaPlans' text with opacity-0 when collapsed", () => {
-      render(<SideNavbar defaultCollapsed />);
+      render(<SideNavbar />);
       const text = screen.getByText("MediaPlans");
       expect(text).toHaveClass("opacity-0");
     });
 
     it("renders all 6 nav items", () => {
-      render(<SideNavbar defaultCollapsed />);
-      const buttons = getNavButtons();
+      render(<SideNavbar />);
+      const buttons = screen.getAllByRole("button");
       expect(buttons).toHaveLength(6);
     });
 
     it("renders nav items with collapsed prop (opacity-0 labels)", () => {
-      render(<SideNavbar defaultCollapsed />);
+      render(<SideNavbar />);
       for (const label of NAV_LABELS) {
         const element = screen.getByText(label);
         expect(element).toHaveClass("opacity-0");
@@ -80,10 +53,173 @@ describe("SideNavbar", () => {
     });
 
     it("renders nav items with aria-label for accessibility", () => {
-      render(<SideNavbar defaultCollapsed />);
+      render(<SideNavbar />);
       for (const label of NAV_LABELS) {
         expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
       }
+    });
+
+    it("has transparent border in collapsed state", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("border-r");
+      expect(nav).toHaveClass("border-transparent");
+    });
+
+    it("has zero-alpha shadow in collapsed state", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("shadow-[1px_0px_10px_0px_rgba(38,44,52,0)]");
+    });
+
+    it("has collapsed padding px-[12px]", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("px-[12px]");
+    });
+  });
+
+  describe("hover expand behavior", () => {
+    it("expands to 228px on mouseEnter", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+
+      expect(nav).toHaveClass("w-[228px]");
+    });
+
+    it("collapses back to 120px on mouseLeave", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+      expect(nav).toHaveClass("w-[228px]");
+
+      fireEvent.mouseLeave(nav);
+      expect(nav).toHaveClass("w-[120px]");
+    });
+
+    it("shows MediaPlans text with opacity-100 when expanded", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+
+      const text = screen.getByText("MediaPlans");
+      expect(text).toHaveClass("opacity-100");
+    });
+
+    it("has shadow when expanded", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+
+      expect(nav).toHaveClass("shadow-[1px_0px_10px_0px_rgba(38,44,52,0.08)]");
+    });
+
+    it("has border color when expanded", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+
+      expect(nav).toHaveClass("border-[var(--colour-interface-border-primary-light)]");
+    });
+
+    it("has expanded padding px-[12px] when expanded", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+
+      expect(nav).toHaveClass("px-[12px]");
+    });
+
+    it("nav item labels become visible when expanded", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.mouseEnter(nav);
+
+      for (const label of NAV_LABELS) {
+        const element = screen.getByText(label);
+        expect(element).toHaveClass("opacity-100");
+      }
+    });
+  });
+
+  describe("keyboard focus expand behavior", () => {
+    it("expands when a nav item receives focus", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.focus(nav, { relatedTarget: null });
+
+      expect(nav).toHaveClass("w-[228px]");
+    });
+
+    it("collapses when focus leaves the nav entirely", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.focus(nav);
+      expect(nav).toHaveClass("w-[228px]");
+
+      // Simulate blur with relatedTarget outside nav
+      fireEvent.blur(nav, { relatedTarget: document.body });
+      expect(nav).toHaveClass("w-[120px]");
+    });
+
+    it("stays expanded when focus moves between nav items", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      const buttons = screen.getAllByRole("button");
+
+      fireEvent.focus(nav);
+      expect(nav).toHaveClass("w-[228px]");
+
+      // Blur from nav to a child button — should stay expanded
+      fireEvent.blur(nav, { relatedTarget: buttons[1] });
+      expect(nav).toHaveClass("w-[228px]");
+    });
+  });
+
+  describe("overlay positioning", () => {
+    it("is absolutely positioned", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("absolute");
+    });
+
+    it("has z-50 z-index", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("z-50");
+    });
+
+    it("is positioned at top-0 left-0 bottom-0", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      expect(nav).toHaveClass("top-0");
+      expect(nav).toHaveClass("left-0");
+      expect(nav).toHaveClass("bottom-0");
+    });
+  });
+
+  describe("logo is static (no toggle)", () => {
+    it("does not have a button wrapping the logo", () => {
+      render(<SideNavbar />);
+      const logo = screen.getByRole("img", { name: "MediaPlans logo" });
+      // The logo's parent should be a div, not a button
+      expect(logo.closest("button")).toBeNull();
+    });
+
+    it("does not have an expand/collapse sidebar button", () => {
+      render(<SideNavbar />);
+      expect(screen.queryByTitle("Collapse sidebar")).not.toBeInTheDocument();
+      expect(screen.queryByTitle("Expand sidebar")).not.toBeInTheDocument();
     });
   });
 
@@ -144,7 +280,7 @@ describe("SideNavbar", () => {
       render(<SideNavbar onItemClick={handleClick} />);
 
       const expectedIds = ["home", "shows", "calendar", "team", "guests", "manage"];
-      const buttons = getNavButtons();
+      const buttons = screen.getAllByRole("button");
 
       for (let i = 0; i < buttons.length; i++) {
         await user.click(buttons[i]);
@@ -155,123 +291,11 @@ describe("SideNavbar", () => {
     });
   });
 
-  describe("expanded mode styling", () => {
-    it("has right border class in expanded mode", () => {
-      render(<SideNavbar />);
-      const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("border-r");
-    });
-
-    it("has border color token class in expanded mode", () => {
-      render(<SideNavbar />);
-      const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("border-[var(--colour-interface-border-primary-light)]");
-    });
-
-    it("has shadow in expanded mode", () => {
-      render(<SideNavbar />);
-      const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("shadow-[1px_0px_10px_0px_rgba(38,44,52,0.08)]");
-    });
-  });
-
-  describe("collapsed mode styling", () => {
-    it("has transparent border in collapsed mode", () => {
-      render(<SideNavbar defaultCollapsed />);
-      const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("border-r");
-      expect(nav).toHaveClass("border-transparent");
-    });
-
-    it("has zero-alpha shadow in collapsed mode", () => {
-      render(<SideNavbar defaultCollapsed />);
-      const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("shadow-[1px_0px_10px_0px_rgba(38,44,52,0)]");
-    });
-  });
-
-  describe("defaultCollapsed initial state", () => {
-    it("starts expanded when defaultCollapsed is false", () => {
-      render(<SideNavbar defaultCollapsed={false} />);
-      expect(screen.getByRole("navigation")).toHaveClass("w-[228px]");
-    });
-
-    it("starts collapsed when defaultCollapsed is true", () => {
-      render(<SideNavbar defaultCollapsed={true} />);
-      expect(screen.getByRole("navigation")).toHaveClass("w-[120px]");
-    });
-  });
-
-  describe("toggle behavior", () => {
-    it("clicking logo toggles from expanded to collapsed", async () => {
-      const user = userEvent.setup();
-      render(<SideNavbar />);
-
-      const logoButton = screen.getByTitle("Collapse sidebar");
-      await user.click(logoButton);
-
-      expect(screen.getByTitle("Expand sidebar")).toBeInTheDocument();
-      expect(screen.getByRole("navigation")).toHaveClass("w-[120px]");
-    });
-
-    it("clicking logo toggles from collapsed to expanded", async () => {
-      const user = userEvent.setup();
-      render(<SideNavbar defaultCollapsed />);
-
-      const logoButton = screen.getByTitle("Expand sidebar");
-      await user.click(logoButton);
-
-      expect(screen.getByTitle("Collapse sidebar")).toBeInTheDocument();
-      expect(screen.getByRole("navigation")).toHaveClass("w-[228px]");
-    });
-
-    it("double-clicking logo returns to original state", async () => {
-      const user = userEvent.setup();
-      render(<SideNavbar />);
-
-      const logoButton = screen.getByTitle("Collapse sidebar");
-      await user.click(logoButton);
-      await user.click(screen.getByTitle("Expand sidebar"));
-
-      expect(screen.getByTitle("Collapse sidebar")).toBeInTheDocument();
-      expect(screen.getByRole("navigation")).toHaveClass("w-[228px]");
-    });
-  });
-
-  describe("onToggle callback", () => {
-    it("fires with true when collapsing", async () => {
-      const user = userEvent.setup();
-      const handleToggle = vi.fn();
-      render(<SideNavbar onToggle={handleToggle} />);
-
-      await user.click(screen.getByTitle("Collapse sidebar"));
-      expect(handleToggle).toHaveBeenCalledWith(true);
-    });
-
-    it("fires with false when expanding", async () => {
-      const user = userEvent.setup();
-      const handleToggle = vi.fn();
-      render(<SideNavbar defaultCollapsed onToggle={handleToggle} />);
-
-      await user.click(screen.getByTitle("Expand sidebar"));
-      expect(handleToggle).toHaveBeenCalledWith(false);
-    });
-
-    it("does not throw when onToggle is not provided", async () => {
-      const user = userEvent.setup();
-      render(<SideNavbar />);
-
-      await expect(
-        user.click(screen.getByTitle("Collapse sidebar")),
-      ).resolves.not.toThrow();
-    });
-  });
-
   describe("transition animations", () => {
     it("nav element has width transition classes", () => {
       render(<SideNavbar />);
       const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("transition-[width,border-color,box-shadow]");
+      expect(nav).toHaveClass("transition-[width,padding,border-color,box-shadow]");
       expect(nav).toHaveClass("duration-200");
       expect(nav).toHaveClass("ease-in-out");
     });
@@ -282,80 +306,57 @@ describe("SideNavbar", () => {
       expect(nav).toHaveClass("overflow-hidden");
     });
 
-    it("MediaPlans text has opacity transition in expanded mode", () => {
+    it("MediaPlans text has opacity transition", () => {
       render(<SideNavbar />);
       const text = screen.getByText("MediaPlans");
-      expect(text).toHaveClass("transition-opacity");
+      expect(text).toHaveClass("transition-[opacity,width]");
       expect(text).toHaveClass("duration-150");
-      expect(text).toHaveClass("opacity-100");
     });
 
-    it("MediaPlans text has opacity-0 in collapsed mode", () => {
-      render(<SideNavbar defaultCollapsed />);
-      const text = screen.getByText("MediaPlans");
-      expect(text).toHaveClass("transition-opacity");
-      expect(text).toHaveClass("duration-150");
-      expect(text).toHaveClass("opacity-0");
-    });
-
-    it("nav item labels have opacity transition in expanded mode", () => {
+    it("nav item labels have opacity transition", () => {
       render(<SideNavbar />);
       const label = screen.getByText("Home");
       expect(label).toHaveClass("transition-opacity");
       expect(label).toHaveClass("duration-150");
-      expect(label).toHaveClass("opacity-100");
-    });
-
-    it("nav item labels have opacity-0 in collapsed mode", () => {
-      render(<SideNavbar defaultCollapsed />);
-      const label = screen.getByText("Home");
-      expect(label).toHaveClass("transition-opacity");
-      expect(label).toHaveClass("duration-150");
-      expect(label).toHaveClass("opacity-0");
-    });
-  });
-
-  describe("logo button title attribute", () => {
-    it("shows 'Collapse sidebar' when expanded", () => {
-      render(<SideNavbar />);
-      expect(screen.getByTitle("Collapse sidebar")).toBeInTheDocument();
-    });
-
-    it("shows 'Expand sidebar' when collapsed", () => {
-      render(<SideNavbar defaultCollapsed />);
-      expect(screen.getByTitle("Expand sidebar")).toBeInTheDocument();
-    });
-
-    it("logo button has cursor-pointer class", () => {
-      render(<SideNavbar />);
-      const logoButton = screen.getByTitle("Collapse sidebar");
-      expect(logoButton).toHaveClass("cursor-pointer");
     });
   });
 
   describe("collapsed aria-hidden on text elements", () => {
     it("MediaPlans text has aria-hidden when collapsed", () => {
-      render(<SideNavbar defaultCollapsed />);
+      render(<SideNavbar />);
       const text = screen.getByText("MediaPlans");
       expect(text).toHaveAttribute("aria-hidden", "true");
     });
 
     it("MediaPlans text does not have aria-hidden when expanded", () => {
       render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      fireEvent.mouseEnter(nav);
       const text = screen.getByText("MediaPlans");
       expect(text).not.toHaveAttribute("aria-hidden");
     });
 
     it("nav item labels have aria-hidden when collapsed", () => {
-      render(<SideNavbar defaultCollapsed />);
+      render(<SideNavbar />);
       const label = screen.getByText("Home");
       expect(label).toHaveAttribute("aria-hidden", "true");
     });
 
     it("nav item labels do not have aria-hidden when expanded", () => {
       render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      fireEvent.mouseEnter(nav);
       const label = screen.getByText("Home");
       expect(label).not.toHaveAttribute("aria-hidden");
+    });
+  });
+
+  describe("nav items render in correct order", () => {
+    it("renders nav items in correct order", () => {
+      render(<SideNavbar />);
+      const buttons = screen.getAllByRole("button");
+      const labels = buttons.map((btn) => btn.textContent?.trim());
+      expect(labels).toEqual(NAV_LABELS);
     });
   });
 });

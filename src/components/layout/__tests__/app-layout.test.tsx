@@ -15,12 +15,10 @@ vi.mock("next-auth/react", () => ({
 vi.mock("@/components/layout/side-navbar", () => ({
   SideNavbar: ({
     activeItem,
-    defaultCollapsed,
   }: {
     activeItem?: string;
-    defaultCollapsed?: boolean;
   }) => (
-    <nav data-testid="side-navbar" data-active-item={activeItem} data-collapsed={defaultCollapsed}>
+    <nav data-testid="side-navbar" data-active-item={activeItem}>
       SideNavbar
     </nav>
   ),
@@ -95,17 +93,6 @@ describe("AppLayout", () => {
     expect(navbar).toHaveAttribute("data-active-item", "shows");
   });
 
-  it("passes defaultCollapsed=true to SideNavbar", () => {
-    render(
-      <AppLayout heading="Home">
-        <p>Content</p>
-      </AppLayout>,
-    );
-
-    const navbar = screen.getByTestId("side-navbar");
-    expect(navbar).toHaveAttribute("data-collapsed", "true");
-  });
-
   it("renders AccountSettings with session user name", () => {
     render(
       <AppLayout heading="Home">
@@ -160,5 +147,33 @@ describe("AppLayout", () => {
     );
 
     expect(screen.queryByTestId("account-settings")).not.toBeInTheDocument();
+  });
+
+  it("renders a 120px spacer div for sidebar space reservation", () => {
+    render(
+      <AppLayout heading="Home">
+        <p>Content</p>
+      </AppLayout>,
+    );
+
+    const spacer = screen.getByTestId("sidebar-spacer");
+    expect(spacer).toHaveClass("w-[120px]", "shrink-0");
+  });
+
+  it("wraps layout in a relative flex container for overlay positioning", () => {
+    const { container } = render(
+      <AppLayout heading="Home">
+        <p>Content</p>
+      </AppLayout>,
+    );
+
+    const wrapper = container.firstElementChild;
+    expect(wrapper).toHaveClass("relative", "flex", "h-screen");
+
+    // SideNavbar and spacer are both direct children of the relative wrapper
+    const navbar = screen.getByTestId("side-navbar");
+    const spacer = screen.getByTestId("sidebar-spacer");
+    expect(wrapper).toContainElement(navbar);
+    expect(wrapper).toContainElement(spacer);
   });
 });
