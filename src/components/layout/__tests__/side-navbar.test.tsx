@@ -21,10 +21,10 @@ describe("SideNavbar", () => {
   });
 
   describe("collapsed state (default)", () => {
-    it("starts collapsed with 60px width", () => {
+    it("starts collapsed with 120px width", () => {
       render(<SideNavbar />);
       const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("w-[60px]");
+      expect(nav).toHaveClass("w-[120px]");
     });
 
     it("renders MediaPlansLogo", () => {
@@ -72,10 +72,10 @@ describe("SideNavbar", () => {
       expect(nav).toHaveClass("shadow-[1px_0px_10px_0px_rgba(38,44,52,0)]");
     });
 
-    it("has collapsed padding px-[2px]", () => {
+    it("has collapsed padding px-[12px]", () => {
       render(<SideNavbar />);
       const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("px-[2px]");
+      expect(nav).toHaveClass("px-[12px]");
     });
   });
 
@@ -89,7 +89,7 @@ describe("SideNavbar", () => {
       expect(nav).toHaveClass("w-[228px]");
     });
 
-    it("collapses back to 60px on mouseLeave", () => {
+    it("collapses back to 120px on mouseLeave", () => {
       render(<SideNavbar />);
       const nav = screen.getByRole("navigation");
 
@@ -97,7 +97,7 @@ describe("SideNavbar", () => {
       expect(nav).toHaveClass("w-[228px]");
 
       fireEvent.mouseLeave(nav);
-      expect(nav).toHaveClass("w-[60px]");
+      expect(nav).toHaveClass("w-[120px]");
     });
 
     it("shows MediaPlans text with opacity-100 when expanded", () => {
@@ -169,7 +169,7 @@ describe("SideNavbar", () => {
 
       // Simulate blur with relatedTarget outside nav
       fireEvent.blur(nav, { relatedTarget: document.body });
-      expect(nav).toHaveClass("w-[60px]");
+      expect(nav).toHaveClass("w-[120px]");
     });
 
     it("stays expanded when focus moves between nav items", () => {

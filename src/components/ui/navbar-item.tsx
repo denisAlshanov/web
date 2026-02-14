@@ -26,7 +26,7 @@ const navbarItemVariants = cva(
   {
     variants: {
       collapsed: {
-        true: "justify-center w-[56px] px-0 gap-0",
+        true: "justify-center w-[56px] px-0 gap-0 overflow-hidden",
         false: "w-full",
       },
     },
@@ -79,7 +79,7 @@ export function NavbarItem({
             ? "text-semibold-m text-[color:var(--colour-interface-text-heavy)]"
             : "text-medium-m text-[color:var(--colour-interface-text-default)]",
           "transition-opacity duration-150 motion-reduce:duration-0 whitespace-nowrap",
-          collapsed ? "opacity-0" : "opacity-100",
+          collapsed ? "opacity-0 w-0" : "opacity-100",
         )}
         aria-hidden={collapsed || undefined}
       >

@@ -88,7 +88,7 @@ export function SideNavbar({
               "border-[var(--colour-interface-border-primary-light)]",
               "shadow-[1px_0px_10px_0px_rgba(38,44,52,0.08)]",
             ]
-          : "w-[60px] px-[2px] border-transparent shadow-[1px_0px_10px_0px_rgba(38,44,52,0)]",
+          : "w-[120px] px-[12px] border-transparent shadow-[1px_0px_10px_0px_rgba(38,44,52,0)]",
         className,
       )}
     >

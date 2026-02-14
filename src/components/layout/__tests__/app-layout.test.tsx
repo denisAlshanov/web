@@ -149,7 +149,7 @@ describe("AppLayout", () => {
     expect(screen.queryByTestId("account-settings")).not.toBeInTheDocument();
   });
 
-  it("renders a 60px spacer div for sidebar space reservation", () => {
+  it("renders a 120px spacer div for sidebar space reservation", () => {
     render(
       <AppLayout heading="Home">
         <p>Content</p>
@@ -157,7 +157,7 @@ describe("AppLayout", () => {
     );
 
     const spacer = screen.getByTestId("sidebar-spacer");
-    expect(spacer).toHaveClass("w-[60px]", "shrink-0");
+    expect(spacer).toHaveClass("w-[120px]", "shrink-0");
   });
 
   it("wraps layout in a relative flex container for overlay positioning", () => {
