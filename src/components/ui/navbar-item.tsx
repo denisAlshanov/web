@@ -1,6 +1,8 @@
 "use client";
 
 import type { ComponentType, SVGProps } from "react";
+import React from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
@@ -16,7 +18,6 @@ const navbarItemVariants = cva(
     "gap-[var(--number-spacing-gap-gap-m)]",
     "transition-colors cursor-pointer",
     "bg-[var(--colour-interface-background-singleTone-default)]",
-    "hover:bg-[var(--colour-interface-background-singleTone-hover)]",
     "focus-visible:outline-none",
     "focus-visible:bg-[var(--colour-interface-background-singleTone-focus)]",
     "focus-visible:ring-3",
@@ -25,7 +26,7 @@ const navbarItemVariants = cva(
   {
     variants: {
       collapsed: {
-        true: "justify-center w-[56px]",
+        true: "justify-center w-[56px] px-0",
         false: "w-full",
       },
     },
@@ -37,17 +38,19 @@ const navbarItemVariants = cva(
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-export interface NavbarItemProps
-  extends VariantProps<typeof navbarItemVariants> {
+type NavbarItemBaseProps = VariantProps<typeof navbarItemVariants> & {
   label: string;
   icon: IconComponent;
   activeIcon: IconComponent;
   active?: boolean;
   collapsed?: boolean;
-  href?: string;
-  onClick?: () => void;
-  className?: string;
-}
+  asChild?: boolean;
+  children?: React.ReactNode;
+};
+
+export type NavbarItemProps = NavbarItemBaseProps &
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof NavbarItemBaseProps> &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof NavbarItemBaseProps>;
 
 export function NavbarItem({
   label,
@@ -56,25 +59,15 @@ export function NavbarItem({
   active = false,
   collapsed = false,
   href,
-  onClick,
+  asChild = false,
   className,
+  children,
+  ...props
 }: NavbarItemProps) {
-  const Comp = href ? "a" : "button";
-
   const CurrentIcon = active ? activeIcon : icon;
 
-  return (
-    <Comp
-      href={href}
-      onClick={onClick}
-      aria-current={active ? "page" : undefined}
-      aria-label={collapsed ? label : undefined}
-      className={cn(
-        navbarItemVariants({ collapsed }),
-        active && "shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]",
-        className,
-      )}
-    >
+  const content = (
+    <>
       <Icon
         icon={CurrentIcon}
         color={active ? "heavy" : "default"}
@@ -90,6 +83,41 @@ export function NavbarItem({
       >
         {label}
       </span>
-    </Comp>
+    </>
+  );
+
+  const sharedProps = {
+    ...props,
+    href,
+    type: !asChild && !href ? ("button" as const) : undefined,
+    "aria-current": active ? ("page" as const) : undefined,
+    "aria-label": collapsed ? label : undefined,
+    className: cn(
+      navbarItemVariants({ collapsed }),
+      active && "shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]",
+      !active && "hover:bg-[var(--colour-interface-background-singleTone-hover)]",
+      className,
+    ),
+  };
+
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <Slot {...sharedProps}>
+        {React.cloneElement(
+          children as React.ReactElement<{ children?: React.ReactNode }>,
+          undefined,
+          content,
+        )}
+      </Slot>
+    );
+  }
+
+  const Fallback = href ? "a" : "button";
+  return (
+    <Fallback {...sharedProps}>
+      {content}
+    </Fallback>
   );
 }
+
+export { navbarItemVariants };

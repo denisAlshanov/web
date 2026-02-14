@@ -8,10 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev          # Start dev server (auto-runs tokens:build first)
 npm run build        # Production build (auto-runs tokens:build first)
 npm run lint         # ESLint (flat config, ESLint 9)
+npm run test         # Run unit tests (Vitest + jsdom)
+npm run test:watch   # Run unit tests in watch mode
 npm run tokens:build # Transform Figma design tokens → CSS custom properties
 ```
 
-No test framework is configured yet.
+### Testing
+
+Unit tests use **Vitest** with **jsdom** environment and **React Testing Library**. Configuration is in `vitest.config.ts` (project name: `unit`) with setup in `vitest.setup.ts`. Storybook tests run separately via the `storybook` project in the same config using Playwright browser mode.
 
 ## Environment Setup
 

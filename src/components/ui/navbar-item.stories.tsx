@@ -83,32 +83,12 @@ const navItems = [
 export const AllStates: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <p style={{ margin: 0, fontSize: "0.75rem", color: "#888" }}>
+        Hover and focus states are CSS pseudo-states — interact with items below
+        to preview them.
+      </p>
       <div>
         <p style={{ marginBottom: "0.5rem", fontWeight: 600 }}>Default</p>
-        <div style={{ maxWidth: 240 }}>
-          <NavbarItem
-            label="Home"
-            icon={HomeSimpleDoor}
-            activeIcon={HomeSimpleDoorSolid}
-          />
-        </div>
-      </div>
-      <div>
-        <p style={{ marginBottom: "0.5rem", fontWeight: 600 }}>
-          Hover (hover over to see)
-        </p>
-        <div style={{ maxWidth: 240 }}>
-          <NavbarItem
-            label="Home"
-            icon={HomeSimpleDoor}
-            activeIcon={HomeSimpleDoorSolid}
-          />
-        </div>
-      </div>
-      <div>
-        <p style={{ marginBottom: "0.5rem", fontWeight: 600 }}>
-          Focus (tab to see)
-        </p>
         <div style={{ maxWidth: 240 }}>
           <NavbarItem
             label="Home"

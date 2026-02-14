@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { SVGProps } from "react";
@@ -175,6 +176,91 @@ describe("NavbarItem", () => {
       const element = screen.getByRole("button");
       expect(element).toHaveAttribute("aria-current", "page");
       expect(element).toHaveAttribute("aria-label", "Home");
+    });
+  });
+
+  describe("native HTML attributes passthrough", () => {
+    it("forwards data-* attributes", () => {
+      render(<NavbarItem {...defaultProps} data-testid="nav-home" />);
+      expect(screen.getByTestId("nav-home")).toBeInTheDocument();
+    });
+
+    it("forwards aria-* attributes", () => {
+      render(<NavbarItem {...defaultProps} aria-describedby="tooltip-1" />);
+      const element = screen.getByRole("button");
+      expect(element).toHaveAttribute("aria-describedby", "tooltip-1");
+    });
+
+    it("forwards target and rel on links", () => {
+      render(
+        <NavbarItem
+          {...defaultProps}
+          href="https://external.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        />,
+      );
+      const link = screen.getByRole("link");
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    });
+
+    it("provides event object to onClick handler", () => {
+      const onClick = vi.fn();
+      render(<NavbarItem {...defaultProps} onClick={onClick} />);
+      screen.getByRole("button").click();
+      expect(onClick).toHaveBeenCalledOnce();
+      // React wraps native events in SyntheticEvent with nativeEvent property
+      expect(onClick.mock.calls[0][0]).toHaveProperty("nativeEvent");
+    });
+  });
+
+  describe("asChild composition", () => {
+    it("renders child element when asChild is true", () => {
+      render(
+        <NavbarItem {...defaultProps} asChild>
+          <a href="/dashboard" data-testid="child-link">
+            slot
+          </a>
+        </NavbarItem>,
+      );
+      const link = screen.getByTestId("child-link");
+      expect(link.tagName).toBe("A");
+      expect(link).toHaveAttribute("href", "/dashboard");
+    });
+
+    it("merges className with child when asChild is true", () => {
+      render(
+        <NavbarItem {...defaultProps} asChild className="extra-class">
+          <a href="/dashboard" className="child-class">
+            slot
+          </a>
+        </NavbarItem>,
+      );
+      const link = screen.getByRole("link");
+      expect(link).toHaveClass("child-class");
+      expect(link).toHaveClass("extra-class");
+    });
+
+    it("replaces child text with internal content in asChild mode", () => {
+      render(
+        <NavbarItem {...defaultProps} asChild>
+          <a href="/dashboard">slot</a>
+        </NavbarItem>,
+      );
+      // Internal label should be rendered
+      expect(screen.getByText("Home")).toBeInTheDocument();
+      // Child's original text should be replaced, not duplicated
+      expect(screen.queryByText("slot")).not.toBeInTheDocument();
+    });
+
+    it("renders icon in asChild mode", () => {
+      render(
+        <NavbarItem {...defaultProps} asChild>
+          <a href="/dashboard">slot</a>
+        </NavbarItem>,
+      );
+      expect(screen.getByTestId("outline-icon")).toBeInTheDocument();
     });
   });
 });

@@ -130,8 +130,8 @@
 - [x] Verify Storybook builds without errors
 
 ### Task 6: [Final] Update documentation
-- [ ] Update `docs/component-creation-guide.md` if new patterns were discovered (custom SVG icon pattern)
-- [ ] Add NavbarItem to the component inventory in any relevant docs
+- [x] Update `docs/component-creation-guide.md` if new patterns were discovered (custom SVG icon pattern)
+- [x] Add NavbarItem to the component inventory in any relevant docs
 
 ## Technical Details
 

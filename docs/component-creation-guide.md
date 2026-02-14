@@ -178,6 +178,55 @@ export function DialogContent({
 | Checkbox, Radio, Switch | Layout components |
 | Toggle, ToggleGroup | — |
 
+## Custom SVG Icons
+
+When a library like `iconoir-react` only provides outline variants but the design requires solid (filled) icons for certain states (e.g., active navigation items), create custom SVG icon components in `src/components/ui/icons/`.
+
+### Pattern
+
+Each custom icon is a standalone React component that matches the same `SVGProps<SVGSVGElement>` interface as library icons, so it works seamlessly with the `<Icon>` wrapper:
+
+```tsx
+// src/components/ui/icons/home-simple-door-solid.tsx
+import type { SVGProps } from "react";
+
+export function HomeSimpleDoorSolid(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="..." fill="currentColor" />
+    </svg>
+  );
+}
+```
+
+### Key rules
+
+1. **Match the library interface** — Accept `SVGProps<SVGSVGElement>` and spread `...props` on the `<svg>` element so `className`, `width`, `height`, and other attributes pass through.
+2. **Use `currentColor`** — Set `fill="currentColor"` (or `stroke="currentColor"`) so the icon inherits color from its parent, just like library icons.
+3. **Extract paths from Figma** — Copy SVG paths directly from Figma's export. Keep `viewBox="0 0 24 24"` for consistency with iconoir's 24x24 grid.
+4. **Barrel export** — Re-export all custom icons from `src/components/ui/icons/index.ts`.
+5. **Naming convention** — Append `Solid` to the outline icon name (e.g., `HomeSimpleDoor` → `HomeSimpleDoorSolid`).
+
+### Directory structure
+
+```
+src/components/ui/icons/
+├── index.ts                    # Barrel export
+├── home-simple-door-solid.tsx  # Custom solid icon
+├── tv-solid.tsx
+├── group-solid.tsx
+├── user-square-solid.tsx
+├── wrench-solid.tsx
+└── calendar-solid.tsx
+```
+
 ## Component States
 
 Every component must document and implement its applicable states. There are 11 states, divided into three implementation categories.
@@ -332,6 +381,7 @@ Which states each component must implement. **Required (R)** states must be impl
 | **Toast** | R | — | — | — | — | — | — | R | — | — | — |
 | **DataTable** (row) | R | R | — | — | R | — | — | — | — | — | R |
 | **DataTable** (container) | R | — | — | — | — | — | R | R | — | — | — |
+| **NavbarItem** | R | R | — | R | R | — | — | — | — | — | — |
 | **Skeleton** | R | — | — | — | — | — | — | — | — | — | — |
 | **Separator** | R | — | — | — | — | — | — | — | — | — | — |
 | **Label** | R | — | — | — | — | R | — | R | — | — | — |
