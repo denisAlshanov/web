@@ -64,20 +64,20 @@ The current code sends `{ token: account.access_token }` to `POST /auth/google/t
 - Modify: `src/lib/auth.ts`
 
 **Steps:**
-- [ ] Add a runtime check that `API_BASE_URL` is set and reachable at the point of token exchange, logging a clear error if not
-- [ ] Log the target URL (without tokens) at startup/first-use so misconfigured API_BASE_URL is immediately visible
+- [x] Add a runtime check that `API_BASE_URL` is set and reachable at the point of token exchange, logging a clear error if not
+- [x] Log the target URL (without tokens) at startup/first-use so misconfigured API_BASE_URL is immediately visible
 
 ---
 
 ## Verification
 
-- [ ] Manual test: Sign in with Google and observe server logs for the debug output
-- [ ] Manual test: Verify the auth-error page shows appropriate messages
-- [ ] Run linter: `npm run lint`
+- [x] Manual test: Sign in with Google and observe server logs for the debug output
+- [x] Manual test: Verify the auth-error page shows appropriate messages
+- [x] Run linter: `npm run lint`
 
 ---
 
 ## Wrap-up
 
-- [ ] Update CLAUDE.md if any auth flow patterns changed
-- [ ] Move this plan to `docs/plans/completed/`
+- [x] Update CLAUDE.md if any auth flow patterns changed
+- [x] Move this plan to `docs/plans/completed/`

@@ -21,10 +21,37 @@ type ExchangeResult =
   | { ok: true; data: BackendAuthResult }
   | { ok: false; status: number | null };
 
-async function exchangeGoogleToken(googleToken: string): Promise<ExchangeResult> {
+let apiBaseUrlLogged = false;
+
+function validateAndLogApiBaseUrl(): string | null {
   const apiBaseUrl = process.env.API_BASE_URL;
   if (!apiBaseUrl) {
-    console.error("API_BASE_URL is not configured");
+    console.error(
+      "[auth] API_BASE_URL is not configured. Set it in .env.local (e.g. http://localhost:8080).",
+    );
+    return null;
+  }
+
+  try {
+    new URL(apiBaseUrl);
+  } catch {
+    console.error(
+      `[auth] API_BASE_URL is not a valid URL: "${apiBaseUrl}". Expected format: http(s)://host:port`,
+    );
+    return null;
+  }
+
+  if (!apiBaseUrlLogged) {
+    apiBaseUrlLogged = true;
+    console.log(`[auth] Backend API target: ${apiBaseUrl}/auth/google/token`);
+  }
+
+  return apiBaseUrl;
+}
+
+async function exchangeGoogleToken(googleToken: string): Promise<ExchangeResult> {
+  const apiBaseUrl = validateAndLogApiBaseUrl();
+  if (!apiBaseUrl) {
     return { ok: false, status: null };
   }
 
@@ -78,7 +105,7 @@ async function refreshBackendToken(refreshToken: string): Promise<{
   refresh_token: string;
   expires_in: number;
 } | null> {
-  const apiBaseUrl = process.env.API_BASE_URL;
+  const apiBaseUrl = validateAndLogApiBaseUrl();
   if (!apiBaseUrl) return null;
 
   try {

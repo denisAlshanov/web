@@ -40,11 +40,12 @@ Copy `.env.example` to `.env.local` and fill in values. Required variables:
 ### Authentication Flow
 
 1. User signs in via Google OAuth (NextAuth v5)
-2. JWT callback exchanges Google ID token with the backend API for `access_token`/`refresh_token`
+2. JWT callback exchanges the Google access_token with the backend API (`POST /auth/google/token`) for backend `access_token`/`refresh_token`. If the access_token exchange returns 401, it falls back to the Google id_token automatically
 3. Tokens + user data stored in the NextAuth JWT (session strategy: JWT, not database)
 4. Middleware checks auth on all routes except `/login`, `/auth-error`, API routes, and static assets
-5. If the backend rejects the user (e.g. unapproved account), the JWT carries a `BackendAuthError` flag and middleware redirects to `/auth-error`
+5. If the backend rejects the user, the JWT carries a typed error (e.g. `BackendAuthError:401`, `BackendAuthError:network`, `BackendAuthError:no_token`) and middleware redirects to `/auth-error` with the reason as a query param. The auth-error page shows context-specific messages based on the error type
 6. Token refresh happens automatically 60s before expiry with deduplication of concurrent refresh requests
+7. `API_BASE_URL` is validated at runtime (URL format check) with the target endpoint logged on first use for easier debugging of misconfiguration
 
 ### API Client (`src/lib/api-client.ts`)
 
