@@ -89,17 +89,17 @@ Create a new `FilterTag` UI component (`src/components/ui/filter-tag.tsx`) — a
 - [x] Run tests — must pass before next task
 
 ### Task 3: Add Storybook stories
-- [ ] Create `src/components/ui/filter-tag.stories.tsx`
-- [ ] Add `Default` story
-- [ ] Add stories: `WithLeadingIcon`, `WithTrailingIcon`, `WithBothIcons`
-- [ ] Add `Selected` story (dark bg)
-- [ ] Add `Disabled` story
-- [ ] Add hover/focus/active pseudo-state stories
-- [ ] Add `Editable` story (shows action buttons on hover)
-- [ ] Add `Editing` story (shows check icon, medium border)
-- [ ] Add `EditableSelected` story
-- [ ] Add `StateGrid` story showing all states side by side
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/filter-tag.stories.tsx`
+- [x] Add `Default` story
+- [x] Add stories: `WithLeadingIcon`, `WithTrailingIcon`, `WithBothIcons`
+- [x] Add `Selected` story (dark bg)
+- [x] Add `Disabled` story
+- [x] Add hover/focus/active pseudo-state stories
+- [x] Add `Editable` story (shows action buttons on hover)
+- [x] Add `Editing` story (shows check icon, medium border)
+- [x] Add `EditableSelected` story
+- [x] Add `StateGrid` story showing all states side by side
+- [x] Run tests — must pass before next task
 
 ### Task 4: Verify acceptance criteria
 - [ ] All 6 non-editable states render correctly (Default, Disabled, Hover, Active, Focused, Selected)
