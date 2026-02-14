@@ -122,11 +122,11 @@
 - [x] Run tests — must pass before next task
 
 ### Task 2: Implement AccountSettingsItem with CVA variants (TDD)
-- [ ] Write tests: Default style renders icon + text with correct colors
-- [ ] Write tests: Danger style renders icon + text with danger colors (#a3113b)
-- [ ] Write tests: accepts custom `icon` prop (React component) and `children` text
-- [ ] Write tests: component renders as a button by default
-- [ ] Implement `AccountSettingsItem` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: Default style renders icon + text with correct colors
+- [x] Write tests: Danger style renders icon + text with danger colors (#a3113b)
+- [x] Write tests: accepts custom `icon` prop (React component) and `children` text
+- [x] Write tests: component renders as a button by default
+- [x] Implement `AccountSettingsItem` in `src/components/ui/account-settings.tsx`:
   - CVA `style` variant: `default` and `danger`
   - Base: `flex items-center gap-[var(--number-spacing-gap-gap-s)] pl-[var(--number-spacing-padding-pad-s)] pr-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-m)] rounded-[var(--number-radius-rad-inner-card)] text-medium-m cursor-pointer transition-colors`
   - Default style:
@@ -141,7 +141,7 @@
     - `focus-visible:bg-[var(--colour-interface-background-semantic-danger-focus)]`
     - `active:bg-[var(--colour-interface-background-semantic-danger-active)]`
     - Text: `text-[color:var(--colour-interface-text-semantic-danger)]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Implement RolePill sub-component (TDD)
 - [ ] Write tests: "host" role renders with blue-ish bg (`--colour-interface-background-primary-default`)
