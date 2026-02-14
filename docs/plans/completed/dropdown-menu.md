@@ -87,73 +87,73 @@
 ## Implementation Steps
 
 ### Task 1: Install Radix Dropdown Menu dependency
-- [ ] Install `@radix-ui/react-dropdown-menu` via npm
-- [ ] Verify import works
-- [ ] Run tests — must pass before next task
+- [x] Install `@radix-ui/react-dropdown-menu` via npm
+- [x] Verify import works
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement DropdownMenuItem with CVA variants (TDD)
-- [ ] Write tests: renders icon (via `<Icon>` wrapper) + text label
-- [ ] Write tests: Default state has `--colour-interface-background-secondary-default` background
-- [ ] Write tests: component renders as a menu item (Radix `DropdownMenu.Item`)
-- [ ] Write tests: accepts custom `icon` prop (React component) and `children` text
-- [ ] Write tests: accepts `onClick` handler and fires when clicked
-- [ ] Implement `DropdownMenuItem` in `src/components/ui/dropdown-menu.tsx`:
+- [x] Write tests: renders icon (via `<Icon>` wrapper) + text label
+- [x] Write tests: Default state has `--colour-interface-background-secondary-default` background
+- [x] Write tests: component renders as a menu item (Radix `DropdownMenu.Item`)
+- [x] Write tests: accepts custom `icon` prop (React component) and `children` text
+- [x] Write tests: accepts `onClick` handler and fires when clicked
+- [x] Implement `DropdownMenuItem` in `src/components/ui/dropdown-menu.tsx`:
   - CVA base: `flex items-center h-[40px] gap-[var(--number-spacing-gap-gap-s)] pl-[var(--number-spacing-padding-pad-s)] pr-[var(--number-spacing-padding-pad-m)] py-[var(--number-spacing-padding-pad-m)] w-full text-medium-s text-[color:var(--colour-interface-text-default)] cursor-pointer transition-colors`
   - Default: `bg-[var(--colour-interface-background-secondary-default)]`
   - Hover: `hover:bg-[var(--colour-interface-background-secondary-hover)]` / `data-[highlighted]:bg-[var(--colour-interface-background-secondary-hover)]`
   - Focus: `focus-visible:bg-[var(--colour-interface-background-secondary-focus)] focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-[var(--colour-interface-border-primary-focus)]`
   - Active: `active:bg-[var(--colour-interface-background-secondary-active)]`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Implement DropdownMenuContent panel (TDD)
-- [ ] Write tests: renders children (DropdownMenuItem items)
-- [ ] Write tests: has min-width of 120px
-- [ ] Write tests: has correct border-radius (18px) and shadow
-- [ ] Write tests: overflow is clipped (rounded corners work with items)
-- [ ] Implement `DropdownMenuContent` in `src/components/ui/dropdown-menu.tsx`:
+- [x] Write tests: renders children (DropdownMenuItem items)
+- [x] Write tests: has min-width of 120px
+- [x] Write tests: has correct border-radius (18px) and shadow
+- [x] Write tests: overflow is clipped (rounded corners work with items)
+- [x] Implement `DropdownMenuContent` in `src/components/ui/dropdown-menu.tsx`:
   - Wraps `Radix.DropdownMenuContent`
   - Styles: `flex flex-col min-w-[120px] overflow-clip rounded-[var(--number-radius-rad-modal)] shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]`
   - Accept `className`, `align`, `sideOffset` props
   - Default `sideOffset`: 6px (gap between trigger and dropdown)
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 4: Implement DropdownMenu composed widget (TDD)
-- [ ] Write tests: renders trigger button (hamburger `Menu` icon, 40x40 pill)
-- [ ] Write tests: clicking trigger opens the dropdown
-- [ ] Write tests: dropdown has correct ARIA attributes (`role="menu"`, `aria-expanded`)
-- [ ] Write tests: pressing Escape closes the dropdown
-- [ ] Write tests: renders custom trigger when `trigger` prop is provided
-- [ ] Implement `DropdownMenu` in `src/components/ui/dropdown-menu.tsx`:
+- [x] Write tests: renders trigger button (hamburger `Menu` icon, 40x40 pill)
+- [x] Write tests: clicking trigger opens the dropdown
+- [x] Write tests: dropdown has correct ARIA attributes (`role="menu"`, `aria-expanded`)
+- [x] Write tests: pressing Escape closes the dropdown
+- [x] Write tests: renders custom trigger when `trigger` prop is provided
+- [x] Implement `DropdownMenu` in `src/components/ui/dropdown-menu.tsx`:
   - Exports `DropdownMenu` (Root), `DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`
   - `DropdownMenu` = Radix `DropdownMenu.Root`
   - `DropdownMenuTrigger` = Radix `DropdownMenu.Trigger` (uses `asChild` to wrap `IconButton` or custom trigger)
   - Props forwarded to Radix: `open`, `onOpenChange`, `modal`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 5: Create Storybook stories
-- [ ] Create `src/components/ui/dropdown-menu.stories.tsx` with Meta setup
-- [ ] Add `Default` story: DropdownMenu with hamburger trigger and several items
-- [ ] Add `WithIcons` story: items with various iconoir icons (Plus, Edit, Copy, etc.)
-- [ ] Add `ItemStates` story: grid showing all 4 item states (Default, Hover, Focus, Active)
-- [ ] Add `MenuPanel` story: standalone DropdownMenuContent panel with items
-- [ ] Add `CustomTrigger` story: using a Button as trigger instead of IconButton
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/dropdown-menu.stories.tsx` with Meta setup
+- [x] Add `Default` story: DropdownMenu with hamburger trigger and several items
+- [x] Add `WithIcons` story: items with various iconoir icons (Plus, Edit, Copy, etc.)
+- [x] Add `ItemStates` story: grid showing all 4 item states (Default, Hover, Focus, Active)
+- [x] Add `MenuPanel` story: standalone DropdownMenuContent panel with items
+- [x] Add `CustomTrigger` story: using a Button as trigger instead of IconButton
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 6: Verify acceptance criteria
-- [ ] Verify item matches Figma: icon + text, 40px height, 4 state backgrounds
-- [ ] Verify panel matches Figma: rounded 18px, shadow, min-width 120px, overflow clip
-- [ ] Verify trigger: 40x40 pill, hamburger `Menu` icon
-- [ ] Verify dropdown opens/closes correctly with click and Escape
-- [ ] Verify keyboard navigation: arrow keys between items, Enter/Space to activate
-- [ ] Verify `role="menu"` and `role="menuitem"` ARIA attributes
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify item matches Figma: icon + text, 40px height, 4 state backgrounds
+- [x] Verify panel matches Figma: rounded 18px, shadow, min-width 120px, overflow clip
+- [x] Verify trigger: 40x40 pill, hamburger `Menu` icon
+- [x] Verify dropdown opens/closes correctly with click and Escape
+- [x] Verify keyboard navigation: arrow keys between items, Enter/Space to activate
+- [x] Verify `role="menu"` and `role="menuitem"` ARIA attributes
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 7: [Final] Update documentation
-- [ ] Update any relevant docs if new patterns were discovered (Radix DropdownMenu usage)
-- [ ] Ensure dropdown-menu components are documented
+- [x] Update any relevant docs if new patterns were discovered (Radix DropdownMenu usage)
+- [x] Ensure dropdown-menu components are documented
 
 ## Technical Details
 

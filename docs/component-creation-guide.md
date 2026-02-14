@@ -204,6 +204,43 @@ Key points:
 - Wrap `Popover.Content` in `Popover.Portal` so the dropdown renders outside the DOM hierarchy (avoids clipping by overflow containers).
 - Use `align` and `sideOffset` on `Popover.Content` for positioning relative to the trigger.
 
+### DropdownMenu pattern (menu with items)
+
+For action menus triggered by a button, use `@radix-ui/react-dropdown-menu`. This provides `role="menu"` / `role="menuitem"` semantics, arrow-key navigation between items, Enter/Space to activate, and Escape to close — all out of the box:
+
+```tsx
+// src/components/ui/dropdown-menu.tsx (simplified)
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
+import { cn } from "@/lib/utils";
+import { Icon } from "@/components/ui/icon";
+
+const DropdownMenu = RadixDropdownMenu.Root;
+const DropdownMenuTrigger = RadixDropdownMenu.Trigger;
+
+function DropdownMenuContent({ className, sideOffset = 6, ...props }) {
+  return (
+    <RadixDropdownMenu.Portal>
+      <RadixDropdownMenu.Content sideOffset={sideOffset} className={cn(/* panel styles */, className)} {...props} />
+    </RadixDropdownMenu.Portal>
+  );
+}
+
+function DropdownMenuItem({ icon, children, className, ...props }) {
+  return (
+    <RadixDropdownMenu.Item className={cn(/* item styles */, className)} {...props}>
+      {icon && <Icon icon={icon} size="md" />}
+      {children}
+    </RadixDropdownMenu.Item>
+  );
+}
+```
+
+Key points:
+- Re-export `Root` and `Trigger` directly — no wrapper needed since they don't require custom styling.
+- Wrap `Content` in `Portal` so the menu renders outside parent overflow containers.
+- Use `data-[highlighted]` for keyboard-highlight state on items (Radix sets this automatically during arrow-key navigation).
+- Items use `outline-none` (Radix manages focus internally) plus `focus-visible:ring-*` for keyboard users.
+
 ### When to use Radix vs plain HTML
 
 | Use Radix | Use plain HTML |
