@@ -666,9 +666,9 @@ scroll && "border-b border-b-[var(--colour-interface-border-primary-light)] shad
 
 | Component | File | Description |
 |-----------|------|-------------|
-| `SideNavbar` | `layout/side-navbar.tsx` | Left sidebar with nav items; logo click toggles collapsed/expanded with CSS transition; `onToggle` callback for parent sync |
+| `SideNavbar` | `layout/side-navbar.tsx` | Left sidebar with nav items; hover-to-expand (60px collapsed, 228px expanded) with overlay positioning (`absolute`, `z-50`) and shadow; no click toggle |
 | `PageHeader` | `layout/page-header.tsx` | Top header bar, Level 1 (tabs) and Level 2 (back/menu), scroll state |
-| `AppLayout` | `layout/app-layout.tsx` | Authenticated page shell: composes SideNavbar + PageHeader + AccountSettings (session-aware via `useSession`); accepts `heading`, `activeNavItem`, and `children` |
+| `AppLayout` | `layout/app-layout.tsx` | Authenticated page shell: composes a fixed 60px spacer + absolutely-positioned SideNavbar + PageHeader + AccountSettings (session-aware via `useSession`); content never shifts on sidebar hover |
 
 ## Complex Components
 

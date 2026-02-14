@@ -18,7 +18,7 @@ vi.mock("@/components/layout/side-navbar", () => ({
   }: {
     activeItem?: string;
   }) => (
-    <nav data-testid="side-navbar" data-active-item={activeItem} className="absolute top-0 left-0 bottom-0 z-50">
+    <nav data-testid="side-navbar" data-active-item={activeItem}>
       SideNavbar
     </nav>
   ),
@@ -150,18 +150,17 @@ describe("AppLayout", () => {
   });
 
   it("renders a 60px spacer div for sidebar space reservation", () => {
-    const { container } = render(
+    render(
       <AppLayout heading="Home">
         <p>Content</p>
       </AppLayout>,
     );
 
-    const spacer = container.querySelector('[aria-hidden="true"]');
-    expect(spacer).toBeInTheDocument();
+    const spacer = screen.getByTestId("sidebar-spacer");
     expect(spacer).toHaveClass("w-[60px]", "shrink-0");
   });
 
-  it("positions SideNavbar absolutely within a relative container", () => {
+  it("wraps layout in a relative flex container for overlay positioning", () => {
     const { container } = render(
       <AppLayout heading="Home">
         <p>Content</p>
@@ -171,7 +170,10 @@ describe("AppLayout", () => {
     const wrapper = container.firstElementChild;
     expect(wrapper).toHaveClass("relative", "flex", "h-screen");
 
+    // SideNavbar and spacer are both direct children of the relative wrapper
     const navbar = screen.getByTestId("side-navbar");
-    expect(navbar).toHaveClass("absolute");
+    const spacer = screen.getByTestId("sidebar-spacer");
+    expect(wrapper).toContainElement(navbar);
+    expect(wrapper).toContainElement(spacer);
   });
 });

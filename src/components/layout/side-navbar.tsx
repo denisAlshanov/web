@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ComponentType, type SVGProps } from "react";
+import { useState, useCallback, type ComponentType, type SVGProps } from "react";
 import {
   HomeSimpleDoor,
   Tv,
@@ -59,18 +59,28 @@ export function SideNavbar({
   onItemClick,
   className,
 }: SideNavbarProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocusWithin, setIsFocusWithin] = useState(false);
+  const isExpanded = isHovered || isFocusWithin;
+
+  const handleBlur = useCallback((e: React.FocusEvent<HTMLElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setIsFocusWithin(false);
+    }
+  }, []);
 
   return (
     <nav
       aria-label="Main navigation"
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsFocusWithin(true)}
+      onBlur={handleBlur}
       className={cn(
         "absolute top-0 left-0 bottom-0 z-50",
         "flex h-full shrink-0 flex-col bg-[var(--colour-interface-surface-base)]",
         "pt-[32px] pb-[60px]",
-        "transition-[width,border-color,box-shadow] duration-200 ease-in-out motion-reduce:duration-0 overflow-hidden",
+        "transition-[width,padding,border-color,box-shadow] duration-200 ease-in-out motion-reduce:duration-0 overflow-hidden",
         "border-r",
         isExpanded
           ? [
@@ -94,8 +104,8 @@ export function SideNavbar({
           <span
             className={cn(
               "text-semibold-l text-[color:var(--colour-interface-text-heavy)]",
-              "transition-opacity duration-150 motion-reduce:duration-0 whitespace-nowrap",
-              isExpanded ? "opacity-100" : "opacity-0",
+              "transition-[opacity,width] duration-150 motion-reduce:duration-0 whitespace-nowrap",
+              isExpanded ? "opacity-100" : "opacity-0 w-0 overflow-hidden",
             )}
             aria-hidden={!isExpanded || undefined}
           >

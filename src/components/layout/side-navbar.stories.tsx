@@ -58,9 +58,9 @@ export const HoverInteraction: Story = {
   decorators: [],
 };
 
-// -- Side by Side: Collapsed vs content layout --
+// -- In Container: Sidebar within a bounded container --
 
-export const SideBySide: Story = {
+export const InContainer: Story = {
   render: () => (
     <div style={{ display: "flex", gap: 32, height: "100vh" }}>
       <div style={{ position: "relative", width: 228, border: "1px dashed #ccc" }}>

@@ -29,7 +29,7 @@ export function AppLayout({
 
   return (
     <div className="relative flex h-screen">
-      <div className="w-[60px] shrink-0" aria-hidden="true" />
+      <div className="w-[60px] shrink-0" aria-hidden="true" data-testid="sidebar-spacer" />
       <SideNavbar activeItem={activeNavItem} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <PageHeader

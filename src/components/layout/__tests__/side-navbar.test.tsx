@@ -150,6 +150,42 @@ describe("SideNavbar", () => {
     });
   });
 
+  describe("keyboard focus expand behavior", () => {
+    it("expands when a nav item receives focus", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.focus(nav, { relatedTarget: null });
+
+      expect(nav).toHaveClass("w-[228px]");
+    });
+
+    it("collapses when focus leaves the nav entirely", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+
+      fireEvent.focus(nav);
+      expect(nav).toHaveClass("w-[228px]");
+
+      // Simulate blur with relatedTarget outside nav
+      fireEvent.blur(nav, { relatedTarget: document.body });
+      expect(nav).toHaveClass("w-[60px]");
+    });
+
+    it("stays expanded when focus moves between nav items", () => {
+      render(<SideNavbar />);
+      const nav = screen.getByRole("navigation");
+      const buttons = screen.getAllByRole("button");
+
+      fireEvent.focus(nav);
+      expect(nav).toHaveClass("w-[228px]");
+
+      // Blur from nav to a child button — should stay expanded
+      fireEvent.blur(nav, { relatedTarget: buttons[1] });
+      expect(nav).toHaveClass("w-[228px]");
+    });
+  });
+
   describe("overlay positioning", () => {
     it("is absolutely positioned", () => {
       render(<SideNavbar />);
@@ -259,7 +295,7 @@ describe("SideNavbar", () => {
     it("nav element has width transition classes", () => {
       render(<SideNavbar />);
       const nav = screen.getByRole("navigation");
-      expect(nav).toHaveClass("transition-[width,border-color,box-shadow]");
+      expect(nav).toHaveClass("transition-[width,padding,border-color,box-shadow]");
       expect(nav).toHaveClass("duration-200");
       expect(nav).toHaveClass("ease-in-out");
     });
@@ -273,7 +309,7 @@ describe("SideNavbar", () => {
     it("MediaPlans text has opacity transition", () => {
       render(<SideNavbar />);
       const text = screen.getByText("MediaPlans");
-      expect(text).toHaveClass("transition-opacity");
+      expect(text).toHaveClass("transition-[opacity,width]");
       expect(text).toHaveClass("duration-150");
     });
 

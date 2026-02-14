@@ -1,5 +1,8 @@
 # SideNavbar Refactor — Hover-to-Expand Overlay
 
+## Status
+**Complete** — All tasks implemented, tests passing, linter clean.
+
 ## Overview
 - Refactor SideNavbar from click-to-toggle to **hover-to-expand** behavior
 - Change collapsed width from 120px to **60px** to match Figma spec
@@ -101,8 +104,8 @@
 - [x] Run linter (`npm run lint`) — all issues must be fixed
 
 ### Task 6: [Final] Update documentation
-- [ ] Update component creation guide if patterns changed
-- [ ] No README changes needed
+- [x] Update component creation guide if patterns changed
+- [x] No README changes needed
 
 ## Technical Details
 
@@ -140,6 +143,11 @@
 | Shadow | none / 0.08 | none | `1px 0 10px rgba(38,44,52,0.08)` |
 | Border-right | transparent / colored | none | `var(--colour-interface-border-primary-light)` |
 | z-index | auto | 50 | 50 |
+
+### Breaking changes
+- `SideNavbarProps.defaultCollapsed` removed — sidebar always starts collapsed (60px) and expands only on hover/focus
+- `SideNavbarProps.onToggle` removed — no programmatic toggle; expand/collapse is driven by mouse hover and keyboard focus
+- `AppLayout` no longer passes `defaultCollapsed` to `SideNavbar`
 
 ## Post-Completion
 - Manual visual testing: hover over sidebar, verify smooth animation
