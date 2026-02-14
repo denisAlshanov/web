@@ -11,13 +11,19 @@ export default auth((req) => {
     return Response.redirect(new URL("/", req.nextUrl.origin));
   }
 
+  const authError = req.auth?.error;
+  const isBackendAuthError =
+    typeof authError === "string" && authError.startsWith("BackendAuthError");
+
   // Redirect users with BackendAuthError to /auth-error
-  if (req.auth?.error === "BackendAuthError" && !isAuthErrorPage) {
-    return Response.redirect(new URL("/auth-error", req.nextUrl.origin));
+  if (isBackendAuthError && !isAuthErrorPage) {
+    const errorUrl = new URL("/auth-error", req.nextUrl.origin);
+    errorUrl.searchParams.set("reason", req.auth!.error!);
+    return Response.redirect(errorUrl);
   }
 
   // Only BackendAuthError users may access /auth-error; others go to /login
-  if (isAuthErrorPage && req.auth?.error !== "BackendAuthError") {
+  if (isAuthErrorPage && !isBackendAuthError) {
     return Response.redirect(new URL("/login", req.nextUrl.origin));
   }
 
