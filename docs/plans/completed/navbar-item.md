@@ -76,20 +76,20 @@
 ## Implementation Steps
 
 ### Task 1: Create custom solid SVG icon components
-- [ ] Create directory `src/components/ui/icons/`
-- [ ] Extract solid icon SVG paths from Figma for all 6 nav items (HomeSimpleDoorSolid, TvSolid, GroupSolid, UserSquareSolid, WrenchSolid, CalendarSolid)
-- [ ] Implement each solid icon as a React component matching the `ComponentType<SVGProps<SVGSVGElement>>` interface (same as iconoir icons) so they work with the existing `<Icon>` wrapper
-- [ ] Create barrel export `src/components/ui/icons/index.ts`
-- [ ] Write tests: each solid icon renders an SVG element with correct viewBox
-- [ ] Write tests: each solid icon forwards className, width, height props
-- [ ] Run tests — must pass before next task
+- [x] Create directory `src/components/ui/icons/`
+- [x] Extract solid icon SVG paths from Figma for all 6 nav items (HomeSimpleDoorSolid, TvSolid, GroupSolid, UserSquareSolid, WrenchSolid, CalendarSolid)
+- [x] Implement each solid icon as a React component matching the `ComponentType<SVGProps<SVGSVGElement>>` interface (same as iconoir icons) so they work with the existing `<Icon>` wrapper
+- [x] Create barrel export `src/components/ui/icons/index.ts`
+- [x] Write tests: each solid icon renders an SVG element with correct viewBox
+- [x] Write tests: each solid icon forwards className, width, height props
+- [x] Run tests — must pass before next task
 
 ### Task 2: Implement NavbarItem component with CVA variants (TDD)
-- [ ] Write tests for NavbarItem: renders with text label in expanded mode
-- [ ] Write tests for NavbarItem: renders icon-only in collapsed mode (no text visible)
-- [ ] Write tests for NavbarItem: applies correct typography — `text-medium-m` for default, `text-semibold-m` for active
-- [ ] Write tests for NavbarItem: renders outline icon when not active, solid icon when active
-- [ ] Implement `NavbarItem` component in `src/components/ui/navbar-item.tsx`:
+- [x] Write tests for NavbarItem: renders with text label in expanded mode
+- [x] Write tests for NavbarItem: renders icon-only in collapsed mode (no text visible)
+- [x] Write tests for NavbarItem: applies correct typography — `text-medium-m` for default, `text-semibold-m` for active
+- [x] Write tests for NavbarItem: renders outline icon when not active, solid icon when active
+- [x] Implement `NavbarItem` component in `src/components/ui/navbar-item.tsx`:
   - CVA base: `flex items-center h-[56px] rounded-[var(--number-radius-rad-button)] px-[var(--number-spacing-padding-pad-l)] py-[var(--number-spacing-padding-pad-m)] gap-[var(--number-spacing-gap-gap-m)] transition-colors cursor-pointer`
   - Collapsed variant: `justify-center w-[56px]` (icon only)
   - Expanded variant: full width (icon + text)
@@ -97,41 +97,41 @@
   - Hover: `hover:bg-[var(--colour-interface-background-singletone-hover)]`
   - Focus: `focus-visible:bg-[var(--colour-interface-background-singletone-focus)] focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)]`
   - Active: `bg-[var(--colour-interface-background-singletone-default)] shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]` + heavy text + solid icon
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Add active state icon switching and accessibility (TDD)
-- [ ] Write tests for active state: shadow is applied when active
-- [ ] Write tests for accessibility: component renders as a link or button element, has accessible name from label text
-- [ ] Write tests for collapsed mode accessibility: has `aria-label` or `title` attribute with the label text when collapsed (text is hidden)
-- [ ] Implement icon switching logic: accept `icon` (outline) and `activeIcon` (solid) props, render correct one based on `active` prop
-- [ ] Add proper ARIA attributes: `aria-current="page"` when active, `role` attribute as needed
-- [ ] Run tests — must pass before next task
+- [x] Write tests for active state: shadow is applied when active
+- [x] Write tests for accessibility: component renders as a link or button element, has accessible name from label text
+- [x] Write tests for collapsed mode accessibility: has `aria-label` or `title` attribute with the label text when collapsed (text is hidden)
+- [x] Implement icon switching logic: accept `icon` (outline) and `activeIcon` (solid) props, render correct one based on `active` prop
+- [x] Add proper ARIA attributes: `aria-current="page"` when active, `role` attribute as needed
+- [x] Run tests — must pass before next task
 
 ### Task 4: Create Storybook stories
-- [ ] Create `src/components/ui/navbar-item.stories.tsx` with Meta setup
-- [ ] Add `Default` story: single expanded navbar item (Home, not active)
-- [ ] Add `Active` story: expanded navbar item with active state (solid icon, shadow, semibold text)
-- [ ] Add `Collapsed` story: collapsed icon-only item
-- [ ] Add `CollapsedActive` story: collapsed active item with solid icon and shadow
-- [ ] Add `AllStates` story: grid showing Default, Hover, Focus, Active for expanded mode
-- [ ] Add `AllItems` story: all 6 nav items (Home, Shows, Team, Guests, Manage, Calendar) in both active and inactive states
-- [ ] Add `CollapsedAllItems` story: all 6 items in collapsed mode, active and inactive
-- [ ] Verify all stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Create `src/components/ui/navbar-item.stories.tsx` with Meta setup
+- [x] Add `Default` story: single expanded navbar item (Home, not active)
+- [x] Add `Active` story: expanded navbar item with active state (solid icon, shadow, semibold text)
+- [x] Add `Collapsed` story: collapsed icon-only item
+- [x] Add `CollapsedActive` story: collapsed active item with solid icon and shadow
+- [x] Add `AllStates` story: grid showing Default, Hover, Focus, Active for expanded mode
+- [x] Add `AllItems` story: all 6 nav items (Home, Shows, Team, Guests, Manage, Calendar) in both active and inactive states
+- [x] Add `CollapsedAllItems` story: all 6 items in collapsed mode, active and inactive
+- [x] Verify all stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
-- [ ] Verify all Figma design specifications are matched (spacing, colors, typography, border-radius, shadow)
-- [ ] Verify outline icons render for default/hover/focus states
-- [ ] Verify solid icons render for active state
-- [ ] Verify collapsed mode shows icon only at 56x56
-- [ ] Verify expanded mode shows icon + text
-- [ ] Run full test suite (unit tests)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
-- [ ] Verify Storybook builds without errors
+- [x] Verify all Figma design specifications are matched (spacing, colors, typography, border-radius, shadow)
+- [x] Verify outline icons render for default/hover/focus states
+- [x] Verify solid icons render for active state
+- [x] Verify collapsed mode shows icon only at 56x56
+- [x] Verify expanded mode shows icon + text
+- [x] Run full test suite (unit tests)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify Storybook builds without errors
 
 ### Task 6: [Final] Update documentation
-- [ ] Update `docs/component-creation-guide.md` if new patterns were discovered (custom SVG icon pattern)
-- [ ] Add NavbarItem to the component inventory in any relevant docs
+- [x] Update `docs/component-creation-guide.md` if new patterns were discovered (custom SVG icon pattern)
+- [x] Add NavbarItem to the component inventory in any relevant docs
 
 ## Technical Details
 
