@@ -658,7 +658,7 @@ scroll && "border-b border-b-[var(--colour-interface-border-primary-light)] shad
 ### Key rules
 
 1. **No CVA** — Layout components use `cn()` with conditional classes directly. CVA adds overhead for components where variants change structure, not just style.
-2. **Slots over imports** — Accept composed children as `ReactNode` props. Don't import `TabList` or `AccountSettings` directly inside the layout component.
+2. **Slots over imports** — Accept composed children as `ReactNode` props. Don't import `TabList` or `AccountSettings` directly inside the layout component. **Exception**: High-level shell components like `AppLayout` may import and compose other layout/UI components directly when they serve as opinionated convenience wrappers (e.g., wiring session data to `AccountSettings`).
 3. **Semantic HTML** — Use `<header>`, `<nav>`, `<main>`, `<aside>` with appropriate `role` and `aria-label` attributes.
 4. **Fixed dimensions from Figma** — Layout components often have explicit heights from Figma specs (e.g., `h-[140px]`, `h-[80px]`). Use these directly rather than relying on content-driven sizing.
 
@@ -668,6 +668,7 @@ scroll && "border-b border-b-[var(--colour-interface-border-primary-light)] shad
 |-----------|------|-------------|
 | `SideNavbar` | `layout/side-navbar.tsx` | Left sidebar with nav items; logo click toggles collapsed/expanded with CSS transition; `onToggle` callback for parent sync |
 | `PageHeader` | `layout/page-header.tsx` | Top header bar, Level 1 (tabs) and Level 2 (back/menu), scroll state |
+| `AppLayout` | `layout/app-layout.tsx` | Authenticated page shell: composes SideNavbar + PageHeader + AccountSettings (session-aware via `useSession`); accepts `heading`, `activeNavItem`, and `children` |
 
 ## Complex Components
 
