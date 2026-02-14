@@ -89,7 +89,21 @@ describe("NavbarItem", () => {
     });
   });
 
-  describe("rendering", () => {
+  describe("active state styling", () => {
+    it("applies shadow class when active", () => {
+      render(<NavbarItem {...defaultProps} active />);
+      const element = screen.getByRole("button");
+      expect(element.className).toContain("shadow-");
+    });
+
+    it("does not apply shadow class when not active", () => {
+      render(<NavbarItem {...defaultProps} />);
+      const element = screen.getByRole("button");
+      expect(element.className).not.toContain("shadow-");
+    });
+  });
+
+  describe("accessibility", () => {
     it("renders as a link when href is provided", () => {
       render(<NavbarItem {...defaultProps} href="/dashboard" />);
       const link = screen.getByRole("link");
@@ -99,6 +113,28 @@ describe("NavbarItem", () => {
     it("renders as a button when no href is provided", () => {
       render(<NavbarItem {...defaultProps} />);
       expect(screen.getByRole("button")).toBeInTheDocument();
+    });
+
+    it("has accessible name from label text (button)", () => {
+      render(<NavbarItem {...defaultProps} />);
+      expect(screen.getByRole("button", { name: "Home" })).toBeInTheDocument();
+    });
+
+    it("has accessible name from label text (link)", () => {
+      render(<NavbarItem {...defaultProps} href="/dashboard" />);
+      expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    });
+
+    it("sets aria-current=page when active", () => {
+      render(<NavbarItem {...defaultProps} active />);
+      const element = screen.getByRole("button");
+      expect(element).toHaveAttribute("aria-current", "page");
+    });
+
+    it("does not set aria-current when not active", () => {
+      render(<NavbarItem {...defaultProps} />);
+      const element = screen.getByRole("button");
+      expect(element).not.toHaveAttribute("aria-current");
     });
 
     it("calls onClick handler when clicked", () => {
@@ -112,6 +148,33 @@ describe("NavbarItem", () => {
       render(<NavbarItem {...defaultProps} className="custom-class" />);
       const element = screen.getByRole("button");
       expect(element).toHaveClass("custom-class");
+    });
+  });
+
+  describe("collapsed mode accessibility", () => {
+    it("has aria-label with label text when collapsed", () => {
+      render(<NavbarItem {...defaultProps} collapsed />);
+      const element = screen.getByRole("button");
+      expect(element).toHaveAttribute("aria-label", "Home");
+    });
+
+    it("does not have aria-label when expanded (text is visible)", () => {
+      render(<NavbarItem {...defaultProps} />);
+      const element = screen.getByRole("button");
+      expect(element).not.toHaveAttribute("aria-label");
+    });
+
+    it("has aria-label with label text when collapsed as link", () => {
+      render(<NavbarItem {...defaultProps} collapsed href="/dashboard" />);
+      const element = screen.getByRole("link");
+      expect(element).toHaveAttribute("aria-label", "Home");
+    });
+
+    it("sets aria-current=page when collapsed and active", () => {
+      render(<NavbarItem {...defaultProps} collapsed active />);
+      const element = screen.getByRole("button");
+      expect(element).toHaveAttribute("aria-current", "page");
+      expect(element).toHaveAttribute("aria-label", "Home");
     });
   });
 });

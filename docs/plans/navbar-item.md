@@ -100,12 +100,12 @@
 - [x] Run tests — must pass before next task
 
 ### Task 3: Add active state icon switching and accessibility (TDD)
-- [ ] Write tests for active state: shadow is applied when active
-- [ ] Write tests for accessibility: component renders as a link or button element, has accessible name from label text
-- [ ] Write tests for collapsed mode accessibility: has `aria-label` or `title` attribute with the label text when collapsed (text is hidden)
-- [ ] Implement icon switching logic: accept `icon` (outline) and `activeIcon` (solid) props, render correct one based on `active` prop
-- [ ] Add proper ARIA attributes: `aria-current="page"` when active, `role` attribute as needed
-- [ ] Run tests — must pass before next task
+- [x] Write tests for active state: shadow is applied when active
+- [x] Write tests for accessibility: component renders as a link or button element, has accessible name from label text
+- [x] Write tests for collapsed mode accessibility: has `aria-label` or `title` attribute with the label text when collapsed (text is hidden)
+- [x] Implement icon switching logic: accept `icon` (outline) and `activeIcon` (solid) props, render correct one based on `active` prop
+- [x] Add proper ARIA attributes: `aria-current="page"` when active, `role` attribute as needed
+- [x] Run tests — must pass before next task
 
 ### Task 4: Create Storybook stories
 - [ ] Create `src/components/ui/navbar-item.stories.tsx` with Meta setup

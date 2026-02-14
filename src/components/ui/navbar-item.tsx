@@ -67,6 +67,8 @@ export function NavbarItem({
     <Comp
       href={href}
       onClick={onClick}
+      aria-current={active ? "page" : undefined}
+      aria-label={collapsed ? label : undefined}
       className={cn(
         navbarItemVariants({ collapsed }),
         active && "shadow-[0px_1px_8px_0px_rgba(38,44,52,0.04)]",
