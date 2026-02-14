@@ -83,22 +83,22 @@
 - [x] Run tests — must pass before next task
 
 ### Task 4: Update Storybook stories
-- [ ] Update `src/components/layout/side-navbar.stories.tsx`:
+- [x] Update `src/components/layout/side-navbar.stories.tsx`:
   - Remove "Expanded" story (no longer a static state)
   - Update "Collapsed" story to show 60px width
   - Add "HoverInteraction" story demonstrating the hover-to-expand overlay
   - Update "SideBySide" story if it exists
-- [ ] Verify stories render correctly in Storybook
-- [ ] Run tests — must pass before next task
+- [x] Verify stories render correctly in Storybook
+- [x] Run tests — must pass before next task
 
 ### Task 5: Verify acceptance criteria
-- [ ] Verify collapsed sidebar is 60px wide on all pages
-- [ ] Verify hovering expands to 228px with overlay (no content shift)
-- [ ] Verify expanded sidebar has shadow and border per Figma
-- [ ] Verify mouse leave collapses sidebar back to 60px
-- [ ] Verify nav items accessible via keyboard (focus still works)
-- [ ] Run full test suite (`npm run test`)
-- [ ] Run linter (`npm run lint`) — all issues must be fixed
+- [x] Verify collapsed sidebar is 60px wide on all pages
+- [x] Verify hovering expands to 228px with overlay (no content shift)
+- [x] Verify expanded sidebar has shadow and border per Figma
+- [x] Verify mouse leave collapses sidebar back to 60px
+- [x] Verify nav items accessible via keyboard (focus still works)
+- [x] Run full test suite (`npm run test`)
+- [x] Run linter (`npm run lint`) — all issues must be fixed
 
 ### Task 6: [Final] Update documentation
 - [ ] Update component creation guide if patterns changed
