@@ -24,11 +24,18 @@ async function exchangeGoogleToken(accessToken: string): Promise<{
 
   try {
     const url = `${apiBaseUrl}/auth/google/token`;
-    console.log(`[auth] Exchanging Google token with backend: ${url}`);
+    const payload = { token: accessToken };
+    console.log("[auth] Exchanging Google token with backend:", {
+      url,
+      payload_keys: Object.keys(payload),
+      token_length: accessToken.length,
+      token_prefix: accessToken.substring(0, 10) + "...",
+    });
+
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: accessToken }),
+      body: JSON.stringify(payload),
       signal: AbortSignal.timeout(10_000),
     });
 
@@ -40,16 +47,22 @@ async function exchangeGoogleToken(accessToken: string): Promise<{
         // ignore body read errors
       }
       console.error(
-        `[auth] Backend auth failed: ${response.status} ${response.statusText}`,
-        body,
+        `[auth] Backend auth failed:`,
+        {
+          status: response.status,
+          statusText: response.statusText,
+          headers: Object.fromEntries(response.headers.entries()),
+          body,
+        },
       );
       return null;
     }
 
     const json = await response.json();
+    console.log("[auth] Backend auth succeeded, user:", json.data?.user?.email);
     return json.data;
   } catch (error) {
-    console.error("[auth] Failed to exchange token with backend:", error);
+    console.error("[auth] Failed to exchange token with backend (network/timeout):", error);
     return null;
   }
 }
@@ -113,6 +126,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, account }) {
       // First-time sign-in: exchange Google token with backend
       if (account) {
+        console.log("[auth] First sign-in detected. Account keys:", Object.keys(account));
+        console.log("[auth] Token types available:", {
+          has_access_token: !!account.access_token,
+          has_id_token: !!account.id_token,
+          has_refresh_token: !!account.refresh_token,
+          token_type: account.token_type,
+          provider: account.provider,
+          scope: account.scope,
+        });
+
         const googleAccessToken = account.access_token;
         if (googleAccessToken) {
           const backendAuth = await exchangeGoogleToken(googleAccessToken);
