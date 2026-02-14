@@ -124,6 +124,7 @@ interface FilterTagProps
     VariantProps<typeof filterTagVariants> {
   children: string;
   selected?: boolean;
+  disabled?: boolean;
   editable?: boolean;
   editing?: boolean;
   leadingIcon?: ComponentType<SVGProps<SVGSVGElement>>;
@@ -132,6 +133,7 @@ interface FilterTagProps
   onDelete?: () => void;
   onConfirm?: () => void;
   className?: string;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 ```
 
@@ -141,7 +143,7 @@ const filterTagVariants = cva(
   [
     "group inline-flex items-center justify-center",
     "h-9 min-w-16",
-    "p-[var(--number-spacing-padding-pad-m)]",
+    "px-[var(--number-spacing-padding-pad-m)]",
     "gap-[var(--number-spacing-gap-gap-xs)]",
     "rounded-[var(--number-radius-rad-button)]",
     "text-semibold-s",
@@ -177,7 +179,7 @@ const filterTagVariants = cva(
 Uses `focus-visible:ring-2` (box-shadow based) to create the outer focus ring, while the existing 2px border provides the inner border — matching the double-border effect in Figma without nested containers.
 
 ### Editable Action Buttons
-Hidden by default via `hidden group-hover:flex` (or `opacity-0 group-hover:opacity-100`) on the action button wrapper. The `group` class on the root element enables hover-driven visibility.
+Hidden by default via `hidden group-hover:flex group-focus-visible:flex` on the action button wrapper. The `group` class on the root element enables hover-driven and focus-driven visibility.
 
 ### Icon Color Logic
 - Non-selected: `supporting` (default icon color)

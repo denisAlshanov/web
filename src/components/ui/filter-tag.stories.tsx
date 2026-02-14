@@ -142,7 +142,7 @@ export const EditableSelected: Story = {
 // -- State Grid --
 
 export const StateGrid: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       {/* Non-editable states */}
       <div>
@@ -172,8 +172,8 @@ export const StateGrid: Story = {
           Hover to reveal action buttons
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", alignItems: "center" }}>
-          <FilterTag editable>Editable Default</FilterTag>
-          <FilterTag editable editing>
+          <FilterTag editable onEdit={args.onEdit} onDelete={args.onDelete}>Editable Default</FilterTag>
+          <FilterTag editable editing onConfirm={args.onConfirm}>
             Editing
           </FilterTag>
           <FilterTag editable selected>
@@ -202,7 +202,7 @@ export const StateGrid: Story = {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", alignItems: "center" }}>
           <FilterTag>Hover me</FilterTag>
           <FilterTag leadingIcon={Plus}>Press me</FilterTag>
-          <FilterTag editable>Hover for actions</FilterTag>
+          <FilterTag editable onEdit={args.onEdit} onDelete={args.onDelete}>Hover for actions</FilterTag>
         </div>
       </div>
     </div>
