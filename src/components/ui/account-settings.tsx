@@ -1,7 +1,9 @@
 "use client";
 
 import type { ComponentType, SVGProps } from "react";
+import Image from "next/image";
 import { cva, type VariantProps } from "class-variance-authority";
+import { User, LogOut } from "iconoir-react";
 
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
@@ -105,9 +107,97 @@ function RolePill({ role, className }: RolePillProps) {
   );
 }
 
+// ---------------------------------------------------------------------------
+// AccountSettingsDropdown
+// ---------------------------------------------------------------------------
+
+interface AccountSettingsDropdownProps {
+  userName: string;
+  avatarUrl?: string;
+  roles: Array<"host" | "producer">;
+  onAccountInfoClick?: () => void;
+  onLogoutClick?: () => void;
+  className?: string;
+}
+
+function AccountSettingsDropdown({
+  userName,
+  avatarUrl,
+  roles,
+  onAccountInfoClick,
+  onLogoutClick,
+  className,
+}: AccountSettingsDropdownProps) {
+  return (
+    <div
+      data-testid="account-settings-dropdown"
+      className={cn(
+        "bg-[var(--colour-interface-surface-base)]",
+        "rounded-[var(--number-radius-rad-modal)]",
+        "shadow-[0px_1px_8px_rgba(38,44,52,0.04)]",
+        "pt-[var(--number-spacing-padding-pad-xl)] pl-[var(--number-spacing-padding-pad-m)] pr-[var(--number-spacing-padding-pad-xl)] pb-[var(--number-spacing-padding-pad-l)]",
+        "flex flex-col gap-[var(--number-spacing-gap-gap-xl)]",
+        className,
+      )}
+    >
+      {/* Profile section */}
+      <div className="flex flex-col items-center gap-[var(--number-spacing-padding-pad-m)]">
+        {avatarUrl ? (
+          <Image
+            src={avatarUrl}
+            alt={userName}
+            width={64}
+            height={64}
+            className="rounded-full object-cover"
+          />
+        ) : (
+          <div
+            aria-label={userName}
+            className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--colour-interface-background-singletone-hover)] text-heading-m text-[color:var(--colour-interface-text-default)]"
+          >
+            {userName.charAt(0).toUpperCase()}
+          </div>
+        )}
+        <span className="font-bold text-lg leading-6 text-[color:var(--colour-interface-text-heavy)]">
+          {userName}
+        </span>
+        <div className="flex gap-[var(--number-spacing-gap-gap-s)]">
+          {roles.map((role) => (
+            <RolePill key={role} role={role} />
+          ))}
+        </div>
+      </div>
+
+      {/* Menu section */}
+      <div className="flex flex-col">
+        <span className="text-heading-eyebrow text-[color:var(--colour-interface-text-supporting)] pb-1">
+          SETTINGS
+        </span>
+        <div className="flex flex-col gap-[var(--number-spacing-gap-gap-s)]">
+          <AccountSettingsItem
+            icon={User}
+            style="default"
+            onClick={onAccountInfoClick}
+          >
+            Account Info
+          </AccountSettingsItem>
+          <AccountSettingsItem
+            icon={LogOut}
+            style="danger"
+            onClick={onLogoutClick}
+          >
+            Log out
+          </AccountSettingsItem>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export {
   AccountSettingsItem,
   accountSettingsItemVariants,
   RolePill,
   rolePillVariants,
+  AccountSettingsDropdown,
 };

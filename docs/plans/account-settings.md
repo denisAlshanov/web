@@ -155,18 +155,18 @@
 - [x] Run tests — must pass before next task
 
 ### Task 4: Implement AccountSettingsDropdown panel (TDD)
-- [ ] Write tests: renders avatar image (64x64)
-- [ ] Write tests: renders user name ("Alexander Plushev") with bold 18px styling
-- [ ] Write tests: renders role pills ("host", "producer")
-- [ ] Write tests: renders "SETTINGS" header (uppercase, supporting color)
-- [ ] Write tests: renders "Account Info" item with `User` icon (Default style)
-- [ ] Write tests: renders "Log out" item with `LogOut` icon (Danger style)
-- [ ] Implement `AccountSettingsDropdown` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: renders avatar image (64x64)
+- [x] Write tests: renders user name ("Alexander Plushev") with bold 18px styling
+- [x] Write tests: renders role pills ("host", "producer")
+- [x] Write tests: renders "SETTINGS" header (uppercase, supporting color)
+- [x] Write tests: renders "Account Info" item with `User` icon (Default style)
+- [x] Write tests: renders "Log out" item with `LogOut` icon (Danger style)
+- [x] Implement `AccountSettingsDropdown` in `src/components/ui/account-settings.tsx`:
   - Props: `userName: string`, `avatarUrl?: string`, `roles: Array<"host" | "producer">`, `onAccountInfoClick?: () => void`, `onLogoutClick?: () => void`
   - Container: white bg, rounded-18px (rad-modal), shadow, asymmetric padding (24px top, 12px left, 24px right, 18px bottom)
   - Profile section: avatar (64x64 circle) + name (bold 18px, `--colour-interface-text-heavy`) + role pills
   - Menu section: "SETTINGS" header (`text-heading-eyebrow`) + AccountSettingsItem entries
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 5: Implement AccountSettings composed widget (TDD)
 - [ ] Write tests: trigger renders user name + NavArrowDown icon when closed
