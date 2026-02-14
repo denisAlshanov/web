@@ -118,17 +118,17 @@
 - [x] Run tests — must pass before next task
 
 ### Task 4: Implement DropdownMenu composed widget (TDD)
-- [ ] Write tests: renders trigger button (hamburger `Menu` icon, 40x40 pill)
-- [ ] Write tests: clicking trigger opens the dropdown
-- [ ] Write tests: dropdown has correct ARIA attributes (`role="menu"`, `aria-expanded`)
-- [ ] Write tests: pressing Escape closes the dropdown
-- [ ] Write tests: renders custom trigger when `trigger` prop is provided
-- [ ] Implement `DropdownMenu` in `src/components/ui/dropdown-menu.tsx`:
+- [x] Write tests: renders trigger button (hamburger `Menu` icon, 40x40 pill)
+- [x] Write tests: clicking trigger opens the dropdown
+- [x] Write tests: dropdown has correct ARIA attributes (`role="menu"`, `aria-expanded`)
+- [x] Write tests: pressing Escape closes the dropdown
+- [x] Write tests: renders custom trigger when `trigger` prop is provided
+- [x] Implement `DropdownMenu` in `src/components/ui/dropdown-menu.tsx`:
   - Exports `DropdownMenu` (Root), `DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`
   - `DropdownMenu` = Radix `DropdownMenu.Root`
   - `DropdownMenuTrigger` = Radix `DropdownMenu.Trigger` (uses `asChild` to wrap `IconButton` or custom trigger)
   - Props forwarded to Radix: `open`, `onOpenChange`, `modal`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 5: Create Storybook stories
 - [ ] Create `src/components/ui/dropdown-menu.stories.tsx` with Meta setup

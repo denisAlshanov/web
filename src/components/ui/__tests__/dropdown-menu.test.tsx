@@ -10,6 +10,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "../dropdown-menu";
+import { IconButton } from "../icon-button";
+import { Icon } from "../icon";
 
 // Minimal stub icons for testing
 function PlusIcon(props: SVGProps<SVGSVGElement>) {
@@ -247,6 +249,175 @@ describe("DropdownMenuContent", () => {
       const content = screen.getByRole("menu");
       expect(content.className).toContain("flex");
       expect(content.className).toContain("flex-col");
+    });
+  });
+});
+
+/* ─────────────────────────────────────────────────────── */
+/* Task 4: DropdownMenu composed widget tests              */
+/* ─────────────────────────────────────────────────────── */
+
+function MenuIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg data-testid="menu-icon" {...props}>
+      <path d="M3 5h18M3 12h18M3 19h18" />
+    </svg>
+  );
+}
+
+/**
+ * Helper: render a full composed DropdownMenu with IconButton trigger.
+ * The trigger is a 40x40 pill button with a hamburger (Menu) icon.
+ */
+function renderComposedMenu(
+  props?: Partial<React.ComponentPropsWithoutRef<typeof DropdownMenu>>,
+) {
+  return render(
+    <DropdownMenu {...props}>
+      <DropdownMenuTrigger asChild>
+        <IconButton
+          icon={<Icon icon={MenuIcon} />}
+          aria-label="Open menu"
+          variant="ghost"
+          size="xs"
+        />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" sideOffset={6}>
+        <DropdownMenuItem icon={PlusIcon}>Add item</DropdownMenuItem>
+        <DropdownMenuItem icon={EditIcon}>Edit</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>,
+  );
+}
+
+describe("DropdownMenu (composed widget)", () => {
+  describe("trigger button", () => {
+    it("renders trigger button with hamburger Menu icon", () => {
+      renderComposedMenu();
+
+      const trigger = screen.getByRole("button", { name: /open menu/i });
+      expect(trigger).toBeInTheDocument();
+      expect(screen.getByTestId("menu-icon")).toBeInTheDocument();
+    });
+
+    it("trigger is a 40x40 pill (size xs = size-10, rounded-full)", () => {
+      renderComposedMenu();
+
+      const trigger = screen.getByRole("button", { name: /open menu/i });
+      expect(trigger.className).toContain("size-10");
+      expect(trigger.className).toContain("rounded-full");
+    });
+  });
+
+  describe("open/close behavior", () => {
+    it("clicking trigger opens the dropdown", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+
+      await user.click(screen.getByRole("button", { name: /open menu/i }));
+
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+      expect(screen.getAllByRole("menuitem")).toHaveLength(2);
+    });
+
+    it("dropdown is not visible before trigger is clicked", () => {
+      renderComposedMenu();
+
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("ARIA attributes", () => {
+    it("has role=menu on the dropdown content when open", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      await user.click(screen.getByRole("button", { name: /open menu/i }));
+
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+    });
+
+    it("trigger has aria-expanded=true when open", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      const trigger = screen.getByRole("button", { name: /open menu/i });
+      expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+      await user.click(trigger);
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+
+    it("menu items have role=menuitem", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      await user.click(screen.getByRole("button", { name: /open menu/i }));
+
+      const items = screen.getAllByRole("menuitem");
+      expect(items).toHaveLength(2);
+    });
+  });
+
+  describe("keyboard interaction", () => {
+    it("pressing Escape closes the dropdown", async () => {
+      const user = userEvent.setup();
+      renderComposedMenu();
+
+      await user.click(screen.getByRole("button", { name: /open menu/i }));
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+
+      await user.keyboard("{Escape}");
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("custom trigger", () => {
+    it("renders custom trigger when a different element is provided", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button type="button">Custom trigger</button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem icon={PlusIcon}>Add item</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>,
+      );
+
+      const customTrigger = screen.getByRole("button", {
+        name: /custom trigger/i,
+      });
+      expect(customTrigger).toBeInTheDocument();
+
+      await user.click(customTrigger);
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+      expect(screen.getByRole("menuitem")).toBeInTheDocument();
+    });
+  });
+
+  describe("controlled open/onOpenChange", () => {
+    it("forwards open and onOpenChange props to Radix Root", async () => {
+      const user = userEvent.setup();
+      const onOpenChange = vi.fn();
+
+      render(
+        <DropdownMenu open={false} onOpenChange={onOpenChange}>
+          <DropdownMenuTrigger asChild>
+            <button type="button">Trigger</button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Item</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>,
+      );
+
+      await user.click(screen.getByRole("button", { name: /trigger/i }));
+      expect(onOpenChange).toHaveBeenCalledWith(true);
     });
   });
 });
