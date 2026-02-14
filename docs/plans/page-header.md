@@ -95,19 +95,19 @@
 - [x] Run tests — must pass before next task
 
 ### Task 2: Implement Level 2 PageHeader (TDD)
-- [ ] Write tests: Level 2 renders page heading (`text-heading-m`) when showHeading=true
-- [ ] Write tests: Level 2 hides heading when showHeading=false
-- [ ] Write tests: Level 2 renders back arrow button (`ArrowLeft` icon) on left
-- [ ] Write tests: Level 2 renders menu button (`Menu` icon) on right when showMenu=true
-- [ ] Write tests: Level 2 renders helper text when showHelperText=true
-- [ ] Write tests: back button fires `onBackClick` callback when clicked
-- [ ] Write tests: menu button fires `onMenuClick` callback when clicked
-- [ ] Implement Level 2 layout:
+- [x] Write tests: Level 2 renders page heading (`text-heading-m`) when showHeading=true
+- [x] Write tests: Level 2 hides heading when showHeading=false
+- [x] Write tests: Level 2 renders back arrow button (`ArrowLeft` icon) on left
+- [x] Write tests: Level 2 renders menu button (`Menu` icon) on right when showMenu=true
+- [x] Write tests: Level 2 renders helper text when showHelperText=true
+- [x] Write tests: back button fires `onBackClick` callback when clicked
+- [x] Write tests: menu button fires `onMenuClick` callback when clicked
+- [x] Implement Level 2 layout:
   - Header area: heading left (24px bold), AccountSettings right
   - Inner navigation bar: back arrow (40x40 pill) left, button container (helper text + menu) right
   - Gap: 4px, padding-bottom: 12px
   - Inner nav right padding: 48px
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 3: Implement scroll state styling (TDD)
 - [ ] Write tests: scroll=false has no bottom border or shadow

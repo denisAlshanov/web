@@ -1,5 +1,8 @@
 import React from "react";
+import { ArrowLeft, Menu } from "iconoir-react";
 
+import { Icon } from "@/components/ui/icon";
+import { IconButton } from "@/components/ui/icon-button";
 import { cn } from "@/lib/utils";
 
 export interface PageHeaderProps {
@@ -33,6 +36,11 @@ function PageHeader({
   tabbedView = true,
   tabs,
   accountSettings,
+  onBackClick,
+  showMenu = true,
+  onMenuClick,
+  helperText,
+  showHelperText = false,
 }: PageHeaderProps) {
   const headerHeight =
     level === 1
@@ -76,6 +84,39 @@ function PageHeader({
       {/* Level 1: tab area */}
       {level === 1 && tabbedView && tabs && (
         <div>{tabs}</div>
+      )}
+
+      {/* Level 2: inner navigation bar */}
+      {level === 2 && (
+        <div className="flex h-12 items-center gap-1 pb-3 pr-12">
+          {onBackClick && (
+            <IconButton
+              variant="ghost"
+              size="xs"
+              icon={<Icon icon={ArrowLeft} size="md" />}
+              aria-label="Back"
+              onClick={onBackClick}
+            />
+          )}
+
+          <div className="ml-auto flex items-center gap-2">
+            {showHelperText && helperText && (
+              <span className="text-medium-m text-[color:var(--colour-interface-text-supporting)]">
+                {helperText}
+              </span>
+            )}
+
+            {showMenu && onMenuClick && (
+              <IconButton
+                variant="ghost"
+                size="xs"
+                icon={<Icon icon={Menu} size="md" />}
+                aria-label="Menu"
+                onClick={onMenuClick}
+              />
+            )}
+          </div>
+        </div>
       )}
     </header>
   );

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
 
 import { PageHeader } from "../page-header";
 
@@ -105,6 +106,187 @@ describe("PageHeader", () => {
     it("defaults to showHeading=true", () => {
       render(<PageHeader heading="Shows" />);
       expect(screen.getByText("Shows")).toBeInTheDocument();
+    });
+  });
+
+  describe("Level 2 — heading", () => {
+    it("renders page heading with text-heading-m when showHeading=true", () => {
+      render(
+        <PageHeader level={2} heading="Show Details" showHeading={true} />,
+      );
+      const heading = screen.getByText("Show Details");
+      expect(heading).toBeInTheDocument();
+      expect(heading).toHaveClass("text-heading-m");
+    });
+
+    it("does not render heading when showHeading=false", () => {
+      render(
+        <PageHeader level={2} heading="Show Details" showHeading={false} />,
+      );
+      expect(screen.queryByText("Show Details")).not.toBeInTheDocument();
+    });
+
+    it("uses the correct heading text color token", () => {
+      render(
+        <PageHeader level={2} heading="Show Details" showHeading={true} />,
+      );
+      const heading = screen.getByText("Show Details");
+      expect(heading.className).toContain("--colour-interface-text-heavy");
+    });
+  });
+
+  describe("Level 2 — header height", () => {
+    it("has 96px height when showHeading=true", () => {
+      render(
+        <PageHeader level={2} heading="Show Details" showHeading={true} />,
+      );
+      const header = screen.getByRole("banner");
+      expect(header.className).toContain("h-[96px]");
+    });
+
+    it("has 80px height when showHeading=false", () => {
+      render(<PageHeader level={2} showHeading={false} />);
+      const header = screen.getByRole("banner");
+      expect(header.className).toContain("h-[80px]");
+    });
+  });
+
+  describe("Level 2 — back button", () => {
+    it("renders a back button with ArrowLeft icon", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          onBackClick={() => {}}
+        />,
+      );
+      const backButton = screen.getByRole("button", { name: /back/i });
+      expect(backButton).toBeInTheDocument();
+    });
+
+    it("fires onBackClick callback when clicked", async () => {
+      const user = userEvent.setup();
+      const handleBack = vi.fn();
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          onBackClick={handleBack}
+        />,
+      );
+      const backButton = screen.getByRole("button", { name: /back/i });
+      await user.click(backButton);
+      expect(handleBack).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("Level 2 — menu button", () => {
+    it("renders a menu button when showMenu=true", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          showMenu={true}
+          onMenuClick={() => {}}
+        />,
+      );
+      const menuButton = screen.getByRole("button", { name: /menu/i });
+      expect(menuButton).toBeInTheDocument();
+    });
+
+    it("does not render menu button when showMenu=false", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          showMenu={false}
+          onMenuClick={() => {}}
+        />,
+      );
+      expect(
+        screen.queryByRole("button", { name: /menu/i }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("fires onMenuClick callback when clicked", async () => {
+      const user = userEvent.setup();
+      const handleMenu = vi.fn();
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          showMenu={true}
+          onMenuClick={handleMenu}
+        />,
+      );
+      const menuButton = screen.getByRole("button", { name: /menu/i });
+      await user.click(menuButton);
+      expect(handleMenu).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("Level 2 — helper text", () => {
+    it("renders helper text when showHelperText=true", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          helperText="Draft"
+          showHelperText={true}
+        />,
+      );
+      expect(screen.getByText("Draft")).toBeInTheDocument();
+    });
+
+    it("does not render helper text when showHelperText=false", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          helperText="Draft"
+          showHelperText={false}
+        />,
+      );
+      expect(screen.queryByText("Draft")).not.toBeInTheDocument();
+    });
+
+    it("does not render helper text by default", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          helperText="Draft"
+        />,
+      );
+      expect(screen.queryByText("Draft")).not.toBeInTheDocument();
+    });
+
+    it("applies the supporting text color token", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          helperText="Draft"
+          showHelperText={true}
+        />,
+      );
+      const helperText = screen.getByText("Draft");
+      expect(helperText.className).toContain(
+        "--colour-interface-text-supporting",
+      );
+    });
+  });
+
+  describe("Level 2 — AccountSettings", () => {
+    it("renders accountSettings slot content", () => {
+      render(
+        <PageHeader
+          level={2}
+          heading="Show Details"
+          accountSettings={<div data-testid="account-settings">AS</div>}
+        />,
+      );
+      expect(screen.getByTestId("account-settings")).toBeInTheDocument();
     });
   });
 });
