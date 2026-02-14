@@ -1,9 +1,10 @@
 "use client";
 
-import type { ComponentType, SVGProps } from "react";
+import { useState, type ComponentType, type SVGProps } from "react";
 import Image from "next/image";
+import * as Popover from "@radix-ui/react-popover";
 import { cva, type VariantProps } from "class-variance-authority";
-import { User, LogOut } from "iconoir-react";
+import { User, LogOut, NavArrowDown, NavArrowUp } from "iconoir-react";
 
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
@@ -194,10 +195,81 @@ function AccountSettingsDropdown({
   );
 }
 
+// ---------------------------------------------------------------------------
+// AccountSettings (composed widget)
+// ---------------------------------------------------------------------------
+
+interface AccountSettingsProps extends AccountSettingsDropdownProps {
+  className?: string;
+}
+
+function AccountSettings({
+  userName,
+  avatarUrl,
+  roles,
+  onAccountInfoClick,
+  onLogoutClick,
+  className,
+}: AccountSettingsProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger asChild>
+        <button
+          type="button"
+          className={cn(
+            "flex items-center",
+            "gap-[var(--number-spacing-gap-gap-s)]",
+            "p-[var(--number-spacing-padding-pad-m)]",
+            "rounded-[var(--number-radius-rad-inner-card)]",
+            "text-semibold-m text-[color:var(--colour-interface-text-default)]",
+            "cursor-pointer transition-colors",
+            "bg-[var(--colour-interface-background-singletone-default)]",
+            "hover:bg-[var(--colour-interface-background-singletone-hover)]",
+            "focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[var(--colour-interface-border-primary-focus)] focus-visible:bg-[var(--colour-interface-background-singletone-focus)]",
+            "active:bg-[var(--colour-interface-background-singletone-active)]",
+            className,
+          )}
+        >
+          {userName}
+          {open ? (
+            <Icon
+              icon={NavArrowUp}
+              color="default"
+              size="md"
+              data-testid="chevron-up"
+            />
+          ) : (
+            <Icon
+              icon={NavArrowDown}
+              color="default"
+              size="md"
+              data-testid="chevron-down"
+            />
+          )}
+        </button>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content align="end" sideOffset={8}>
+          <AccountSettingsDropdown
+            userName={userName}
+            avatarUrl={avatarUrl}
+            roles={roles}
+            onAccountInfoClick={onAccountInfoClick}
+            onLogoutClick={onLogoutClick}
+          />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+}
+
 export {
   AccountSettingsItem,
   accountSettingsItemVariants,
   RolePill,
   rolePillVariants,
   AccountSettingsDropdown,
+  AccountSettings,
 };

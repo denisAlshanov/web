@@ -169,18 +169,18 @@
 - [x] Run tests — must pass before next task
 
 ### Task 5: Implement AccountSettings composed widget (TDD)
-- [ ] Write tests: trigger renders user name + NavArrowDown icon when closed
-- [ ] Write tests: trigger renders user name + NavArrowUp icon when open
-- [ ] Write tests: clicking trigger opens the dropdown
-- [ ] Write tests: dropdown has correct ARIA attributes (role, aria-expanded)
-- [ ] Write tests: pressing Escape closes the dropdown
-- [ ] Implement `AccountSettings` in `src/components/ui/account-settings.tsx`:
+- [x] Write tests: trigger renders user name + NavArrowDown icon when closed
+- [x] Write tests: trigger renders user name + NavArrowUp icon when open
+- [x] Write tests: clicking trigger opens the dropdown
+- [x] Write tests: dropdown has correct ARIA attributes (role, aria-expanded)
+- [x] Write tests: pressing Escape closes the dropdown
+- [x] Implement `AccountSettings` in `src/components/ui/account-settings.tsx`:
   - Uses `@radix-ui/react-popover` (Root, Trigger, Content)
   - Trigger: flex row, name text (`text-semibold-m`) + chevron icon (NavArrowDown/NavArrowUp based on open state)
   - Trigger states via CVA: default, hover, focus, active (same as the item default style)
   - Content: renders `AccountSettingsDropdown` inside popover
   - Props: `userName`, `avatarUrl`, `roles`, `onAccountInfoClick`, `onLogoutClick`, `className`
-- [ ] Run tests — must pass before next task
+- [x] Run tests — must pass before next task
 
 ### Task 6: Create Storybook stories
 - [ ] Create `src/components/ui/account-settings.stories.tsx` with Meta setup
